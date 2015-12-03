@@ -8,6 +8,7 @@
 
 import UIKit
 import Cartography
+import Alamofire
 
 @objc protocol GalleryBrowserDataSource {
     func imageEntityForPage(page: Int, inGalleyBrowser galleryBrowser: GalleryBrowsePhotoViewController) -> FNImage?
@@ -66,6 +67,48 @@ public class GalleryBrowsePhotoViewController: UIViewController, UIScrollViewDel
     public override func viewDidLoad() {
         super.viewDidLoad()
         commonSetup()
+       
+        
+        //https://api.instagram.com/v1/tags/a/media/recent
+        //"scope":"public_content"
+        //https://api.instagram.com/v1/self/media/recent
+        //1801390729、786016361
+        //["access_token":"1801390729.fd90046.0d81b56e3e984fc9b59448111943fd12","count":5]
+       
+        let parameters :Dictionary = [
+            "access_token"         : "2307093343.46334ac.4f6800a20edb463e8b6f1af1baad3591",
+            "count"        : "5"
+        ]
+        Alamofire.request(.GET,"https://api.instagram.com/v1/users/1801390729/media/recent", parameters:parameters).responseJSON { response in
+            //print(response.request)  // original URL request
+            print(response.response) // URL response
+            print(response.data)     // server data
+            print(response.result)   // result of response serialization
+            
+            if let JSON = response.result.value {
+                print("JSON: \(JSON)")
+            }
+        }
+    
+        
+        /*let parameters :Dictionary = [
+            "method"         : "flickr.interestingness.getList",
+            "api_key"        : "86997f23273f5a518b027e2c8c019b0f",
+            "per_page"       : "300",
+            "format"         : "json",
+            "nojsoncallback" : "1",
+            "extras"         : "url_q,url_z",
+        ]
+        Alamofire.request(.GET,"https://api.flickr.com/services/rest/", parameters:parameters).responseJSON { response in
+                //print(response.request)  // original URL request
+                print(response.response) // URL response
+                print(response.data)     // server data
+                print(response.result)   // result of response serialization
+                
+                if let JSON = response.result.value {
+                    print("JSON: \(JSON)")
+                }
+        }*/
     }
 
     public override func didReceiveMemoryWarning() {
@@ -130,11 +173,11 @@ public class GalleryBrowsePhotoViewController: UIViewController, UIScrollViewDel
             // Do nothing. The view is already loaded.
             print("ろおどど\(page)")
         } else {
+            print("ろおどぉ\(page)")
+            
             var frame = scrollView.bounds
             frame.origin.x = 0.0 //frame.size.width * CGFloat(page)
             frame.origin.y = frame.size.height * CGFloat(page)   //0.0
-            
-            print("ろおど\(page)")
             
             // Loading source image if not exists
             let imageEntity = dataSource!.imageEntityForPage(page, inGalleyBrowser: self)!
@@ -159,6 +202,52 @@ public class GalleryBrowsePhotoViewController: UIViewController, UIScrollViewDel
             let newPageView = GalleryBrowserPageView(frame: frame)
             newPageView.imageEntity = imageEntity
             newPageView.image = imageEntity.sourceImage ?? imageEntity.thumbnail
+            
+            
+            
+            
+            
+            /*let imageURL: NSURL? = dataSource?.gallery(self, imageURLAtIndexPath: indexPath)
+            if imageURL != nil {
+                var imageEntity: FNImage!
+                imageEntity = images[indexPath]
+                if imageEntity == nil {
+                    imageEntity = FNImage(URL: imageURL!, indexPath: indexPath)
+                    images[indexPath] = imageEntity
+                }
+                let imageExists = FICImageCache.sharedImageCache().imageExistsForEntity(imageEntity, withFormatName: FNImageSquareImage32BitBGRAFormatName)
+                
+                FICImageCache.sharedImageCache().retrieveImageForEntity(imageEntity, withFormatName: FNImageSquareImage32BitBGRAFormatName) { (entity, formatName, image) -> Void in
+                    let theImageEntity = entity as! FNImage
+                    theImageEntity.thumbnail = image
+                    
+                    // Trigger partial update only if new image comes in
+                    if !imageExists {
+                        if image != nil {
+                            self.collectionView.reloadItemsAtIndexPaths([theImageEntity.indexPath!])
+                        } else {
+                            print("Failed to retrieve image at (\(indexPath.section), \(indexPath.row))")
+                        }
+                    }
+                }
+            }*/
+            
+  //今回の'page'に対応するプロフ画像バイナリがRealm内にあるかどうか確認し、ないならAlamoでWebから取って来てRealmに保存(あるならRealmから検索してそれを渡す)
+            let url = NSURL(string:"http://up.gc-img.net/post_img_web/2014/03/ead738bfc1ad2e04a657e2ddf2ac0002_22243.jpeg")
+            let req = NSURLRequest(URL:url!)
+            NSURLConnection.sendAsynchronousRequest(req, queue:NSOperationQueue.mainQueue()){(res, data, err) in
+                let image = UIImage(data:data!)
+                
+                newPageView.profimg = image
+                //UIImage(named: "man.png")
+            }
+            
+            
+            
+            
+            
+            
+            
             imageEntity.delegate = newPageView
             newPageView.setActivityAccordingToImageState(imageEntity.sourceImageState)
             scrollView.addSubview(newPageView)
@@ -195,14 +284,14 @@ public class GalleryBrowsePhotoViewController: UIViewController, UIScrollViewDel
         }
     }
     
-    func resetPageZooming(page: Int) {
+    /*func resetPageZooming(page: Int) {
         if page < 0 || page >= imageCount {
             return
         }
         if let pageView = pageViews[page] {
             pageView.scrollView.zoomScale = pageView.scrollView.minimumZoomScale
         }
-    }
+    }*/
     
     func loadVisiblePages() {
         // Work out which pages you want to load
@@ -229,13 +318,17 @@ public class GalleryBrowsePhotoViewController: UIViewController, UIScrollViewDel
 
     // MARK: Scroll View Delegate
     public func scrollViewDidScroll(scrollView: UIScrollView) {
+        //scrollView.directionalLockEnabled = true;
         loadVisiblePages()
         navigationItem.title = "\(currentPage + 1) / \(imageCount)"
+        if scrollView.contentOffset.x>0 {
+            scrollView.contentOffset.x = 0
+        }
     }
     
     public func scrollViewDidEndDecelerating(scrollView: UIScrollView) {
-        resetPageZooming(currentPage - 1)
-        resetPageZooming(currentPage + 1)
+        //resetPageZooming(currentPage - 1)
+        //resetPageZooming(currentPage + 1)
     }
     
 }

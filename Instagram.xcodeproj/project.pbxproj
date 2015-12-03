@@ -12,6 +12,7 @@
 		795D30B61C0C6E33001783A4 /* Podfile in Resources */ = {isa = PBXBuildFile; fileRef = 795D30B51C0C6E33001783A4 /* Podfile */; };
 		795D30B81C0C6FAA001783A4 /* Parse.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 795D30B71C0C6FAA001783A4 /* Parse.framework */; };
 		795D30BB1C0C6FCD001783A4 /* Bolts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 795D30B91C0C6FCD001783A4 /* Bolts.framework */; };
+		7972C1001C10302400BA75B6 /* View2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7972C0FF1C10302400BA75B6 /* View2.swift */; };
 		79F80F711C0C52D800248735 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79F80F701C0C52D800248735 /* AppDelegate.swift */; };
 		79F80F761C0C52D800248735 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 79F80F741C0C52D800248735 /* Main.storyboard */; };
 		79F80F791C0C52D900248735 /* Instagram.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 79F80F771C0C52D900248735 /* Instagram.xcdatamodeld */; };
@@ -45,6 +46,7 @@
 		795D30B71C0C6FAA001783A4 /* Parse.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Parse.framework; path = "parse-library-1.2.21/Parse.framework"; sourceTree = "<group>"; };
 		795D30B91C0C6FCD001783A4 /* Bolts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Bolts.framework; path = "parse-library-1.2.21/Bolts.framework"; sourceTree = "<group>"; };
 		7969361F1C0C770100A88D39 /* Instagram-Bridging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Instagram-Bridging-Header.h"; sourceTree = "<group>"; };
+		7972C0FF1C10302400BA75B6 /* View2.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = View2.swift; sourceTree = "<group>"; };
 		79F80F6D1C0C52D800248735 /* Instagram.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Instagram.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		79F80F701C0C52D800248735 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		79F80F751C0C52D800248735 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -139,6 +141,7 @@
 				7969361F1C0C770100A88D39 /* Instagram-Bridging-Header.h */,
 				79F80F701C0C52D800248735 /* AppDelegate.swift */,
 				795D30AD1C0C643C001783A4 /* View1.swift */,
+				7972C0FF1C10302400BA75B6 /* View2.swift */,
 				79F80F741C0C52D800248735 /* Main.storyboard */,
 				79F80F7A1C0C52D900248735 /* Assets.xcassets */,
 				79F80F7C1C0C52D900248735 /* LaunchScreen.storyboard */,
@@ -352,6 +355,7 @@
 				79F80F791C0C52D900248735 /* Instagram.xcdatamodeld in Sources */,
 				795D30AE1C0C643C001783A4 /* View1.swift in Sources */,
 				79F80F711C0C52D800248735 /* AppDelegate.swift in Sources */,
+				7972C1001C10302400BA75B6 /* View2.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

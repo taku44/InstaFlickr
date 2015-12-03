@@ -39,6 +39,9 @@ class View1: GalleryViewController,UISearchBarDelegate, GalleryDataSource{
         print("button tapped!")
         
         
+        
+        
+        
         var query = PFQuery(className:"Photo")
         query.whereKey("hash", equalTo:search.text!)
         query.findObjectsInBackgroundWithBlock {
