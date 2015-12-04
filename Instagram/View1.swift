@@ -7,42 +7,95 @@
 //
 
 import UIKit
-import Parse
+//import Parse
 import AsyncPhotoBrowser
+import Alamofire
+import SwiftyJSON
 
-class View1: GalleryViewController,UISearchBarDelegate, GalleryDataSource{
+class View1: UIViewController,UISearchBarDelegate{
     
     @IBOutlet var search: UISearchBar!
     
-    //var photos : [MWPhoto]=[];
-    var imageURLs: [String]!
-    
-    override func awakeFromNib() {
-        super.awakeFromNib()
-        self.dataSource = self
-        imageURLs = ["http://img1.3lian.com/img2011/w1/103/41/d/50.jpg", "http://www.old-radio.info/wp-content/uploads/2014/09/cute-cat.jpg", "http://static.tumblr.com/aeac4c29583da7972652d382d8797876/sz5wgey/Tejmpabap/tumblr_static_cats-1.jpg", "http://resources2.news.com.au/images/2013/11/28/1226770/056906-cat.jpg"]
-        for i in 0...99 {
-            let formattedIndex = String(format: "%03d", i)
-            imageURLs.append("https://s3.amazonaws.com/fast-image-cache/demo-images/FICDDemoImage\(formattedIndex).jpg")
-        }
-    }
+    var imageURLs: [String] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
        
         search.delegate = self
-        navigationItem.title = "AsyncPhotoBrowser"
         
     }
     
     func searchBarSearchButtonClicked( searchBar: UISearchBar){
         print("button tapped!")
         
+        //flickr.interestingness.getList
+      //タグで検索できるように
+        let parameters :Dictionary = [
+            "method"         : "flickr.photos.search",
+            "api_key"        : "86997f23273f5a518b027e2c8c019b0f",
+            "tags"           : search.text!,
+            "per_page"       : "500",
+            "format"         : "json",
+            "nojsoncallback" : "1",
+            "extras"         : "url_n,owner_name"
+        ]
+        Alamofire.request(.GET,"https://api.flickr.com/services/rest/", parameters:parameters).responseJSON { response in
+            
+          switch response.result {
+          case .Success:
+            if let value = response.result.value {
+                let json = JSON(value)
+                print("JSON: \(json)")
+               
+                var arr = json["photos"]["photo"]
+                //If json is .Array
+                //The `index` is 0..<json.count's string value
+                for (index,subJson):(String, JSON) in arr {
+                    
+                    print("サブJSON: \(subJson)")
+                    var url = subJson["url_n"].stringValue
+                    self.imageURLs.append(url)
+                }
+
+                //ObjectMapper+Realmで以下保存
+                //id、url_n、ownername、ownerurl（ここで作成?）、各page
+                
+                
+                
+                
+                
+                
+                
+
+                let secondViewController: View2 = (self.storyboard?.instantiateViewControllerWithIdentifier("View2") as? View2)!
+                // アニメーションを設定する.
+                //secondViewController.modalTransitionStyle = UIModalTransitionStyle.PartialCurl
+                // 値渡ししたい時 hoge -> piyo
+                secondViewController.imageURLs = self.imageURLs
+                // Viewの移動する.
+                self.presentViewController(secondViewController, animated: true, completion: nil)
+            }
+                //print(response.request)  // original URL request
+                //print(response.response) // URL response
+                //print(response.data)     // server data
+                //print(response.result)   // result of response serialization
+            //}
+            /*if let JSON = response.result.value {
+            print("JSON: \(JSON)")
+            
+            }*/
+          case .Failure(let error):
+            let alert = UIAlertView()
+            alert.title = ""
+            alert.message = "エラーが発生しました"
+            alert.addButtonWithTitle("了解")
+            alert.show()
+                print(error)
+            }
+        }
+
         
-        
-        
-        
-        var query = PFQuery(className:"Photo")
+        /*var query = PFQuery(className:"Photo")
         query.whereKey("hash", equalTo:search.text!)
         query.findObjectsInBackgroundWithBlock {
             (objects: [PFObject]?, error: NSError?) -> Void in
@@ -115,59 +168,14 @@ class View1: GalleryViewController,UISearchBarDelegate, GalleryDataSource{
                 // Log details of the failure
                 print("Error: \(error!) \(error!.userInfo)")
             }
-        }
+        }*/
+   }
+    
+    /*override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         
-    }
-   
-    func gallery(gallery: GalleryViewController, numberOfImagesInSection section: Int) -> Int {
-        return imageURLs.count
-    }
+            var View2 = segue.destinationViewController as! View2
+            View2.imageURLs = imageURLs
     
-    func gallery(gallery: GalleryViewController, imageURLAtIndexPath indexPath: NSIndexPath) -> NSURL {
-        return NSURL(string: imageURLs[indexPath.row])!
-    }
-    
-    
-    
-    /*func numberOfPhotosInPhotoBrowser(photoBrowser: MWPhotoBrowser!) -> UInt {
-        return UInt(photos.count)
-    }
-    
-    func photoBrowser(photoBrowser: MWPhotoBrowser!, photoAtIndex index: UInt) -> MWPhotoProtocol! {
-        if Int(index) < self.photos.count {
-            return photos.objectAtIndex(Int(index)) as MWPhoto
-        }
-        
-        return nil
     }*/
-    
-    /*
-    func numberOfPhotosInPhotoBrowser(photoBrowser: MWPhotoBrowser) -> Int {
-        return photos.count
-    }
-    
-    func photoAtIndex(index: Int, photoBrowser: MWPhotoBrowser) -> MWPhoto? {
-        if index < photos.count {
-            return photos[index]
-        }
-        return nil
-    }
-    
-    func thumbPhotoAtIndex(index: Int, photoBrowser: MWPhotoBrowser) -> MWPhoto? {
-        print("ああ")
-        return photos[index]
-    }*/
-    
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
 }
 
