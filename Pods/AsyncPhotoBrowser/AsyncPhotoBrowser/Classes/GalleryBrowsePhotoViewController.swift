@@ -75,7 +75,7 @@ public class GalleryBrowsePhotoViewController: UIViewController, UIScrollViewDel
         //1801390729、786016361
         //["access_token":"1801390729.fd90046.0d81b56e3e984fc9b59448111943fd12","count":5]
        
-        let parameters :Dictionary = [
+        /*let parameters :Dictionary = [
             "access_token"         : "2307093343.46334ac.4f6800a20edb463e8b6f1af1baad3591",
             "count"        : "5"
         ]
@@ -88,27 +88,8 @@ public class GalleryBrowsePhotoViewController: UIViewController, UIScrollViewDel
             if let JSON = response.result.value {
                 print("JSON: \(JSON)")
             }
-        }
-    
-        
-        /*let parameters :Dictionary = [
-            "method"         : "flickr.interestingness.getList",
-            "api_key"        : "86997f23273f5a518b027e2c8c019b0f",
-            "per_page"       : "300",
-            "format"         : "json",
-            "nojsoncallback" : "1",
-            "extras"         : "url_q,url_z",
-        ]
-        Alamofire.request(.GET,"https://api.flickr.com/services/rest/", parameters:parameters).responseJSON { response in
-                //print(response.request)  // original URL request
-                print(response.response) // URL response
-                print(response.data)     // server data
-                print(response.result)   // result of response serialization
-                
-                if let JSON = response.result.value {
-                    print("JSON: \(JSON)")
-                }
         }*/
+        
     }
 
     public override func didReceiveMemoryWarning() {
@@ -179,6 +160,8 @@ public class GalleryBrowsePhotoViewController: UIViewController, UIScrollViewDel
             frame.origin.x = 0.0 //frame.size.width * CGFloat(page)
             frame.origin.y = frame.size.height * CGFloat(page)   //0.0
             
+            
+            
             // Loading source image if not exists
             let imageEntity = dataSource!.imageEntityForPage(page, inGalleyBrowser: self)!
             imageEntity.page = page
@@ -202,9 +185,7 @@ public class GalleryBrowsePhotoViewController: UIViewController, UIScrollViewDel
             let newPageView = GalleryBrowserPageView(frame: frame)
             newPageView.imageEntity = imageEntity
             newPageView.image = imageEntity.sourceImage ?? imageEntity.thumbnail
-            
-            
-            
+
             
             
             /*let imageURL: NSURL? = dataSource?.gallery(self, imageURLAtIndexPath: indexPath)
@@ -231,8 +212,41 @@ public class GalleryBrowsePhotoViewController: UIViewController, UIScrollViewDel
                     }
                 }
             }*/
+            /*
+            // If the cache is properly set up, try to retrieve the image from internet
+            if FICImageCache.sharedImageCache().formatWithName(FNImageSquareImage32BitBGRAFormatName) != nil {
+                let imageURL: NSURL? = dataSource?.gallery(self, imageURLAtIndexPath: indexPath)
+                if imageURL != nil {
+                    var imageEntity: FNImage!
+                    imageEntity = images[indexPath]
+                    if imageEntity == nil {
+                        imageEntity = FNImage(URL: imageURL!, indexPath: indexPath)
+                        images[indexPath] = imageEntity
+                    }
+                    let imageExists = FICImageCache.sharedImageCache().imageExistsForEntity(imageEntity, withFormatName: FNImageSquareImage32BitBGRAFormatName)
+                    
+                    FICImageCache.sharedImageCache().retrieveImageForEntity(imageEntity, withFormatName: FNImageSquareImage32BitBGRAFormatName) { (entity, formatName, image) -> Void in
+                        let theImageEntity = entity as! FNImage
+                        theImageEntity.thumbnail = image
+                        
+                        // Trigger partial update only if new image comes in
+                        if !imageExists {
+                            if image != nil {
+                                self.collectionView.reloadItemsAtIndexPaths([theImageEntity.indexPath!])
+                            } else {
+                                print("Failed to retrieve image at (\(indexPath.section), \(indexPath.row))")
+                            }
+                        }
+                    }
+                }
+            }
+            cell.image = self.images[indexPath]?.thumbnail
+            return cell*/
             
-  //今回の'page'に対応するプロフ画像バイナリがRealm内にあるかどうか確認し、ないならAlamoでWebから取って来てRealmに保存(あるならRealmから検索してそれを渡す)
+ //今回の'page'に対応するプロフ画像バイナリ(owner_image)がRealm内にあるかどうか確認し、ないならAlamoでWebから取って来てRealmに保存(あるならRealmから検索してそれを渡す)
+            
+            
+            
             let url = NSURL(string:"http://up.gc-img.net/post_img_web/2014/03/ead738bfc1ad2e04a657e2ddf2ac0002_22243.jpeg")
             let req = NSURLRequest(URL:url!)
             NSURLConnection.sendAsynchronousRequest(req, queue:NSOperationQueue.mainQueue()){(res, data, err) in
@@ -242,34 +256,63 @@ public class GalleryBrowsePhotoViewController: UIViewController, UIScrollViewDel
                 //UIImage(named: "man.png")
             }
             
+            //同様にして、ownername、コメント(名前:メッセージ)x3、いいね数 を渡す、 Realm内にあるかどうか確認し、ないならAlamoでWebから取って来てRealmに保存(あるならRealmから検索してそれを渡す)
+            //コメントについては、最新の3件までを抽出して渡す
             
             
             
             
             
+            
+            
+            
+            
+            
+            
+            // Loading source image if not exists
+            /*let imageEntity2 = dataSource!.imageEntityForPage2(page, inGalleyBrowser: self)!
+            imageEntity2.page = page
+            if imageEntity2.sourceImageState == .NotLoaded {
+                imageEntity2.loadSourceImageWithCompletion({ (error) -> Void in
+                    if let pageView = self.pageViews[imageEntity2.page!] {
+                        if error == nil {
+                            print("2ロード完了 \(page)")
+                            pageView.profimg = imageEntity2.sourceImage
+                        } else {
+                            print("2ロード失敗 \(page), error \(error)")
+                        }
+                    }
+                })
+            } else if imageEntity2.sourceImageState == .Paused {
+                
+                imageEntity2.resumeLoadingSource()
+                print("2ロード完了2 \(page)")
+            }
+            //let newPageView = GalleryBrowserPageView(frame: frame)
+            newPageView.imageEntity2 = imageEntity2
+            newPageView.profimg = imageEntity2.sourceImage ?? imageEntity2.thumbnail*/
+            
+
             
             imageEntity.delegate = newPageView
             newPageView.setActivityAccordingToImageState(imageEntity.sourceImageState)
+            //imageEntity2.delegate = newPageView
+            //newPageView.setActivityAccordingToImageState(imageEntity2.sourceImageState)
             scrollView.addSubview(newPageView)
             pageViews[page] = newPageView
         }
     }
     
     func purgePage(page: Int) {
-        print("complete loadingsstt \(page)")
        
         if page < 0 || page >= imageCount {
             // If it's outside the range of what you have to display, then do nothing
-            
-            print("completeeesss \(page)")
-            
             return
         }
         
         // Remove a page from the scroll view and reset the container array
         if let pageView = pageViews[page] {
-         
-            //if page==103{
+     
             let pageView = pageViews[page]  //[page]
             
             pageView!.removeFromSuperview()
@@ -279,7 +322,7 @@ public class GalleryBrowsePhotoViewController: UIViewController, UIScrollViewDel
             let imageEntity = dataSource!.imageEntityForPage(page, inGalleyBrowser: self)
             imageEntity?.pauseLoadingSource()
             
-            print("completeee \(page)")
+            //print("completeee \(page)")
             //}
         }
     }
@@ -305,7 +348,7 @@ public class GalleryBrowsePhotoViewController: UIViewController, UIScrollViewDel
             purgePage(index)
         }
         
-        // Load pages in our range
+        // Load pages in our range(前中後3ページ)
         for var index = firstPage; index <= lastPage; ++index {
             loadPage(index)
         }
@@ -320,6 +363,7 @@ public class GalleryBrowsePhotoViewController: UIViewController, UIScrollViewDel
     public func scrollViewDidScroll(scrollView: UIScrollView) {
         //scrollView.directionalLockEnabled = true;
         loadVisiblePages()
+        
         navigationItem.title = "\(currentPage + 1) / \(imageCount)"
         if scrollView.contentOffset.x>0 {
             scrollView.contentOffset.x = 0
