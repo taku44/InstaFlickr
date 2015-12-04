@@ -8,12 +8,12 @@
         <!--View1-->
         <scene sceneID="I0N-Le-H7f">
             <objects>
-                <viewController storyboardIdentifier="View1" useStoryboardIdentifierAsRestorationIdentifier="YES" id="lc9-fK-5yN" customClass="View1" customModule="Instagram" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="View1" useStoryboardIdentifierAsRestorationIdentifier="YES" id="lc9-fK-5yN" customClass="View1" customModule="Instagram" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="OKT-eO-uSS">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <searchBar contentMode="redraw" placeholder="#a~#dの内どれか" id="SlH-s1-b8i">
+                            <searchBar contentMode="redraw" placeholder="#タグを検索" id="SlH-s1-b8i">
                                 <rect key="frame" x="0.0" y="49" width="320" height="44"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                                 <textInputTraits key="textInputTraits"/>
@@ -29,15 +29,34 @@
             </objects>
             <point key="canvasLocation" x="626" y="328"/>
         </scene>
-        <!--View2-->
+        <!--Title-->
         <scene sceneID="4Qg-jF-5UI">
             <objects>
-                <viewController storyboardIdentifier="View2" useStoryboardIdentifierAsRestorationIdentifier="YES" id="bQ7-4P-m3E" customClass="View2" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="View2" useStoryboardIdentifierAsRestorationIdentifier="YES" id="bQ7-4P-m3E" customClass="View2" customModule="Instagram" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="mHZ-9e-ug6">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <navigationBar contentMode="scaleToFill" id="lIu-it-dne">
+                                <rect key="frame" x="0.0" y="27" width="320" height="44"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                                <items>
+                                    <navigationItem id="YRk-dX-98n">
+                                        <barButtonItem key="leftBarButtonItem" title="戻る" id="cDz-3g-O78">
+                                            <connections>
+                                                <action selector="tapbackto:" destination="bQ7-4P-m3E" id="g1Z-YX-EDb"/>
+                                            </connections>
+                                        </barButtonItem>
+                                    </navigationItem>
+                                </items>
+                            </navigationBar>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
+                    <navigationItem key="navigationItem" title="Title" id="9lg-w8-bAT"/>
+                    <connections>
+                        <outlet property="backto" destination="cDz-3g-O78" id="UoT-Vp-8hD"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Bp1-2v-VaB" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
