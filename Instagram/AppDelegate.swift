@@ -9,6 +9,7 @@
 import UIKit
 import CoreData
 import Parse
+import RealmSwift
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -17,9 +18,31 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
-        // Override point for customization after application launch.
-        Parse.setApplicationId("lN4qlwlO4haYpf39UIW0ht9kzwjQUuJAQM8hSqBR",
-            clientKey: "AXElIfmrKrtRAgC5lB06VYAbsOtHwRHjKTgtCuaO")
+       
+        
+        // application(application:didFinishLaunchingWithOptions:)の中に書きます
+        let config = Realm.Configuration(
+            // 新しいスキーマバージョンを設定します。以前のバージョンより大きくなければなりません。
+            // （スキーマバージョンを設定したことがなければ、最初は0が設定されています）
+            schemaVersion: 5,
+            
+            // マイグレーション処理を記述します。古いスキーマバージョンのRealmを開こうとすると
+            // 自動的にマイグレーションが実行されます。
+            migrationBlock: { migration, oldSchemaVersion in
+                // 最初のマイグレーションの場合、`oldSchemaVersion`は0です
+                if (oldSchemaVersion < 1) {
+                    // 何もする必要はありません！
+                    // Realmは自動的に新しく追加されたプロパティと、削除されたプロパティを認識します。
+                    // そしてディスク上のスキーマを自動的にアップデートします。
+                }
+        })
+        
+        // デフォルトRealmに新しい設定を適用します
+        Realm.Configuration.defaultConfiguration = config
+        
+        // Realmファイルを開こうとしたときスキーマバージョンが異なれば、
+        // 自動的にマイグレーションが実行されます
+        //let realm = try! Realm()
         
         return true
     }

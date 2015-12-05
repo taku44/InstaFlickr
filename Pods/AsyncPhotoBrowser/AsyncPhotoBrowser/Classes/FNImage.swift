@@ -183,3 +183,12 @@ extension UIImage {
         return squareImage;
     }
 }
+
+extension UILabel {
+   func squareImage() -> UILabel {
+    var squareImage: UILabel!
+    return squareImage
+    }
+}
+
+

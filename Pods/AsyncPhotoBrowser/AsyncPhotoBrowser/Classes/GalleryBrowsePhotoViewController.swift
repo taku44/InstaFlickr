@@ -9,6 +9,8 @@
 import UIKit
 import Cartography
 import Alamofire
+import RealmSwift
+import SwiftyJSON
 
 @objc protocol GalleryBrowserDataSource {
     func imageEntityForPage(page: Int, inGalleyBrowser galleryBrowser: GalleryBrowsePhotoViewController) -> FNImage?
@@ -18,6 +20,9 @@ import Alamofire
 public class GalleryBrowsePhotoViewController: UIViewController, UIScrollViewDelegate {
     
     var dataSource: GalleryBrowserDataSource?
+    
+    var authors: [String] = []
+    var messages: [String] = []
     
     lazy var scrollView: UIScrollView = {
         let scrollView = UIScrollView(frame: self.view.bounds)
@@ -96,7 +101,7 @@ public class GalleryBrowsePhotoViewController: UIViewController, UIScrollViewDel
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-    
+
     public override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         if !layedOutScrollView {
@@ -242,30 +247,319 @@ public class GalleryBrowsePhotoViewController: UIViewController, UIScrollViewDel
             }
             cell.image = self.images[indexPath]?.thumbnail
             return cell*/
-            
- //今回の'page'に対応するプロフ画像バイナリ(owner_image)がRealm内にあるかどうか確認し、ないならAlamoでWebから取って来てRealmに保存(あるならRealmから検索してそれを渡す)
-            
+        
             
             
-            let url = NSURL(string:"http://up.gc-img.net/post_img_web/2014/03/ead738bfc1ad2e04a657e2ddf2ac0002_22243.jpeg")
-            let req = NSURLRequest(URL:url!)
-            NSURLConnection.sendAsynchronousRequest(req, queue:NSOperationQueue.mainQueue()){(res, data, err) in
-                let image = UIImage(data:data!)
+            
+            print("これは6")
+            
+            do {
+                let pagee = String(page)
                 
-                newPageView.profimg = image
-                //UIImage(named: "man.png")
+                let realm = try Realm()
+                //let records = Entry(value: page) // Userオブジェクトが返却。存在しない場合はnil
+                //let records2 = Entry2(value: page) // Userオブジェクトが返却。存在しない場合はnil
+                let records:Results = realm.objects(Entry).filter("page == '\(pagee)'")
+                let records2:Results = realm.objects(Entry2).filter("page == '\(pagee)'")  //\(pagee)
+                print("これは..\(records)")
+                print("これは..\(records2)")
+                
+                //filter("itemcode BEGINSWITH '0'").sorted("itemcode")
+                /*for v in records {
+                    print("これは\(v)")
+                }*/
+                let item = records[0] as? Entry
+                let item2 = records[0] as? Entry2
+                //let records3 = Entry(forPrimaryKey: page)  //主キーで検索
+                
+                let s1:NSString = (item?.id)!
+                let s2:NSString = (item?.ownername)!
+                let s4:NSString = (item?.ownerurl )!    //:String)
+                //let s6 = item?.favorites  //いいね数
+               
+                //let x1 = item2?.id
+                let x3 = item2?.ownerimage  //投稿者のプロフ画像(NSData)
+                //let x5 = item2?.comments   //コメント(名前:メッセージ)x3(最初の)
+
+                if(x3 == nil){
+                    //if(s5 == nil){
+                    
+                    //初期化
+                    self.messages = []
+                    self.authors = []
+                    
+                    //s5、s6をAlamoで取得しRealmに追加
+                    //それぞれnewPageView.に渡す
+                    let parameters :Dictionary = [
+                        "method"         : "flickr.photos.comments.getList",
+                        "api_key"        : "86997f23273f5a518b027e2c8c019b0f",
+                        "photo_id"       : s1,
+                        "per_page"       : "3",     //これいける？？
+                        "format"         : "json",
+                        "nojsoncallback" : "1",
+                    ]
+                    let parameters2 :Dictionary = [
+                        "method"         : "flickr.photos.getFavorites",
+                        "api_key"        : "86997f23273f5a518b027e2c8c019b0f",
+                        "photo_id"       : s1,
+                        "per_page"       : "1",     //total数だけがほしいので
+                        "format"         : "json",
+                        "nojsoncallback" : "1",
+                    ]
+                Alamofire.request(.GET,"https://api.flickr.com/services/rest/",parameters:parameters).responseJSON { response in
+                    do {
+                        switch response.result {
+                        case .Success(let data):
+                            if let value = response.result.value {
+                                let json = JSON(value)
+                                print("コメントは\(json)")
+                                var arr:JSON = json["comments"]["comment"]   //コメントを取得
+                                var num = arr.count
+                                print("なむは\(num)")
+                                
+                                if(num>3){
+                                    //lastObjectから順に(新しい順に)3件まで表示
+                                    var aa1=arr[num-1]
+                                    var aa2=arr[num-2]
+                                    var aa3=arr[num-3]
+                                    
+                                    var authorname = aa1["authorname"]
+                                    var contentt = aa1["_content"]
+                                    var ss1 = authorname.stringValue
+                                    var xx1 = contentt.stringValue
+                                    self.authors.append(ss1)
+                                    self.messages.append(xx1)
+                                    
+                                    var authorname2 = aa2["authorname"]
+                                    var contentt2 = aa2["_content"]
+                                    var ss2 = authorname2.stringValue
+                                    var xx2 = contentt2.stringValue
+                                    self.authors.append(ss2)
+                                    self.messages.append(xx2)
+                                    
+                                    var authorname3 = aa3["authorname"]
+                                    var contentt3 = aa3["_content"]
+                                    var ss3 = authorname3.stringValue
+                                    var xx3 = contentt3.stringValue
+                                    self.authors.append(ss3)
+                                    self.messages.append(xx3)
+                                }else{
+                                    if(num==1){
+                                        var aa1=arr[0]
+                                        
+                                        var authorname = aa1["authorname"]
+                                        var contentt = aa1["_content"]
+                                        var ss1 = authorname.stringValue
+                                        var xx1 = contentt.stringValue
+                                        self.authors.append(ss1)
+                                        self.messages.append(xx1)
+                                    }else if(num==2){
+                                        var aa1=arr[0]
+                                        var aa2=arr[1]
+                                        
+                                        var authorname = aa1["authorname"]
+                                        var contentt = aa1["_content"]
+                                        var ss1 = authorname.stringValue
+                                        var xx1 = contentt.stringValue
+                                        self.authors.append(ss1)
+                                        self.messages.append(xx1)
+                                        
+                                        var authorname2 = aa2["authorname"]
+                                        var contentt2 = aa2["_content"]
+                                        var ss2 = authorname2.stringValue
+                                        var xx2 = contentt2.stringValue
+                                        self.authors.append(ss2)
+                                        self.messages.append(xx2)
+                                    }else if(num==3){
+                                        var aa1=arr[0]
+                                        var aa2=arr[1]
+                                        var aa3=arr[2]
+                                        
+                                        var authorname = aa1["authorname"]
+                                        var contentt = aa1["_content"]
+                                        var ss1 = authorname.stringValue
+                                        var xx1 = contentt.stringValue
+                                        self.authors.append(ss1)
+                                        self.messages.append(xx1)
+                                        
+                                        var authorname2 = aa2["authorname"]
+                                        var contentt2 = aa2["_content"]
+                                        var ss2 = authorname2.stringValue
+                                        var xx2 = contentt2.stringValue
+                                        self.authors.append(ss2)
+                                        self.messages.append(xx2)
+                                        
+                                        var authorname3 = aa3["authorname"]
+                                        var contentt3 = aa3["_content"]
+                                        var ss3 = authorname3.stringValue
+                                        var xx3 = contentt3.stringValue
+                                        self.authors.append(ss3)
+                                        self.messages.append(xx3)
+                                    }else if(num==0){
+                                        
+                                    }
+                                    /*//lastObjectから順に(新しい順に)全部表示
+                                    for aad in arr{
+                                        var authorname = aad["authorname"]
+                                        var contentt = aad["_content"]
+                                        var ss1 = authorname.stringValue
+                                        var xx1 = contentt.stringValue
+                                        self.authors.append(ss1)
+                                        self.messages.append(xx1)
+                                    }*/
+                                }
+                                
+                                Alamofire.request(.GET,"https://api.flickr.com/services/rest/",parameters:parameters2).responseJSON { response in
+                                    do {
+                                        switch response.result {
+                                        case .Success(let data):
+                                            if let value = response.result.value {
+                                                let json = JSON(value)
+                                                print("いいねは\(json)")
+                                                var likes = json["photo"]["total"]
+                                                //いいね数を取得
+                                                var lii = likes.intValue
+                                                
+                                                //s3imageをs4で非同期で取得
+                                                let url = NSURL(string:"\(s4)")
+                                                //let url = NSURL(s4 as String)
+                                                let req = NSURLRequest(URL:url!)
+                                              NSURLConnection.sendAsynchronousRequest(req, queue:NSOperationQueue.mainQueue()){(res, data, err) in
+                                                    
+                                                    let s3image = UIImage(data:data!)
+                                                    newPageView.profimg = s3image
+                                                // PNG形式の画像フォーマットとしてNSDataに変換
+                                                let imgdata:NSData = UIImagePNGRepresentation(s3image!)!
+                                          
+                                                //未追加要素をRealmに追加して
+                                                do {
+                                                    let realm = try! Realm()
+                                                    try! realm.write() {
+                                                        var entryy = realm.create(Entry.self, value: [
+                                                            "page": pagee,   //page?
+                                                            "favorites": lii
+                                                            ],update: true)
+                                                    }
+                                                    
+                                                    //var cc = self.messages.count
+                                                    //print("ぷりーんん\(cc)")
+                                                    if(num==1){
+                                                    try! realm.write() {
+                                                        var sx:String = self.authors[0]
+                                                        var sxx:String = self.messages[0]
+                                                        var entryy2 = realm.create(Entry2.self, value: [
+                                                            "ownerimage": imgdata,
+                                                            "name1": sx,
+                                                            "message1":sxx,
+                                                            "page": pagee   //主キー
+                                                            ],update: true)
+                                                        
+                                                        //コメント渡す
+                                                        var s7:String = sx + sxx
+                                                    //var s7:String = "\(sx) : \(sxx)"
+                                                        newPageView.comment1 = s7
+                                                    }
+                                                    }else if(num==2){
+                                                        try! realm.write() {
+                                                        var sx:String = self.authors[0]
+                                                        var sxx:String = self.messages[0]
+                                                        var sx2:String = self.authors[1]
+                                                        var sxx2:String = self.messages[1]
+                                                        var entryy2 = realm.create(Entry2.self, value: [
+                                                            "ownerimage": imgdata,
+                                                            "name1": sx,
+                                                            "message1":sxx,
+                                                            "name2": sx2,
+                                                            "message2":sxx2,
+                                                            "page": pagee   //主キー
+                                                            ],update: true)
+                                                            var s7:String = "\(sx) : \(sxx)"
+                                                            newPageView.comment1 = s7
+                                                            var s8:String = "\(sx2) : \(sxx2)"
+                                                            newPageView.comment2 = s8
+                                                        }
+                                                    }else if(num >= 3){
+                                                        try! realm.write() {
+                                                        var sx:String = self.authors[0]
+                                                        var sxx:String = self.messages[0]
+                                                        var sx2:String = self.authors[1]
+                                                        var sxx2:String = self.messages[1]
+                                                        var sx3:String = self.authors[2]
+                                                        var sxx3:String = self.messages[2]
+                                                        var entryy2 = realm.create(Entry2.self, value: [
+                                                            "ownerimage": imgdata,
+                                                            "name1": sx,
+                                                            "message1":sxx,
+                                                            "name2": sx2,
+                                                            "message2":sxx2,
+                                                            "name3": sx3,
+                                                            "message3":sxx3,
+                                                            "page": pagee   //主キー
+                                                            ],update: true)
+                                                            var s7:String = sx + sxx
+                                                            //var s7:String = "\(sx) : \(sxx)"
+                                                            newPageView.comment1 = s7
+                                                            var s8:String = sx2 + sxx2
+                                                            //var s8:String = "\(sx2) : \(sxx2)"
+                                                            newPageView.comment2 = s8
+                                                            var s9:String = sx3 + sxx3
+                                                            //var s9:String = "\(sx3) : \(sxx3)"
+                                                            newPageView.comment3 = s9
+                                                            print("ぷりーん")
+                                                        }
+                                                    }else if(num==0){
+                                                        try! realm.write() {
+                                                            var entryy2 = realm.create(Entry2.self, value: [
+                                                                "ownerimage": imgdata,
+                                                                //"comments": ,
+                                                                "page": pagee   //主キー
+                                                                ],update: true)
+                                                        }
+                                                        print("ぷりーん0")
+                                                    }
+                                                    //var label = UILabel();
+                                                    //label.text = s2 as String;
+                                                   
+                                                    //それぞれ必要な要素をnewPageView.に渡す
+                                                    newPageView.profname = s2 as String //投稿者名前
+                                                    
+                                                    let sss11="いいね数:"
+                                                    let sss22=likes.stringValue
+                                                    let str33:String = sss11 + sss22
+                                                    newPageView.likestring =  str33
+                                    
+                                                    
+                                                } catch {
+                                                }
+                                              }
+                                            }
+                                        case .Failure(let error): break
+                                        }
+                                    }catch{
+                                        print("error");
+                                    }
+                                }
+                            }
+                        case .Failure(let error): break
+                        }
+                    }catch{
+                        print("error");
+                    }
+                }
+                
+                    //}else{
+                    //}
+                }else{
+                    print("それぞれ必要な要素をnewPageView.に渡す")
+                    
+                    
+                    
+                }
+            } catch {
+                print("これは7")
             }
             
-            //同様にして、ownername、コメント(名前:メッセージ)x3、いいね数 を渡す、 Realm内にあるかどうか確認し、ないならAlamoでWebから取って来てRealmに保存(あるならRealmから検索してそれを渡す)
-            //コメントについては、最新の3件までを抽出して渡す
-            
-            
-            
-            
-            
-            
-            
-            
+     
             
             
             

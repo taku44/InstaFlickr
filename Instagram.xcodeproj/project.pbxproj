@@ -510,7 +510,32 @@
 					"/Users/kobayashitakushi/Desktop/Instagram/parse-library-1.2.21/Parse.framework",
 					"/Users/kobayashitakushi/Desktop/Instagram/parse-library-1.2.21/Bolts.framework",
 				);
+				MACH_O_TYPE = mh_execute;
 				MODULEMAP_FILE = Instagram/module.modulemap;
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-ObjC",
+					"-framework",
+					"\"Alamofire\"",
+					"-framework",
+					"\"AsyncPhotoBrowser\"",
+					"-framework",
+					"\"Bolts\"",
+					"-framework",
+					"\"Cartography\"",
+					"-framework",
+					"\"FastImageCache\"",
+					"-framework",
+					"\"ObjectMapper\"",
+					"-framework",
+					"\"Parse\"",
+					"-framework",
+					"\"Realm\"",
+					"-framework",
+					"\"RealmSwift\"",
+					"-framework",
+					"\"SwiftyJSON\"",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = mobility.Instagram;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_INCLUDE_PATHS = "";
@@ -537,7 +562,32 @@
 					"/Users/kobayashitakushi/Desktop/Instagram/parse-library-1.2.21/Parse.framework",
 					"/Users/kobayashitakushi/Desktop/Instagram/parse-library-1.2.21/Bolts.framework",
 				);
+				MACH_O_TYPE = mh_execute;
 				MODULEMAP_FILE = Instagram/module.modulemap;
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-ObjC",
+					"-framework",
+					"\"Alamofire\"",
+					"-framework",
+					"\"AsyncPhotoBrowser\"",
+					"-framework",
+					"\"Bolts\"",
+					"-framework",
+					"\"Cartography\"",
+					"-framework",
+					"\"FastImageCache\"",
+					"-framework",
+					"\"ObjectMapper\"",
+					"-framework",
+					"\"Parse\"",
+					"-framework",
+					"\"Realm\"",
+					"-framework",
+					"\"RealmSwift\"",
+					"-framework",
+					"\"SwiftyJSON\"",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = mobility.Instagram;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_INCLUDE_PATHS = "";

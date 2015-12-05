@@ -32,7 +32,7 @@ class GalleryBrowserPageView: UIView, FNImageDelegate, UIScrollViewDelegate {
             self.centerScrollViewContents()
         }
     }
-    
+
     var profimg: UIImage? {
         
         get {
@@ -86,6 +86,73 @@ class GalleryBrowserPageView: UIView, FNImageDelegate, UIScrollViewDelegate {
             //self.centerScrollViewContents()
         }
     }
+    var profname: NSString {
+        get {
+            return profnameView.text
+        }
+        set(newlabel) {
+            profnameView.text = newlabel as String
+            profnameView.frame = CGRectMake(80, 30, 100, 50)
+            profnameView.textColor = UIColor.blueColor();////文字色
+            //profnameView = newlabel!
+            
+            /*//Adjust scroll view zooming
+            scrollView.contentSize = newImage?.size ?? self.bounds.size
+            let scrollViewFrame = scrollView.frame
+            let scaleWidth = scrollViewFrame.size.width / scrollView.contentSize.width
+            let scaleHeight = scrollViewFrame.size.height / scrollView.contentSize.height
+            let minScale = min(scaleWidth, scaleHeight)
+            scrollView.minimumZoomScale = minScale
+            scrollView.maximumZoomScale = 1.0
+            scrollView.zoomScale = minScale*/
+            
+            //self.centerScrollViewContents()
+            self.profnameView.frame.size.width=100;
+            self.profnameView.frame.size.height=50;
+            
+        }
+    }
+    var likestring: NSString {
+        get {
+            return likestringView.text
+        }
+        set(newlabel) {
+            likestringView.text = newlabel as String
+            likestringView.frame = CGRectMake(270, 500, 50, 50)
+            likestringView.textColor = UIColor.blueColor();////文字色
+        }
+    }
+    var comment1: NSString {
+        get {
+            return commentView1.text
+        }
+        set(newlabel) {
+            commentView1.text = newlabel as String
+            commentView1.frame = CGRectMake(20, 460, 250, 30)
+            commentView1.textColor = UIColor.blueColor();////文字色
+        }
+    }
+    var comment2: NSString {
+        get {
+            return commentView2.text
+        }
+        set(newlabel) {
+            commentView2.text = newlabel as String
+            commentView2.frame = CGRectMake(20, 495, 250, 30)
+            commentView2.textColor = UIColor.blueColor();////文字色
+        }
+    }
+    var comment3: NSString {
+        get {
+            return commentView3.text
+        }
+        set(newlabel) {
+            commentView3.text = newlabel as String
+            commentView3.frame = CGRectMake(20, 530, 250, 30)
+            commentView3.textColor = UIColor.blueColor();////文字色
+        }
+    }
+    
     
     weak var imageEntity: FNImage!
     //weak var imageEntity2: FNImage!
@@ -106,6 +173,11 @@ class GalleryBrowserPageView: UIView, FNImageDelegate, UIScrollViewDelegate {
         
         scrollView.addSubview(self.imageView)
         scrollView.addSubview(self.profimgView)
+        scrollView.addSubview(self.profnameView)
+        scrollView.addSubview(self.likestringView)
+        scrollView.addSubview(self.commentView1)
+        scrollView.addSubview(self.commentView2)
+        scrollView.addSubview(self.commentView3)
         
         /*// Set up gesture recognizer
         var doubleTapRecognizer = UITapGestureRecognizer(target: self, action: "scrollViewDoubleTapped:")
@@ -127,6 +199,46 @@ class GalleryBrowserPageView: UIView, FNImageDelegate, UIScrollViewDelegate {
         let tempImageView = UIImageView()
         tempImageView.contentMode = .ScaleAspectFit
         tempImageView.backgroundColor = UIColor.clearColor()
+        tempImageView.userInteractionEnabled = false
+        return tempImageView
+    }()
+    
+    lazy var profnameView: UITextView = {
+        let tempImageView = UITextView()
+        tempImageView.contentMode = .ScaleAspectFit
+        tempImageView.backgroundColor = UIColor.grayColor()
+        tempImageView.userInteractionEnabled = false
+        return tempImageView
+    }()
+    
+    lazy var likestringView: UITextView = {
+        let tempImageView = UITextView()
+        tempImageView.contentMode = .ScaleAspectFit
+        tempImageView.backgroundColor = UIColor.grayColor()
+        tempImageView.userInteractionEnabled = false
+        return tempImageView
+    }()
+    
+    lazy var commentView1: UITextView = {
+        let tempImageView = UITextView()
+        tempImageView.contentMode = .ScaleAspectFit
+        tempImageView.backgroundColor = UIColor.grayColor()
+        tempImageView.userInteractionEnabled = false
+        return tempImageView
+    }()
+    
+    lazy var commentView2: UITextView = {
+        let tempImageView = UITextView()
+        tempImageView.contentMode = .ScaleAspectFit
+        tempImageView.backgroundColor = UIColor.grayColor()
+        tempImageView.userInteractionEnabled = false
+        return tempImageView
+    }()
+    
+    lazy var commentView3: UITextView = {
+        let tempImageView = UITextView()
+        tempImageView.contentMode = .ScaleAspectFit
+        tempImageView.backgroundColor = UIColor.grayColor()
         tempImageView.userInteractionEnabled = false
         return tempImageView
     }()

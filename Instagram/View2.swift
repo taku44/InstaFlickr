@@ -8,6 +8,7 @@
 
 import UIKit
 import AsyncPhotoBrowser
+import SwiftyJSON
 
 class View2: GalleryViewController,GalleryDataSource {       //
     
@@ -15,11 +16,14 @@ class View2: GalleryViewController,GalleryDataSource {       //
     
     //var photos : [MWPhoto]=[];
     var imageURLs: [String] = []
+    //var arrayy: NSMutableArray?
+    var arrayy = NSMutableArray()
     
     override func awakeFromNib() {
         
         super.awakeFromNib()
         self.dataSource = self
+        
         /*imageURLs = ["http://img1.3lian.com/img2011/w1/103/41/d/50.jpg", "http://www.old-radio.info/wp-content/uploads/2014/09/cute-cat.jpg", "http://static.tumblr.com/aeac4c29583da7972652d382d8797876/sz5wgey/Tejmpabap/tumblr_static_cats-1.jpg", "http://resources2.news.com.au/images/2013/11/28/1226770/056906-cat.jpg"]
         for i in 0...99 {
             let formattedIndex = String(format: "%03d", i)
@@ -31,7 +35,7 @@ class View2: GalleryViewController,GalleryDataSource {       //
         super.viewDidLoad()
     
         navigationItem.title = "AsyncPhotoBrowser"
-        
+        print("サブ3")
     }
     
     func gallery(gallery: GalleryViewController, numberOfImagesInSection section: Int) -> Int {
@@ -39,7 +43,14 @@ class View2: GalleryViewController,GalleryDataSource {       //
     }
     
     func gallery(gallery: GalleryViewController, imageURLAtIndexPath indexPath: NSIndexPath) -> NSURL {
+        
         return NSURL(string: imageURLs[indexPath.row])!
+        //return NSURL (fileURLWithPath: "m")
+    }
+    
+    func gallery(gallery: GalleryViewController, getarray nsarray: Int) -> NSMutableArray {
+        print("サブ4")
+        return self.arrayy
     }
     
     /*func gallery(gallery: GalleryViewController, imageURLAtIndexPath2 indexPath: NSIndexPath) -> NSURL {
@@ -48,16 +59,9 @@ class View2: GalleryViewController,GalleryDataSource {       //
     
     
     @IBAction func tapbackto(sender: UIBarButtonItem) {
-        
-        // 遷移するViewを定義する.このas!はswift1.2では as?だったかと。
+        // 遷移
         let firstViewController: View1 = (self.storyboard?.instantiateViewControllerWithIdentifier("View1") as? View1)!
-        // アニメーションを設定する.
-        //secondViewController.modalTransitionStyle = UIModalTransitionStyle.PartialCurl
-        // 値渡ししたい時 hoge -> piyo
-        //firstViewController.imageURLs = self.imageURLs
-        // Viewの移動する.
         self.presentViewController(firstViewController, animated: true, completion: nil)
-        
     }
     
     

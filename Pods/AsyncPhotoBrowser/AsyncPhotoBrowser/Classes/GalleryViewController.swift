@@ -9,6 +9,8 @@
 import UIKit
 import Cartography
 import FastImageCache
+import RealmSwift
+import SwiftyJSON
 
 /// The gallery data source protocol. Implement this protocol to supply custom data to the gallery.
 @objc public protocol GalleryDataSource {
@@ -42,6 +44,8 @@ import FastImageCache
     */
     func gallery(gallery: GalleryViewController, imageURLAtIndexPath indexPath: NSIndexPath) -> NSURL
     
+    func gallery(gallery: GalleryViewController, getarray nsarray: Int) -> NSMutableArray
+    
     //func gallery(gallery: GalleryViewController, imageURLAtIndexPath2 indexPath: NSIndexPath) -> NSURL
 }
 
@@ -54,7 +58,9 @@ public class GalleryViewController: UIViewController, UICollectionViewDataSource
     
     let collectionViewCellIdentifier = "imageCell"
     var collectionView: UICollectionView!
+    
     public var dataSource: GalleryDataSource?
+    //public var arrayy: NSArray?
     
     /** 
         The cell sizing mode: Fixed number of items per row or fixed size.
@@ -91,7 +97,145 @@ public class GalleryViewController: UIViewController, UICollectionViewDataSource
         super.viewDidLoad()
         setup()
         
+        do {
+        //3.初期化したいので、まずRealmを全部削除
+        let realm = try Realm()
+        realm.beginWrite()
+        realm.deleteAll()
+        try realm.commitWrite()
+        } catch {
+            print("これにん\(error)")
+        }
+        
+        var arrayy: NSMutableArray? = dataSource?.gallery(self,getarray: 1)
+        //print("サクセース\(arrayy)")
+        
+        var iii:Int = 0
+    
+        //Optional Bindingで全ての要素が特定のObjectかどうかを判定
+        if let arrss:NSArray = arrayy {
+            print("これじ")
+            //全ての要素がnsarray確定
+            for aa in arrss{
+                print("これひ\(aa)")
+                do {
+                    let aa2 = aa[2].stringValue
+                    let aa0 = aa[0].stringValue
+                    let aa3 = aa[3].stringValue
+                    let aa4 = aa[4].stringValue  //intValue
+                    let aa1 = aa[1].stringValue
+                    print("これひひ\(aa[2]) \(aa[0]) \(aa[3]) \(aa[4]) \(aa[1])")
+                    
+                    let realm = try! Realm()
+                    try! realm.write() {
+                        var entryy = realm.create(Entry.self, value: [
+                            "id": aa[2],
+                            "url_n": aa[0],
+                            "ownername": aa[3],
+                            "page": aa[4],     //aa[4](これはstring?)
+                            "ownerurl": aa[1],
+                            //"ownerimage": nil,
+                            //"comments": nil,
+                            "favorites": 0
+                            ],update: true)
+                        
+                        // Reading from or modifying a `RealmOptional` is done via the `value` property
+                        //entryy.page.value=
+                    }
+                    //let realm = try Realm()
+                    
+                    
+                    /*try! realm.write() { //realm.beginWrite()
+                    //同じ'page'のものがあればUpdate、なければInsertするメソッド
+                    //realm.add(entry!,update: true)
+                    realm.create(Entry.self, value: [
+                        "id": "111",
+                        "url_n": "afg",
+                        "ownername": "aa",
+                        "page": iii,     //iii
+                        "ownerurl": "sff"
+                        ], update:true)
+                    //try realm.commitWrite()
+                    }*/
+                    
+                    iii++
+                    
+                    //let records:Results = realm.objects(Entry)
+                    //print("これは...\(records)")
+
+                } catch {
+                    print("これに\(error)")
+                }
+            }
+        }
+        
+        /*for aa in arrayy? as NSArray{
+            do {
+                //var aa4 = aa[4].intValue
+                let realm = try Realm()
+                realm.beginWrite()
+                //同じ'page'のものがあればUpdate、なければInsertするメソッド
+                //realm.add(entry!,update: true)
+                realm.create(Entry.self, value: [
+                    "id": aa[2],
+                    "url_n": aa[0],
+                    "ownername": aa[3],
+                    "page": iii,      //aa4
+                    "ownerurl": aa[1]
+                    ], update:true)
+                try realm.commitWrite()
+                let records:Results = realm.objects(Entry)
+                print("これは...\(records)")
+                iii++
+                
+            } catch {
+                print("これに\(error)")
+            }
+        }*/
     }
+    
+        /*
+        //ここで最初のrealm操作をする(以下バックグラウンドで非同期実行？)
+        NSUserDefaults *ud = [NSUserDefaults standardUserDefaults];
+        NSData *dataa = [ud objectForKey:@"aitee"];
+        NSMutableArray* arrayy = [NSKeyedUnarchiver unarchiveObjectWithData:dataa];
+      
+        // AppDelegateクラスのメンバー変数を参照する
+        var app:AppDelegate = (UIApplication.sharedApplication().delegate as AppDelegate)
+        println(app.userId)
+        
+    
+        
+        //arrayyはjsonの集合体(0~499まで)
+        
+        var str1 = subJson["farm"].stringValue
+        var str2 = subJson["server"].stringValue
+        var str3 = subJson["owner"].stringValue
+        var ownerurl = "http://farm\(str1).staticflickr.com/\(str2)/buddyicons/\(str3).jpg"
+        let entry : Entry? = Mapper<Entry>().map(subJson.dictionaryObject)
+        
+        do {
+            //3.初期化したいので、まずRealmを全部削除
+            let realm = try Realm()
+            realm.beginWrite()
+            realm.deleteAll()
+            try realm.commitWrite()
+            
+            //let realm = try Realm()
+            realm.beginWrite()
+            //同じ'page'のものがあればUpdate、なければInsertするメソッド
+            //realm.add(entry!,update: true)
+            realm.create(Entry.self, value: [
+                "id": subJson["id"].stringValue,
+                "url_n": url_n,
+                "ownername": subJson["ownername"].stringValue,
+                "page": index,
+                "ownerurl": ownerurl
+                ], update:true)
+            try realm.commitWrite()
+            
+        } catch {
+        }*/
     
     private func setup() {
         collectionView = UICollectionView(frame: CGRectZero, collectionViewLayout: collectionViewLayout)
@@ -110,7 +254,7 @@ public class GalleryViewController: UIViewController, UICollectionViewDataSource
             c.bottom == c.superview!.bottom
         }
     }
-
+    
     public override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -160,7 +304,7 @@ public class GalleryViewController: UIViewController, UICollectionViewDataSource
     public func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return dataSource?.gallery(self, numberOfImagesInSection: section) ?? 0
     }
-
+    
     public func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCellWithReuseIdentifier(collectionViewCellIdentifier, forIndexPath: indexPath) as! GalleryImageCell
         
