@@ -8,21 +8,20 @@
 
 import Foundation
 import RealmSwift
-import Realm
 import ObjectMapper
 
 class Entry: Object {
     
-    dynamic var id:NSString?
-    dynamic var url_n:NSString? //  = ""
-    dynamic var ownername:NSString?  // = ""
+    dynamic var id = ""
+    dynamic var url_n = ""
+    dynamic var ownername = ""
     
-    dynamic var page:NSString?   // = ""
-    //var page = RealmOptional<Int>()
-    dynamic var ownerurl:NSString?   // = ""
-    //dynamic var ownerimage: NSData?
-    //dynamic var comments = RLMArray(objectClassName: "Comments")
-    dynamic var favorites = 0   // let age = RealmOptional<Int>()
+    dynamic var page:String?
+    dynamic var ownerurl = ""
+    //dynamic var ownerimage : NSData
+    //dynamic var ownerimage: NSData? = nil
+    //dynamic var comments = ""    //配列はダメ??
+    dynamic var favorites = 0
     
     //主キーの設定、2回目以降RESTでGETリクエストする場合以下のように更新する
     /*try! realm.write {
@@ -36,8 +35,18 @@ class Entry: Object {
         self.init()
         mapping(map)
     }
+    func mapping(map: Map) {
+        id            <- map["id"]
+        url_n   <-  map["url_n"]
+        ownername           <- map["ownername"]
+        
+        page         <- map["page"]
+        ownerurl  <- map["ownerurl"]
+        //comments         <- map["comments"]
+        favorites         <- map["favorites"]
+    }
 }
-
+/*
 // MARK: - ObjectMapper
 extension Entry : Mappable {
 
@@ -48,22 +57,7 @@ extension Entry : Mappable {
         
         page         <- map["page"]
         ownerurl  <- map["ownerurl"]
-        //ownerimage  <- map["ownerimage"]
-        //comments         <- map["comments"]
+        comments         <- map["comments"]
         favorites         <- map["favorites"]
     }
-}
-/*
-// Commentsクラス
-class Comments: RLMObject {
-    
-    //dynamic var comment:[String] = []   //配列
-    dynamic var name1:String = ""
-    dynamic var message1:String = ""
-    dynamic var name2:String = ""
-    dynamic var message2:String = ""
-    dynamic var name3:String = ""
-    dynamic var message3:String = ""
 }*/
-
-

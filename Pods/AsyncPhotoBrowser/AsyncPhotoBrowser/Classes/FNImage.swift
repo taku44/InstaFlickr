@@ -37,7 +37,6 @@ public class FNImage: NSObject, FICEntity {
     var page: Int?
     var sourceImage: UIImage?
     var thumbnail: UIImage?
-    var thumbnail2: UIImage?
     var delegate: FNImageDelegate?
     
     private var reloadRequest: Request?
@@ -183,12 +182,3 @@ extension UIImage {
         return squareImage;
     }
 }
-
-extension UILabel {
-   func squareImage() -> UILabel {
-    var squareImage: UILabel!
-    return squareImage
-    }
-}
-
-
