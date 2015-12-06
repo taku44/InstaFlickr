@@ -269,7 +269,7 @@ public class GalleryBrowsePhotoViewController: UIViewController, UIScrollViewDel
                     print("これは\(v)")
                 }*/
                 let item = records[0] as? Entry
-                let item2 = records[0] as? Entry2
+                //let item2 = records2[0] as? Entry2
                 //let records3 = Entry(forPrimaryKey: page)  //主キーで検索
                 
                 let s1:NSString = (item?.id)!
@@ -278,10 +278,10 @@ public class GalleryBrowsePhotoViewController: UIViewController, UIScrollViewDel
                 //let s6 = item?.favorites  //いいね数
                
                 //let x1 = item2?.id
-                let x3 = item2?.ownerimage  //投稿者のプロフ画像(NSData)
+                //let x3 = item2?.ownerimage  //投稿者のプロフ画像(NSData)
                 //let x5 = item2?.comments   //コメント(名前:メッセージ)x3(最初の)
 
-                if(x3 == nil){
+                if(records2.count == 0){
                     //if(s5 == nil){
                     
                     //初期化
@@ -445,6 +445,7 @@ public class GalleryBrowsePhotoViewController: UIViewController, UIScrollViewDel
                                                     //print("ぷりーんん\(cc)")
                                                     if(num==1){
                                                     try! realm.write() {
+                                                        var ooc:String = " : "
                                                         var sx:String = self.authors[0]
                                                         var sxx:String = self.messages[0]
                                                         var entryy2 = realm.create(Entry2.self, value: [
@@ -455,12 +456,14 @@ public class GalleryBrowsePhotoViewController: UIViewController, UIScrollViewDel
                                                             ],update: true)
                                                         
                                                         //コメント渡す
-                                                        var s7:String = sx + sxx
+                                                        var s7:String = sx + ooc + sxx
+                                                        //var s7:String = sx + sxx
                                                     //var s7:String = "\(sx) : \(sxx)"
                                                         newPageView.comment1 = s7
                                                     }
                                                     }else if(num==2){
                                                         try! realm.write() {
+                                                        var ooc:String = " : "
                                                         var sx:String = self.authors[0]
                                                         var sxx:String = self.messages[0]
                                                         var sx2:String = self.authors[1]
@@ -473,13 +476,16 @@ public class GalleryBrowsePhotoViewController: UIViewController, UIScrollViewDel
                                                             "message2":sxx2,
                                                             "page": pagee   //主キー
                                                             ],update: true)
-                                                            var s7:String = "\(sx) : \(sxx)"
+                                                            var s7:String = sx + ooc + sxx
+                                                            //var s7:String = "\(sx) : \(sxx)"
                                                             newPageView.comment1 = s7
-                                                            var s8:String = "\(sx2) : \(sxx2)"
+                                                            var s8:String = sx2 + ooc + sxx2
+                                                            //var s8:String = "\(sx2) : \(sxx2)"
                                                             newPageView.comment2 = s8
                                                         }
                                                     }else if(num >= 3){
                                                         try! realm.write() {
+                                                        var ooc:String = " : "
                                                         var sx:String = self.authors[0]
                                                         var sxx:String = self.messages[0]
                                                         var sx2:String = self.authors[1]
@@ -496,13 +502,14 @@ public class GalleryBrowsePhotoViewController: UIViewController, UIScrollViewDel
                                                             "message3":sxx3,
                                                             "page": pagee   //主キー
                                                             ],update: true)
-                                                            var s7:String = sx + sxx
+                                                            
+                                                            var s7:String = sx + ooc + sxx
                                                             //var s7:String = "\(sx) : \(sxx)"
                                                             newPageView.comment1 = s7
-                                                            var s8:String = sx2 + sxx2
+                                                            var s8:String = sx2 + ooc + sxx2
                                                             //var s8:String = "\(sx2) : \(sxx2)"
                                                             newPageView.comment2 = s8
-                                                            var s9:String = sx3 + sxx3
+                                                            var s9:String = sx3 + ooc + sxx3
                                                             //var s9:String = "\(sx3) : \(sxx3)"
                                                             newPageView.comment3 = s9
                                                             print("ぷりーん")
@@ -522,7 +529,6 @@ public class GalleryBrowsePhotoViewController: UIViewController, UIScrollViewDel
                                                    
                                                     //それぞれ必要な要素をnewPageView.に渡す
                                                     newPageView.profname = s2 as String //投稿者名前
-                                                    
                                                     let sss11="いいね数:"
                                                     let sss22=likes.stringValue
                                                     let str33:String = sss11 + sss22
@@ -549,11 +555,73 @@ public class GalleryBrowsePhotoViewController: UIViewController, UIScrollViewDel
                 
                     //}else{
                     //}
-                }else{
-                    print("それぞれ必要な要素をnewPageView.に渡す")
+                }else{  //ownerimageがある場合
+                    print("それぞれ必要な要素をRealmから取得し、newPageView.に渡す")
+                    let item2 = records2[0] as? Entry2
+                    let x3 = item2?.ownerimage  //投稿者のプロフ画像(NSData)
+                    //let item = records[0] as? Entry
+                    //let item2 = records[0] as? Entry2
+                    //let records3 = Entry(forPrimaryKey: page)  //主キーで検索
                     
+                    //let s1:NSString = (item?.id)!
+                    //let s2:NSString = (item?.ownername)!
+                    //let s4:NSString = (item?.ownerurl )!    //:String)
+                    let s6 = item?.favorites  //いいね数
                     
+                    //let x1 = item2?.id
+                    //let x3 = item2?.ownerimage  //投稿者のプロフ画像(NSData)
+                    let x55 = item2?.name1  //コメント(名前:メッセージ)x3(最初の)
+                    let x66 = item2?.name2
+                    let x77 = item2?.name3
+                    var ooc:String = " : "
                     
+                    //nsdata→uiimageにして渡す
+                    var uimage = x3.map({UIImage(data: $0)})
+                    newPageView.profimg = uimage!
+                    
+                    newPageView.profname = s2 as String //投稿者名前
+                    
+                    let ss00="いいね数:"
+                    //let ss001=s6.stringValue
+                    //let x : Int = 123
+                    let nn:Int = s6!
+                    let ss001 = String(nn)
+                    let strr3:String = ss00 + ss001
+                    newPageView.likestring =  strr3
+                    if(x55==nil){
+                          //コメントなし
+                    }else if(x66==nil){
+                        let x555:String = (item2?.name1)! as String
+                        let y55:String = item2?.message1 as! String
+                        var s7:String = x555 + ooc + y55
+                        newPageView.comment1 = s7
+                        
+                    }else if(x77==nil){
+                        let x555:String = (item2?.name1)! as String
+                        let y55:String = item2?.message1 as! String
+                        var s7:String = x555 + ooc + y55
+                        newPageView.comment1 = s7
+                        
+                        let x666:String = (item2?.name2)! as String
+                        let y66:String = item2?.message2 as! String
+                        var s8:String = x666 + ooc + y66
+                        newPageView.comment2 = s8
+                    }else{
+                        let x555:String = (item2?.name1)! as String
+                        let y55:String = item2?.message1 as! String
+                        var s7:String = x555 + ooc + y55
+                        newPageView.comment1 = s7
+                        
+                        let x666:String = (item2?.name2)! as String
+                        let y66:String = item2?.message2 as! String
+                        var s8:String = x666 + ooc + y66
+                        newPageView.comment2 = s8
+                        
+                        let x777:String = (item2?.name3)! as String
+                        let y77:String = item2?.message3 as! String
+                        var s9:String = x777 + ooc + y77
+                        newPageView.comment3 = s9
+                    }
                 }
             } catch {
                 print("これは7")
