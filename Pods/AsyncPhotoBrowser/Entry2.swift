@@ -76,6 +76,9 @@ extension Entry : Mappable {
 
 
 
+//dynamic var messages = RLMArray(objectClassName: "Messages")
+
+
 
 
 

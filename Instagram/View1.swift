@@ -18,7 +18,7 @@ class View1: UIViewController,UISearchBarDelegate{
     
     @IBOutlet var search: UISearchBar!
     
-    var imageURLs: [String] = []
+    var imageURLs: [String] = []    //ud保存のためlet array = ["1", "2", "3", "4"] as NSArray   かな?
     //var arrayy: NSMutableArray?
     var arrayy = NSMutableArray()
     
@@ -37,7 +37,7 @@ class View1: UIViewController,UISearchBarDelegate{
             "method"         : "flickr.photos.search",
             "api_key"        : "86997f23273f5a518b027e2c8c019b0f",
             "tags"           : search.text!,
-            "per_page"       : "100",
+            "per_page"       : "200",
             "format"         : "json",
             "nojsoncallback" : "1",
             "extras"         : "url_n,owner_name"
@@ -89,8 +89,23 @@ class View1: UIViewController,UISearchBarDelegate{
                     let aarray = [url_n,str4,str5,str6,str7]
                     
                     self.arrayy.addObject(aarray)
-             
-                    print("サブ2")
+                    
+                    let intStr2: String = String(arr.count-1)
+                    if(index == intStr2){
+                        
+                        
+                        //var lp = subJson["uploaddate"].stringValue
+                   
+                        let ud = NSUserDefaults.standardUserDefaults()
+                        //ud.setObject("searchmaxdate", forKey: lp)
+                        ud.setObject("searchtext", forKey: self.search.text!)
+                        ud.setObject(self.imageURLs, forKey: "lastimages")
+                        ud.synchronize()
+                        
+                        // キーidの値を削除
+                        //ud.removeObjectForKey("id")
+                    }
+                    
                     //(以下バックグラウンドで非同期実行？)
                     //let entry : Entry? = Mapper<Entry>().map(subJson.dictionaryObject)
                     /*do {
@@ -111,6 +126,7 @@ class View1: UIViewController,UISearchBarDelegate{
                     } catch {
                     }*/
                 }
+                
                 let storyboard = UIStoryboard(name: "Main", bundle: nil)
                 let vc = storyboard.instantiateViewControllerWithIdentifier("View2") as? View2
                 vc?.imageURLs = self.imageURLs

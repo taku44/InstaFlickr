@@ -24,7 +24,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let config = Realm.Configuration(
             // 新しいスキーマバージョンを設定します。以前のバージョンより大きくなければなりません。
             // （スキーマバージョンを設定したことがなければ、最初は0が設定されています）
-            schemaVersion: 5,
+            schemaVersion: 6,
             
             // マイグレーション処理を記述します。古いスキーマバージョンのRealmを開こうとすると
             // 自動的にマイグレーションが実行されます。

@@ -500,6 +500,8 @@
 					"$(inherited)",
 					"/Users/kobayashitakushi/Desktop/Instagram/parse-library-1.2.21/Bolts.framework",
 					"/Users/kobayashitakushi/Desktop/Instagram/parse-library-1.2.21/Parse.framework",
+					/Users/kobayashitakushi/Desktop/Instagram/Pods/RealmSwift,
+					/Users/kobayashitakushi/Desktop/Instagram/Pods/RealmSwift/RealmSwift,
 				);
 				INFOPLIST_FILE = Instagram/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.1;
@@ -509,9 +511,12 @@
 					"\"${PODS_ROOT}/Realm/core\"",
 					"/Users/kobayashitakushi/Desktop/Instagram/parse-library-1.2.21/Parse.framework",
 					"/Users/kobayashitakushi/Desktop/Instagram/parse-library-1.2.21/Bolts.framework",
+					/Users/kobayashitakushi/Desktop/Instagram/Pods/RealmSwift,
+					/Users/kobayashitakushi/Desktop/Instagram/Pods/RealmSwift/RealmSwift,
 				);
 				MACH_O_TYPE = mh_execute;
 				MODULEMAP_FILE = Instagram/module.modulemap;
+				ONLY_ACTIVE_ARCH = YES;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
@@ -540,6 +545,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_INCLUDE_PATHS = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "Instagram/Instagram-Bridging-Header.h";
+				VALID_ARCHS = "arm64 armv7s armv7";
 			};
 			name = Debug;
 		};
@@ -552,6 +558,8 @@
 					"$(inherited)",
 					"/Users/kobayashitakushi/Desktop/Instagram/parse-library-1.2.21/Bolts.framework",
 					"/Users/kobayashitakushi/Desktop/Instagram/parse-library-1.2.21/Parse.framework",
+					/Users/kobayashitakushi/Desktop/Instagram/Pods/RealmSwift,
+					/Users/kobayashitakushi/Desktop/Instagram/Pods/RealmSwift/RealmSwift,
 				);
 				INFOPLIST_FILE = Instagram/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.1;
@@ -561,9 +569,12 @@
 					"\"${PODS_ROOT}/Realm/core\"",
 					"/Users/kobayashitakushi/Desktop/Instagram/parse-library-1.2.21/Parse.framework",
 					"/Users/kobayashitakushi/Desktop/Instagram/parse-library-1.2.21/Bolts.framework",
+					/Users/kobayashitakushi/Desktop/Instagram/Pods/RealmSwift,
+					/Users/kobayashitakushi/Desktop/Instagram/Pods/RealmSwift/RealmSwift,
 				);
 				MACH_O_TYPE = mh_execute;
 				MODULEMAP_FILE = Instagram/module.modulemap;
+				ONLY_ACTIVE_ARCH = YES;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
@@ -592,6 +603,8 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_INCLUDE_PATHS = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "Instagram/Instagram-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				VALID_ARCHS = "arm64 armv7s armv7";
 			};
 			name = Release;
 		};

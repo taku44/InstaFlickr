@@ -13,6 +13,7 @@
 #import "MWPhotoBrowser.h"
 //#import "MBProgressHUD"
 
+#import <UIScrollView_InfiniteScroll/UIScrollView+InfiniteScroll.h>
 #import <MWPhotoBrowser/MWPhoto.h>
 #import <MWPhotoBrowser/MWPhotoBrowser.h>
 #import <MBProgressHUD/MBProgressHUD.h>

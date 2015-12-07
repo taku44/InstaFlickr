@@ -61,3 +61,10 @@ extension Entry : Mappable {
         favorites         <- map["favorites"]
     }
 }*/
+
+
+
+
+
+
+
