@@ -10,7 +10,7 @@ import UIKit
 import AsyncPhotoBrowser
 import SwiftyJSON
 
-class View2: GalleryViewController,GalleryDataSource {       //
+class View2: GalleryViewController,GalleryDataSource {
     
     @IBOutlet var backto: UIBarButtonItem!
     
