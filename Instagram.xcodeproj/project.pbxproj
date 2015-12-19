@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		50F7265CA9D0CD6D9E560B61 /* Pods.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CF04E32D0C943D9E11AE0576 /* Pods.framework */; };
+		792E82F31C1E4B7500423D3E /* circle.yml in Resources */ = {isa = PBXBuildFile; fileRef = 792E82F21C1E4B7500423D3E /* circle.yml */; };
 		795D30AE1C0C643C001783A4 /* View1.swift in Sources */ = {isa = PBXBuildFile; fileRef = 795D30AD1C0C643C001783A4 /* View1.swift */; };
 		795D30B61C0C6E33001783A4 /* Podfile in Resources */ = {isa = PBXBuildFile; fileRef = 795D30B51C0C6E33001783A4 /* Podfile */; };
 		795D30B81C0C6FAA001783A4 /* Parse.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 795D30B71C0C6FAA001783A4 /* Parse.framework */; };
@@ -41,6 +42,7 @@
 
 /* Begin PBXFileReference section */
 		15550D27F54057A56BF46E96 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
+		792E82F21C1E4B7500423D3E /* circle.yml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = circle.yml; path = Instagram/circle.yml; sourceTree = "<group>"; };
 		795D30AD1C0C643C001783A4 /* View1.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = View1.swift; sourceTree = "<group>"; };
 		795D30B51C0C6E33001783A4 /* Podfile */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Podfile; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		795D30B71C0C6FAA001783A4 /* Parse.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Parse.framework; path = "parse-library-1.2.21/Parse.framework"; sourceTree = "<group>"; };
@@ -115,6 +117,7 @@
 			isa = PBXGroup;
 			children = (
 				795D30B51C0C6E33001783A4 /* Podfile */,
+				792E82F21C1E4B7500423D3E /* circle.yml */,
 				79F80F6F1C0C52D800248735 /* Instagram */,
 				79F80F871C0C52D900248735 /* InstagramTests */,
 				79F80F921C0C52D900248735 /* InstagramUITests */,
@@ -276,6 +279,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				792E82F31C1E4B7500423D3E /* circle.yml in Resources */,
 				79F80F7E1C0C52D900248735 /* LaunchScreen.storyboard in Resources */,
 				79F80F7B1C0C52D900248735 /* Assets.xcassets in Resources */,
 				795D30B61C0C6E33001783A4 /* Podfile in Resources */,
