@@ -9,11 +9,13 @@
 /* Begin PBXBuildFile section */
 		50F7265CA9D0CD6D9E560B61 /* Pods.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CF04E32D0C943D9E11AE0576 /* Pods.framework */; };
 		792E82F31C1E4B7500423D3E /* circle.yml in Resources */ = {isa = PBXBuildFile; fileRef = 792E82F21C1E4B7500423D3E /* circle.yml */; };
+		7939644A1C769F2E00C415C8 /* UserdefaultManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 793964491C769F2E00C415C8 /* UserdefaultManager.swift */; };
 		795D30AE1C0C643C001783A4 /* View1.swift in Sources */ = {isa = PBXBuildFile; fileRef = 795D30AD1C0C643C001783A4 /* View1.swift */; };
 		795D30B61C0C6E33001783A4 /* Podfile in Resources */ = {isa = PBXBuildFile; fileRef = 795D30B51C0C6E33001783A4 /* Podfile */; };
 		795D30B81C0C6FAA001783A4 /* Parse.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 795D30B71C0C6FAA001783A4 /* Parse.framework */; };
 		795D30BB1C0C6FCD001783A4 /* Bolts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 795D30B91C0C6FCD001783A4 /* Bolts.framework */; };
 		7972C1001C10302400BA75B6 /* View2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7972C0FF1C10302400BA75B6 /* View2.swift */; };
+		799C52DF1C7653390024D3F0 /* ApiRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 799C52DE1C7653390024D3F0 /* ApiRequest.swift */; };
 		79F80F711C0C52D800248735 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79F80F701C0C52D800248735 /* AppDelegate.swift */; };
 		79F80F761C0C52D800248735 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 79F80F741C0C52D800248735 /* Main.storyboard */; };
 		79F80F791C0C52D900248735 /* Instagram.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 79F80F771C0C52D900248735 /* Instagram.xcdatamodeld */; };
@@ -43,12 +45,14 @@
 /* Begin PBXFileReference section */
 		15550D27F54057A56BF46E96 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 		792E82F21C1E4B7500423D3E /* circle.yml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = circle.yml; path = Instagram/circle.yml; sourceTree = "<group>"; };
+		793964491C769F2E00C415C8 /* UserdefaultManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserdefaultManager.swift; sourceTree = "<group>"; };
 		795D30AD1C0C643C001783A4 /* View1.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = View1.swift; sourceTree = "<group>"; };
 		795D30B51C0C6E33001783A4 /* Podfile */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Podfile; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		795D30B71C0C6FAA001783A4 /* Parse.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Parse.framework; path = "parse-library-1.2.21/Parse.framework"; sourceTree = "<group>"; };
 		795D30B91C0C6FCD001783A4 /* Bolts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Bolts.framework; path = "parse-library-1.2.21/Bolts.framework"; sourceTree = "<group>"; };
 		7969361F1C0C770100A88D39 /* Instagram-Bridging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Instagram-Bridging-Header.h"; sourceTree = "<group>"; };
 		7972C0FF1C10302400BA75B6 /* View2.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = View2.swift; sourceTree = "<group>"; };
+		799C52DE1C7653390024D3F0 /* ApiRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ApiRequest.swift; sourceTree = "<group>"; };
 		79F80F6D1C0C52D800248735 /* Instagram.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Instagram.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		79F80F701C0C52D800248735 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		79F80F751C0C52D800248735 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -145,6 +149,8 @@
 				79F80F701C0C52D800248735 /* AppDelegate.swift */,
 				795D30AD1C0C643C001783A4 /* View1.swift */,
 				7972C0FF1C10302400BA75B6 /* View2.swift */,
+				799C52DE1C7653390024D3F0 /* ApiRequest.swift */,
+				793964491C769F2E00C415C8 /* UserdefaultManager.swift */,
 				79F80F741C0C52D800248735 /* Main.storyboard */,
 				79F80F7A1C0C52D900248735 /* Assets.xcassets */,
 				79F80F7C1C0C52D900248735 /* LaunchScreen.storyboard */,
@@ -359,6 +365,8 @@
 				79F80F791C0C52D900248735 /* Instagram.xcdatamodeld in Sources */,
 				795D30AE1C0C643C001783A4 /* View1.swift in Sources */,
 				79F80F711C0C52D800248735 /* AppDelegate.swift in Sources */,
+				799C52DF1C7653390024D3F0 /* ApiRequest.swift in Sources */,
+				7939644A1C769F2E00C415C8 /* UserdefaultManager.swift in Sources */,
 				7972C1001C10302400BA75B6 /* View2.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

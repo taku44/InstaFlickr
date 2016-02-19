@@ -14,9 +14,7 @@ class View2: GalleryViewController,GalleryDataSource {
     
     @IBOutlet var backto: UIBarButtonItem!
     
-    //var photos : [MWPhoto]=[];
     var imageURLs: [String] = []
-    //var arrayy: NSMutableArray?
     var arrayy = NSMutableArray()
     
     override func awakeFromNib() {

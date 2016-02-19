@@ -7,20 +7,11 @@
 //
 
 import UIKit
-//import Parse
 import AsyncPhotoBrowser
-import Alamofire
-import SwiftyJSON
-import RealmSwift
-import ObjectMapper
 
 class View1: UIViewController,UISearchBarDelegate{
     
     @IBOutlet var search: UISearchBar!
-    
-    var imageURLs: [String] = []    //ud保存のためlet array = ["1", "2", "3", "4"] as NSArray   かな?
-    //var arrayy: NSMutableArray?
-    var arrayy = NSMutableArray()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -29,130 +20,40 @@ class View1: UIViewController,UISearchBarDelegate{
     }
     
     func searchBarSearchButtonClicked( searchBar: UISearchBar){
-        print("button tapped!")
-   
-      //タグで検索できるように
-      //とりあえず100件検索？(あとはスクロールする度に100件検索)
-        let parameters :Dictionary = [
-            "method"         : "flickr.photos.search",
-            "api_key"        : "86997f23273f5a518b027e2c8c019b0f",
-            "tags"           : search.text!,
-            "per_page"       : "200",
-            "format"         : "json",
-            "nojsoncallback" : "1",
-            "extras"         : "url_n,owner_name"
-        ]
-        /*Alamofire.request(.GET, "", parameters: parameters, encoding: ParameterEncoding.URL).responseJSON { response in
-            
-            switch response.result {
-            case .Success(let data):
-                let json = JSON(data)
-                let name = json["name"].string
-            case .Failure(let error):
-                print("Request failed with error: \(error)")
-            }
-        }*/
+        print("search button tapped!")
         
-        Alamofire.request(.GET,"https://api.flickr.com/services/rest/",parameters:parameters).responseJSON { response in
-        do {
-        switch response.result {
-            case .Success(let data):
-            if let value = response.result.value {
-                let json = JSON(value)
-                print("JSON: \(json)")
-                var arr = json["photos"]["photo"]
-                
-                //3.初期化したいので、まずRealmを全部削除
-                /*let realm = try Realm()
-                realm.beginWrite()
-                realm.deleteAll()
-                try realm.commitWrite()*/
-                
-                //var aarray: [String] = []
-                
-                //The `index` is 0..<json.count's string value
-                for (index,subJson):(String, JSON) in arr {
-                    print("サブJSON: \(subJson)")
-                    let url_n = subJson["url_n"].stringValue
-                    self.imageURLs.append(url_n)
-    
-                    let str1 = subJson["farm"].stringValue
-                    let str2 = subJson["server"].stringValue
-                    let str3 = subJson["owner"].stringValue
-                    let str4 = "http://farm\(str1).staticflickr.com/\(str2)/buddyicons/\(str3).jpg"
-                    
-                    let str5 = subJson["id"].stringValue
-                    let str6 = subJson["ownername"].stringValue
-                    let str7 = index
-                    
-                    //これら5つ(string)をnsarrayとしてGarallyviewに渡す
-                    let aarray = [url_n,str4,str5,str6,str7]
-                    
-                    self.arrayy.addObject(aarray)
-                    
-                    let intStr2: String = String(arr.count-1)
-                    if(index == intStr2){
-                        
-                        
-                        //var lp = subJson["uploaddate"].stringValue
-                   
-                        let ud = NSUserDefaults.standardUserDefaults()
-                        //ud.setObject("searchmaxdate", forKey: lp)
-                        ud.setObject("searchtext", forKey: self.search.text!)
-                        ud.setObject(self.imageURLs, forKey: "lastimages")
-                        ud.synchronize()
-                        
-                        // キーidの値を削除
-                        //ud.removeObjectForKey("id")
-                    }
-                    
-                    //(以下バックグラウンドで非同期実行？)
-                    //let entry : Entry? = Mapper<Entry>().map(subJson.dictionaryObject)
-                    /*do {
-                        
-                        //let realm = try Realm()
-                        realm.beginWrite()
-                        //同じ'page'のものがあればUpdate、なければInsertするメソッド
-                        //realm.add(entry!,update: true)
-                        realm.create(Entry.self, value: [
-                            "id": subJson["id"].stringValue,
-                            "url_n": url_n,
-                            "ownername": subJson["ownername"].stringValue,
-                            "page": index,
-                            "ownerurl": ownerurl
-                            ], update:true)
-                        try realm.commitWrite()
-                        
-                    } catch {
-                    }*/
-                }
-                
-                let storyboard = UIStoryboard(name: "Main", bundle: nil)
-                let vc = storyboard.instantiateViewControllerWithIdentifier("View2") as? View2
-                vc?.imageURLs = self.imageURLs
-                vc?.arrayy = self.arrayy
-                self.presentViewController(vc!, animated: true, completion: nil)
-                
-                /*
-                //let storyboard = self.storyboard  //UIStoryboard(name: "Main.storyboard", bundle: nil)
-                let vc = self.storyboard?.instantiateViewControllerWithIdentifier("View2") as? View2
-                vc?.imageURLs = self.imageURLs
-                vc?.arrayy = self.arrayy
-                self.presentViewController(vc!, animated: true, completion: nil)*/
-                print("サブ1")
-            }
+        let apiRequest = ApiRequest(tags:search.text!)
+        
+        apiRequest.doGetRequest()
+        
+        let delayTime = dispatch_time(DISPATCH_TIME_NOW, Int64(3 * Double(NSEC_PER_SEC)))
+        dispatch_after(delayTime, dispatch_get_main_queue()) {
+         
+            let aa = apiRequest.setarray()
             
-            case .Failure(let error):
-            let alert = UIAlertView()
-            alert.title = ""
-            alert.message = "エラーが発生しました"
-            alert.addButtonWithTitle("了解")
-            alert.show()
-            }
-          }catch{
-            print("error");
-          }
+            self.saveUserdefault(self.search.text!,imageURLs: aa.imageURLs)
+            
+            self.gotoView2(aa.imageURLs,arrayy: aa.arrayy)
         }
+    }
+    
+    func saveUserdefault(tags:String,imageURLs:[String]){
+        
+        let userdefaultManager = UserdefaultManager()
+        userdefaultManager.setObject(tags,imageURLs: imageURLs)
+        
+    }
+    
+    func gotoView2(imageURLs:[String],arrayy:NSMutableArray){
+        
+        print("検証1: \(imageURLs)")
+        
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let vc = storyboard.instantiateViewControllerWithIdentifier("View2") as? View2
+        vc?.imageURLs = imageURLs
+        vc?.arrayy = arrayy
+        self.presentViewController(vc!, animated: true, completion: nil)
+        
     }
 }
 
