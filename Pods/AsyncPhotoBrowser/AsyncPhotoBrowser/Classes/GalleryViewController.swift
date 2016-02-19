@@ -96,83 +96,29 @@ public class GalleryViewController: UIViewController, UICollectionViewDataSource
     
     
     public override func viewDidLoad() {
+        
         super.viewDidLoad()
-        print("初期セット")
+
         setup()
-        do {
-            //3.初期化したいので、まずRealmを全部削除
-            let realm = try Realm()
-            realm.beginWrite()
-            //migration.deleteData(Entry.className()) // If needed
-            realm.deleteAll()
-            try realm.commitWrite()
-        } catch {
-            print("これにん\(error)")
-        }
+        
+        //3.初期化したいので
+        let realmManager = RealmManager()
+        realmManager.removeAll()
         
         var arrayy: NSMutableArray? = dataSource?.gallery(self,getarray: 1)
-        //print("サクセース\(arrayy)")
-        
-        var iii:Int = 0
+        //var iii:Int = 0
         
         //Optional Bindingで全ての要素が特定のObjectかどうかを判定
         if let arrss:NSArray = arrayy {
-            print("これじ")
-            
+    
             //全ての要素がnsarray確定
             for aa in arrss{
-                print("これひ\(aa)")
-                do {
-                    let aa2 = aa[2].stringValue
-                    let aa0 = aa[0].stringValue
-                    let aa3 = aa[3].stringValue
-                    let aa4 = aa[4].stringValue  //intValue
-                    let aa1 = aa[1].stringValue
-                    print("これひひ\(aa[2]) \(aa[0]) \(aa[3]) \(aa[4]) \(aa[1])")
-                    
-                    let realm = try! Realm()
-                    try! realm.write() {
-                        var entryy = realm.create(Entry.self, value: [
-                            "id": aa[2],
-                            "url_n": aa[0],
-                            "ownername": aa[3],
-                            "page": aa[4],     //aa[4](これはstring?)
-                            "ownerurl": aa[1],
-                            //"ownerimage": nil,
-                            //"comments": nil,
-                            "favorites": 0
-                            ],update: true)
-                        
-                        // Reading from or modifying a `RealmOptional` is done via the `value` property
-                        //entryy.page.value=
-                    }
-                    //let realm = try Realm()
-                    
-                    
-                    /*try! realm.write() { //realm.beginWrite()
-                    //同じ'page'のものがあればUpdate、なければInsertするメソッド
-                    //realm.add(entry!,update: true)
-                    realm.create(Entry.self, value: [
-                    "id": "111",
-                    "url_n": "afg",
-                    "ownername": "aa",
-                    "page": iii,     //iii
-                    "ownerurl": "sff"
-                    ], update:true)
-                    //try realm.commitWrite()
-                    }*/
-                    
-                    iii++
-                    
-                    //let records:Results = realm.objects(Entry)
-                    //print("これは...\(records)")
-                    
-                } catch {
-                    print("これに\(error)")
-                }
+                
+                let realmManager2 = RealmManager()
+                realmManager2.writeIds(aa as! NSArray)
             }
         }
-        
+    }
         /*for aa in arrayy? as NSArray{
         do {
         //var aa4 = aa[4].intValue
@@ -196,7 +142,7 @@ public class GalleryViewController: UIViewController, UICollectionViewDataSource
         print("これに\(error)")
         }
         }*/
-    }
+    
     
     /*
     //ここで最初のrealm操作をする(以下バックグラウンドで非同期実行？)
