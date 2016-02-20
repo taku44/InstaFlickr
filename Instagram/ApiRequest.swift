@@ -12,7 +12,9 @@ import SwiftyJSON
 
 class ApiRequest{
     
-    var arr:JSON = nil;
+    let api_key:String = "86997f23273f5a518b027e2c8c019b0f" 
+    
+    var photosJson:JSON = nil;
     var tags:String
     var param  = [String: String]()
     
@@ -22,7 +24,7 @@ class ApiRequest{
         self.tags=tags;
         self.param = [                                  //=searchparamに?
             "method"         : "flickr.photos.search",
-            "api_key"        : "86997f23273f5a518b027e2c8c019b0f",
+            "api_key"        : api_key,
             "tags"           : tags,
             "per_page"       : "200",
             "format"         : "json",
@@ -33,7 +35,7 @@ class ApiRequest{
   
     func doGetRequest(){
         
-        var arr:JSON = nil;
+        var photosJson:JSON = nil;
     
         Alamofire.request(.GET,"https://api.flickr.com/services/rest/",parameters:self.param).responseJSON { response in
         do {
@@ -42,8 +44,8 @@ class ApiRequest{
                 if let value = response.result.value {
                 let json = JSON(value)
                 print("JSON: \(json)")
-                arr = json["photos"]["photo"]
-                self.arr=arr;
+                photosJson = json["photos"]["photo"]
+                self.photosJson = photosJson;
                 }
             case .Failure(let error):
                 let alert = UIAlertView()
@@ -64,31 +66,25 @@ class ApiRequest{
         var arrayy = NSMutableArray()
         
         //The `index` is 0..<json.count's string value
-        for (index,subJson):(String, JSON) in self.arr {
+        for (index,subJson):(String, JSON) in self.photosJson {
             print("サブJSON: \(subJson)")
             let url_n = subJson["url_n"].stringValue
             imageURLs.append(url_n)
             
-            let str1 = subJson["farm"].stringValue
-            let str2 = subJson["server"].stringValue
-            let str3 = subJson["owner"].stringValue
-            let str4 = "http://farm\(str1).staticflickr.com/\(str2)/buddyicons/\(str3).jpg"
+            let farmStr = subJson["farm"].stringValue
+            let serverStr = subJson["server"].stringValue
+            let ownerStr = subJson["owner"].stringValue
+            let ownerIconUrl = "http://farm\(farmStr).staticflickr.com/\(serverStr)/buddyicons/\(ownerStr).jpg"
             
-            let str5 = subJson["id"].stringValue
-            let str6 = subJson["ownername"].stringValue
-            let str7 = index
+            let idStr = subJson["id"].stringValue
+            let ownernameStr = subJson["ownername"].stringValue
             
-            let aarray = [url_n,str4,str5,str6,str7]
-            arrayy.addObject(aarray)
-            
-            
-            /*let intStr2: String = String(arr.count-1)
-            if(index == intStr2){
-            
-            }*/
+            arrayy.addObject([url_n,ownerIconUrl,idStr,ownernameStr,index])
         }
         
         return(imageURLs,arrayy)
     }
 }
+
+
 

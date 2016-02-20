@@ -11,7 +11,6 @@ import SwiftyJSON
 
 class RealmManager{
     
-    //let realm = try Realm()
     var item:Entry?
     var item2:Entry2?
     
@@ -21,16 +20,16 @@ class RealmManager{
         self.item2=nil;
     }
     
-    func writeIds(aa:NSArray){   //(aa2,aa0,aa3:String,aa4:String,aa1:String)
+    func writeIds(ids:NSArray){   //(aa2,aa0,aa3:String,aa4:String,aa1:String)
         do {
             let realm = try! Realm()
             try! realm.write() {
                 var entryy = realm.create(Entry.self, value: [
-                    "id": aa[2],
-                    "url_n": aa[0],
-                    "ownername": aa[3],
-                    "page": aa[4],     //.stringValueとするとnilバグになる
-                    "ownerurl": aa[1],
+                    "id": ids[2],
+                    "url_n": ids[0],
+                    "ownername": ids[3],
+                    "page": ids[4],     //.stringValueとするとnilバグになる
+                    "ownerurl": ids[1],
                     //"ownerimage": nil,
                     //"comments": nil,
                     "favorites": 0
@@ -55,16 +54,16 @@ class RealmManager{
     
     
     
-    func checkIfRealmHasData(pagee:String)->Bool{
+    func checkIfRealmHasData(pageStr:String)->Bool{
         
         var realmHasData:Bool?=nil;
         
         do{
             let realm = try Realm()
-            let records:Results = realm.objects(Entry).filter("page == '\(pagee)'")
-            let records2:Results = realm.objects(Entry2).filter("page == '\(pagee)'")  //\(pagee)
+            let records:Results = realm.objects(Entry).filter("page == '\(pageStr)'")
+            let records2:Results = realm.objects(Entry2).filter("page == '\(pageStr)'") 
             print("これは..\(records)")
-            print("これは..\(records2)")
+            print("これは...\(records2)")
             
             let item = records[0] as? Entry
             
@@ -75,17 +74,13 @@ class RealmManager{
             
             self.item=item!
             
-            
             if(records2.count == 0){
                 
                 realmHasData=false;
-              
             }else{
                 
                 realmHasData=true;
-          
             }
-            
         } catch {
             print("\(error)")
         }
@@ -110,17 +105,13 @@ class RealmManager{
     
     func getPhotoFavoritesNum()->Int{
         
-        //let nn:Int =
         return (self.item?.favorites)!;
     }
-    
-    
     
     func getPhotoOwnerImage()->UIImage?{
         
         let img=self.item2?.ownerimage.map({UIImage(data: $0)})
         return img!;
-        
     }
     
     func getPhotoCommenterName()->NSMutableArray{
@@ -195,8 +186,7 @@ class RealmManager{
         return commenterMessageArray;
     }
     
-    
-    func savePhotoCommentsAndOwnerImg(names:NSMutableArray,messages:NSMutableArray,imgdata:NSData,pagee:String){
+    func savePhotoCommentsAndOwnerImg(names:NSMutableArray,messages:NSMutableArray,imgdata:NSData,pageStr:String){
         
         if(names.count==0){
             do {
@@ -204,7 +194,7 @@ class RealmManager{
                 try! realm.write() {
                     var entryy2 = realm.create(Entry2.self, value: [
                         "ownerimage": imgdata,
-                        "page": pagee
+                        "page": pageStr
                         ],update: true)
                 }
             } catch {
@@ -219,7 +209,7 @@ class RealmManager{
                     "ownerimage": imgdata,
                     "name1": names[0],
                     "message1":messages[0],
-                    "page": pagee   //主キー
+                    "page": pageStr   //主キー
                     ],update: true)
                 }
             } catch {
@@ -235,7 +225,7 @@ class RealmManager{
                     "message1":messages[0],
                     "name2": names[1],
                     "message2":messages[1],
-                    "page": pagee
+                    "page": pageStr
                     ],update: true)
                 }
             } catch {
@@ -253,7 +243,7 @@ class RealmManager{
                         "message2":messages[1],
                         "name3": names[2],
                         "message3":messages[2],
-                        "page": pagee
+                        "page": pageStr
                         ],update: true)
                 }
             } catch {
@@ -263,13 +253,13 @@ class RealmManager{
         
     }
 
-    func savePhotoFavoritesNum(pagee:String,favorites:Int){
+    func savePhotoFavoritesNum(pageStr:String,favorites:Int){
     
         do {
             let realm = try! Realm()
             try! realm.write() {
                 var entryy = realm.create(Entry.self, value: [
-                    "page": pagee,  
+                    "page": pageStr,
                     "favorites": favorites
                     ],update: true)
             }

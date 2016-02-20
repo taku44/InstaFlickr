@@ -1,5 +1,5 @@
 //
-//  View1.swift
+//  SearchViewController.swift
 //  Instagram
 //
 //  Created by 小林 卓司 on 2015/11/30.
@@ -9,7 +9,7 @@
 import UIKit
 import AsyncPhotoBrowser
 
-class View1: UIViewController,UISearchBarDelegate{
+class SearchViewController: UIViewController,UISearchBarDelegate{
     
     @IBOutlet var search: UISearchBar!
     
@@ -29,11 +29,11 @@ class View1: UIViewController,UISearchBarDelegate{
         let delayTime = dispatch_time(DISPATCH_TIME_NOW, Int64(3 * Double(NSEC_PER_SEC)))
         dispatch_after(delayTime, dispatch_get_main_queue()) {
          
-            let aa = apiRequest.setarray()
+            let arrays = apiRequest.setarray()
             
-            self.saveUserdefault(self.search.text!,imageURLs: aa.imageURLs)
+            self.saveUserdefault(self.search.text!,imageURLs: arrays.imageURLs)
             
-            self.gotoView2(aa.imageURLs,arrayy: aa.arrayy)
+            self.gotoView2(arrays.imageURLs,arrayy: arrays.arrayy)
         }
     }
     
@@ -49,7 +49,7 @@ class View1: UIViewController,UISearchBarDelegate{
         print("検証1: \(imageURLs)")
         
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        let vc = storyboard.instantiateViewControllerWithIdentifier("View2") as? View2
+        let vc = storyboard.instantiateViewControllerWithIdentifier("PhotoDetailViewController") as? PhotoDetailViewController
         vc?.imageURLs = imageURLs
         vc?.arrayy = arrayy
         self.presentViewController(vc!, animated: true, completion: nil)
@@ -136,11 +136,4 @@ class View1: UIViewController,UISearchBarDelegate{
         }
    }*/
     
-    /*override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        
-            var View2 = segue.destinationViewController as! View2
-            View2.imageURLs = imageURLs
-    
-    }
-}*/
 

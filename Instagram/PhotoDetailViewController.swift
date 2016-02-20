@@ -1,5 +1,5 @@
 //
-//  View2.swift
+//  PhotoDetailViewController.swift
 //  Instagram
 //
 //  Created by 小林 卓司 on 2015/12/03.
@@ -10,7 +10,7 @@ import UIKit
 import AsyncPhotoBrowser
 import SwiftyJSON
 
-class View2: GalleryViewController,GalleryDataSource {
+class PhotoDetailViewController: GalleryViewController,GalleryDataSource {
     
     @IBOutlet var backto: UIBarButtonItem!
     
@@ -58,7 +58,7 @@ class View2: GalleryViewController,GalleryDataSource {
     
     @IBAction func tapbackto(sender: UIBarButtonItem) {
         // 遷移
-        let firstViewController: View1 = (self.storyboard?.instantiateViewControllerWithIdentifier("View1") as? View1)!
+        let firstViewController: SearchViewController = (self.storyboard?.instantiateViewControllerWithIdentifier("SearchViewController") as? SearchViewController)!
         self.presentViewController(firstViewController, animated: true, completion: nil)
     }
     

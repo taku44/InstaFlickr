@@ -111,14 +111,14 @@ class GalleryBrowserPageView: UIView, FNImageDelegate, UIScrollViewDelegate {
             
         }
     }
-    var likestring: NSString {
+    var favoritesNum: NSString {
         get {
-            return likestringView.text
+            return favoritesNumView.text
         }
         set(newlabel) {
-            likestringView.text = newlabel as String
-            likestringView.frame = CGRectMake(270, 500, 50, 50)
-            likestringView.textColor = UIColor.blueColor();////文字色
+            favoritesNumView.text = newlabel as String
+            favoritesNumView.frame = CGRectMake(270, 500, 50, 50)
+            favoritesNumView.textColor = UIColor.blueColor();////文字色
         }
     }
     var comment1: NSString {
@@ -173,7 +173,7 @@ class GalleryBrowserPageView: UIView, FNImageDelegate, UIScrollViewDelegate {
         scrollView.addSubview(self.imageView)
         scrollView.addSubview(self.profimgView)
         scrollView.addSubview(self.profnameView)
-        scrollView.addSubview(self.likestringView)
+        scrollView.addSubview(self.favoritesNumView)
         scrollView.addSubview(self.commentView1)
         scrollView.addSubview(self.commentView2)
         scrollView.addSubview(self.commentView3)
@@ -210,7 +210,7 @@ class GalleryBrowserPageView: UIView, FNImageDelegate, UIScrollViewDelegate {
         return tempImageView
     }()
     
-    lazy var likestringView: UITextView = {
+    lazy var favoritesNumView: UITextView = {
         let tempImageView = UITextView()
         tempImageView.contentMode = .ScaleAspectFit
         tempImageView.backgroundColor = UIColor.grayColor()

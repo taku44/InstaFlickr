@@ -71,8 +71,8 @@ public class GalleryBrowsePhotoViewController: UIViewController, UIScrollViewDel
     public override func viewDidLoad() {
         super.viewDidLoad()
         commonSetup()
-        
-        
+    }
+    
         //https://api.instagram.com/v1/tags/a/media/recent
         //"scope":"public_content"
         //https://api.instagram.com/v1/self/media/recent
@@ -93,8 +93,7 @@ public class GalleryBrowsePhotoViewController: UIViewController, UIScrollViewDel
         print("JSON: \(JSON)")
         }
         }*/
-        
-    }
+    
     
     public override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -155,8 +154,7 @@ public class GalleryBrowsePhotoViewController: UIViewController, UIScrollViewDel
         }
         
         if pageViews[page] != nil {
-            // Do nothing. The view is already loaded.
-            print("ろおどど\(page)")
+            print("The view is already loaded.\(page)")
         } else {
             print("ろおどぉ\(page)")
             var frame = scrollView.bounds
@@ -187,10 +185,10 @@ public class GalleryBrowsePhotoViewController: UIViewController, UIScrollViewDel
             newPageView.imageEntity = imageEntity
             newPageView.image = imageEntity.sourceImage ?? imageEntity.thumbnail
             
-            let pagee = String(page)
+            let pageStr = String(page)
 
             let realmManager = RealmManager()
-            let realmHasData = realmManager.checkIfRealmHasData(pagee)
+            let realmHasData = realmManager.checkIfRealmHasData(pageStr)
             
             if(realmHasData==false){  //初めての場合
 
@@ -201,7 +199,7 @@ public class GalleryBrowsePhotoViewController: UIViewController, UIScrollViewDel
                 
                 let photoCommentsList = apiRequestInPods.getPhotoCommentsList()
                 
-                let photoFavoritesNum = apiRequestInPods.getPhotoFavoritesNum()
+                let photoFavoritesNumJson = apiRequestInPods.getPhotoFavoritesNum()
                 
                 //投稿者自身の画像を非同期で取得
                 let photoOwnerUrl = realmManager.getPhotoOwnerUrl()
@@ -218,14 +216,14 @@ public class GalleryBrowsePhotoViewController: UIViewController, UIScrollViewDel
                     let photoOwnerName = realmManager.getPhotoOwnerName()
                     newPageView.profname = photoOwnerName as String
                     
-                    newPageView.likestring =  "いいね数:" + photoFavoritesNum.stringValue
+                    newPageView.favoritesNum =  "いいね数:" + photoFavoritesNumJson.stringValue
                     
                     self.showComments(photoCommentsList.names,commenterMessageArray: photoCommentsList.messages,newPageView: newPageView)
                     
                     //以下、DBに保存
-                    realmManager.savePhotoCommentsAndOwnerImg(photoCommentsList.names, messages: photoCommentsList.messages, imgdata: imgdata, pagee: pagee)
+                    realmManager.savePhotoCommentsAndOwnerImg(photoCommentsList.names, messages: photoCommentsList.messages, imgdata: imgdata, pageStr: pageStr)
             
-                    realmManager.savePhotoFavoritesNum(pagee,favorites: photoFavoritesNum.intValue)
+                    realmManager.savePhotoFavoritesNum(pageStr,favorites: photoFavoritesNumJson.intValue)
                 }
                 
             }else{  //2回目以降はRealmから表示
@@ -235,7 +233,7 @@ public class GalleryBrowsePhotoViewController: UIViewController, UIScrollViewDel
                 let photoOwnerName = realmManager.getPhotoOwnerName()
                 newPageView.profname = photoOwnerName as String
             
-                newPageView.likestring =  "いいね数:" + String(realmManager.getPhotoFavoritesNum())
+                newPageView.favoritesNum =  "いいね数:" + String(realmManager.getPhotoFavoritesNum())
                 
                 let commenterNameArray = realmManager.getPhotoCommenterName()
                 let commenterMessageArray = realmManager.getPhotoCommenterMessage()
@@ -266,6 +264,7 @@ public class GalleryBrowsePhotoViewController: UIViewController, UIScrollViewDel
             
             var comment2:String = (commenterNameArray[1] as! String) + " : " + (commenterMessageArray[1] as! String)
             newPageView.comment2 = comment2
+            
         }else if(commenterNameArray.count==3){
             
             var comment1:String = (commenterNameArray[0] as! String) + " : " + (commenterMessageArray[0] as! String)
@@ -276,6 +275,7 @@ public class GalleryBrowsePhotoViewController: UIViewController, UIScrollViewDel
             
             var comment3:String = (commenterNameArray[2] as! String) + " : " + (commenterMessageArray[2] as! String)
             newPageView.comment3 = comment3
+            
         }
     }
     
@@ -307,8 +307,6 @@ public class GalleryBrowsePhotoViewController: UIViewController, UIScrollViewDel
         // Work out which pages you want to load
         let firstPage = currentPage - 1
         let lastPage = currentPage + 1
-        
-        print("コンプ")
         
         // Purge anything before the first page
         for var index = 0; index < firstPage; ++index {

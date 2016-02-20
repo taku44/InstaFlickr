@@ -109,13 +109,12 @@ public class GalleryViewController: UIViewController, UICollectionViewDataSource
         //var iii:Int = 0
         
         //Optional Bindingで全ての要素が特定のObjectかどうかを判定
-        if let arrss:NSArray = arrayy {
+        if let arr:NSArray = arrayy {
     
             //全ての要素がnsarray確定
-            for aa in arrss{
+            for ids in arr{
                 
-                let realmManager2 = RealmManager()
-                realmManager2.writeIds(aa as! NSArray)
+                realmManager.writeIds(ids as! NSArray)
             }
         }
     }
@@ -142,7 +141,6 @@ public class GalleryViewController: UIViewController, UICollectionViewDataSource
         print("これに\(error)")
         }
         }*/
-    
     
     /*
     //ここで最初のrealm操作をする(以下バックグラウンドで非同期実行？)
@@ -227,11 +225,9 @@ public class GalleryViewController: UIViewController, UICollectionViewDataSource
         collectionView?.backgroundView = ref;
         //collectionView?.addSubview(ref)
         //view.addSubview(ref)*/
-        print("これじじじ")
-
-
+        
         /*   
-        以下の機能は未実装
+        以下の機能は未完成及び未リファクタリング
         */
         /*
         //下に引くとリロード

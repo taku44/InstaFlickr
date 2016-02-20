@@ -6,7 +6,6 @@
 //  Copyright © 2016年 小林 卓司. All rights reserved.
 //
 
-import Foundation
 
 class UserdefaultManager{
     
