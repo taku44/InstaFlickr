@@ -333,6 +333,7 @@
 		77B00A6BCBC27289AFE99EDA4E42120E /* ParseModule.h in Headers */ = {isa = PBXBuildFile; fileRef = 3D393EAAC1FFF2B6261A012CA43130CC /* ParseModule.h */; settings = {ATTRIBUTES = (Project, ); }; };
 		77F0AAC63C0733BFDFAF28EEB40B523A /* misc_errors.hpp in Headers */ = {isa = PBXBuildFile; fileRef = 4662D3CC5C8B6ADB7A58E6A31185CB1F /* misc_errors.hpp */; settings = {ATTRIBUTES = (Project, ); }; };
 		78B2943781BBD1D71FC5B30534AF1EBA /* PFCurrentUserController.h in Headers */ = {isa = PBXBuildFile; fileRef = 228A1E67D5D1C1C005C1EAB207F752F8 /* PFCurrentUserController.h */; settings = {ATTRIBUTES = (Project, ); }; };
+		791554611C781D05006ADC87 /* ApiRequestInPods.swift in Sources */ = {isa = PBXBuildFile; fileRef = 791554601C781D05006ADC87 /* ApiRequestInPods.swift */; };
 		7939644C1C77079400C415C8 /* RealmManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7939644B1C77079400C415C8 /* RealmManager.swift */; };
 		793DFF16958E28D0DA2B4D5C99133A10 /* PFObjectFileCodingLogic.h in Headers */ = {isa = PBXBuildFile; fileRef = B12F4E64D91A241600B4017B828028E6 /* PFObjectFileCodingLogic.h */; settings = {ATTRIBUTES = (Project, ); }; };
 		794BC1FEFDF3265A5CE5A10000F62132 /* PFProduct.m in Sources */ = {isa = PBXBuildFile; fileRef = E662CAD7091B29F1B7682D67A03EEAE5 /* PFProduct.m */; };
@@ -1176,6 +1177,7 @@
 		780F4640DFAFA0972D0DCECD1AA7EA79 /* alloc.hpp */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.cpp.h; name = alloc.hpp; path = include/realm/alloc.hpp; sourceTree = "<group>"; };
 		785C84D2A9462CB005A59498642929E4 /* PFACLState_Private.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = PFACLState_Private.h; path = Parse/Internal/ACL/State/PFACLState_Private.h; sourceTree = "<group>"; };
 		78D14CAF47645E10E2BF427465B69B98 /* BFDefines.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = BFDefines.h; path = Bolts/Common/BFDefines.h; sourceTree = "<group>"; };
+		791554601C781D05006ADC87 /* ApiRequestInPods.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ApiRequestInPods.swift; sourceTree = "<group>"; };
 		7939644B1C77079400C415C8 /* RealmManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RealmManager.swift; sourceTree = "<group>"; };
 		795147C90CF0DC79D07936E214838887 /* PFReachability.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = PFReachability.h; path = Parse/Internal/PFReachability.h; sourceTree = "<group>"; };
 		795E13AE2C610800FF31F9EC62875B34 /* unicode.hpp */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.cpp.h; name = unicode.hpp; path = include/realm/unicode.hpp; sourceTree = "<group>"; };
@@ -2160,6 +2162,7 @@
 				7971A1641C144BC8000B55F2 /* Entry2.swift */,
 				3048C94F7C6E52A2D69243872AC73A55 /* FNImage.swift */,
 				4498FB9A5060488CC27B709051C106C3 /* GalleryBrowsePhotoViewController.swift */,
+				791554601C781D05006ADC87 /* ApiRequestInPods.swift */,
 				72D049814F94947D52ED057CD73B78D5 /* GalleryViewController.swift */,
 				7939644B1C77079400C415C8 /* RealmManager.swift */,
 				3E783EB2240E8740429AB39A8E722784 /* GalleryBrowserPageView.swift */,
@@ -3670,6 +3673,7 @@
 				3FD7DBD09861722EC54FB0A6412311D0 /* GalleryImageCell.swift in Sources */,
 				568214658C5CA32854D251792429BD93 /* GalleryViewController.swift in Sources */,
 				8A90CEABE1B5794342A75FF08FBC186F /* GalleryViewControllerTransitioning.swift in Sources */,
+				791554611C781D05006ADC87 /* ApiRequestInPods.swift in Sources */,
 				04F62F876D3C0189AAC583630ECE4BC9 /* ImageCacheManager.swift in Sources */,
 				1B5D9B9AB6426DE1BB05BF39CF359C45 /* MathAdditions.swift in Sources */,
 			);

@@ -196,9 +196,100 @@ class RealmManager{
     }
     
     
+    func savePhotoCommentsAndOwnerImg(names:NSMutableArray,messages:NSMutableArray,imgdata:NSData,pagee:String){
+        
+        if(names.count==0){
+            do {
+                let realm = try! Realm()
+                try! realm.write() {
+                    var entryy2 = realm.create(Entry2.self, value: [
+                        "ownerimage": imgdata,
+                        "page": pagee
+                        ],update: true)
+                }
+            } catch {
+                print("\(error)")
+            }
+            
+        }else if(names.count==1){
+            do {
+                let realm = try! Realm()
+                try! realm.write() {
+                var entryy2 = realm.create(Entry2.self, value: [
+                    "ownerimage": imgdata,
+                    "name1": names[0],
+                    "message1":messages[0],
+                    "page": pagee   //主キー
+                    ],update: true)
+                }
+            } catch {
+                print("\(error)")
+            }
+        }else if(names.count == 2){
+            do {
+                let realm = try! Realm()
+                try! realm.write() {
+                var entryy2 = realm.create(Entry2.self, value: [
+                    "ownerimage": imgdata,
+                    "name1": names[0],
+                    "message1":messages[0],
+                    "name2": names[1],
+                    "message2":messages[1],
+                    "page": pagee
+                    ],update: true)
+                }
+            } catch {
+                print("\(error)")
+            }
+        }else if(names.count == 3){
+            do {
+                let realm = try! Realm()
+                try! realm.write() {
+                    var entryy2 = realm.create(Entry2.self, value: [
+                        "ownerimage": imgdata,
+                        "name1": names[0],
+                        "message1":messages[0],
+                        "name2": names[1],
+                        "message2":messages[1],
+                        "name3": names[2],
+                        "message3":messages[2],
+                        "page": pagee
+                        ],update: true)
+                }
+            } catch {
+                print("\(error)")
+            }
+        }
+        
+    }
+
+    func savePhotoFavoritesNum(pagee:String,favorites:Int){
+    
+        do {
+            let realm = try! Realm()
+            try! realm.write() {
+                var entryy = realm.create(Entry.self, value: [
+                    "page": pagee,  
+                    "favorites": favorites
+                    ],update: true)
+            }
+        } catch {
+            print("\(error)")
+        }
+    }
     
     
 }
+
+
+
+
+
+
+
+
+
+
 
 
 

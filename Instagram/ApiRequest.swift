@@ -12,10 +12,7 @@ import SwiftyJSON
 
 class ApiRequest{
     
-    //var imageURLs: [String] = []
-    //var arrayy = NSMutableArray()
     var arr:JSON = nil;
-    
     var tags:String
     var param  = [String: String]()
     
@@ -23,7 +20,6 @@ class ApiRequest{
     init(tags:String){
         
         self.tags=tags;
-        
         self.param = [                                  //=searchparamに?
             "method"         : "flickr.photos.search",
             "api_key"        : "86997f23273f5a518b027e2c8c019b0f",
@@ -35,12 +31,10 @@ class ApiRequest{
         ]
     }
   
-    func doGetRequest(){   //JSON){
+    func doGetRequest(){
         
         var arr:JSON = nil;
-        //var imageURLs:[String]=[]
-        //var arrayy = NSMutableArray()
-        
+    
         Alamofire.request(.GET,"https://api.flickr.com/services/rest/",parameters:self.param).responseJSON { response in
         do {
             switch response.result {
@@ -50,16 +44,6 @@ class ApiRequest{
                 print("JSON: \(json)")
                 arr = json["photos"]["photo"]
                 self.arr=arr;
-                    
-                //3.初期化したいので、まずRealmを全部削除
-                /*let realm = try Realm()
-                realm.beginWrite()
-                realm.deleteAll()
-                try realm.commitWrite()*/
-                    
-                    //let aa=self.setarray()
-                    //imageURLs=aa.imageURLs
-                    //arrayy=aa.arrayy
                 }
             case .Failure(let error):
                 let alert = UIAlertView()
@@ -72,10 +56,7 @@ class ApiRequest{
             print("error");
         }
         }
-        
-        //return (imageURLs,arrayy);
     }
-    
     
     func setarray()->(imageURLs:[String],arrayy:NSMutableArray){
         

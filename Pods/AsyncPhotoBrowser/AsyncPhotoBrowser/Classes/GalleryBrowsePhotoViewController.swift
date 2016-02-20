@@ -21,9 +21,6 @@ public class GalleryBrowsePhotoViewController: UIViewController, UIScrollViewDel
     
     var dataSource: GalleryBrowserDataSource?
     
-    var authors: [String] = []
-    var messages: [String] = []
-    
     lazy var scrollView: UIScrollView = {
         let scrollView = UIScrollView(frame: self.view.bounds)
         //scrollView.pagingEnabled = true
@@ -162,12 +159,9 @@ public class GalleryBrowsePhotoViewController: UIViewController, UIScrollViewDel
             print("ろおどど\(page)")
         } else {
             print("ろおどぉ\(page)")
-            
             var frame = scrollView.bounds
             frame.origin.x = 0.0 //frame.size.width * CGFloat(page)
             frame.origin.y = frame.size.height * CGFloat(page)   //0.0
-            
-            
             
             // Loading source image if not exists
             let imageEntity = dataSource!.imageEntityForPage(page, inGalleyBrowser: self)!
@@ -193,415 +187,60 @@ public class GalleryBrowsePhotoViewController: UIViewController, UIScrollViewDel
             newPageView.imageEntity = imageEntity
             newPageView.image = imageEntity.sourceImage ?? imageEntity.thumbnail
             
+            let pagee = String(page)
+
+            let realmManager = RealmManager()
+            let realmHasData = realmManager.checkIfRealmHasData(pagee)
             
+            if(realmHasData==false){  //初めての場合
+
+                //コメントといいね数をAlamoで取得
+                let photoId = realmManager.getPhotoId()
             
-            /*let imageURL: NSURL? = dataSource?.gallery(self, imageURLAtIndexPath: indexPath)
-            if imageURL != nil {
-            var imageEntity: FNImage!
-            imageEntity = images[indexPath]
-            if imageEntity == nil {
-            imageEntity = FNImage(URL: imageURL!, indexPath: indexPath)
-            images[indexPath] = imageEntity
-            }
-            let imageExists = FICImageCache.sharedImageCache().imageExistsForEntity(imageEntity, withFormatName: FNImageSquareImage32BitBGRAFormatName)
-            
-            FICImageCache.sharedImageCache().retrieveImageForEntity(imageEntity, withFormatName: FNImageSquareImage32BitBGRAFormatName) { (entity, formatName, image) -> Void in
-            let theImageEntity = entity as! FNImage
-            theImageEntity.thumbnail = image
-            
-            // Trigger partial update only if new image comes in
-            if !imageExists {
-            if image != nil {
-            self.collectionView.reloadItemsAtIndexPaths([theImageEntity.indexPath!])
-            } else {
-            print("Failed to retrieve image at (\(indexPath.section), \(indexPath.row))")
-            }
-            }
-            }
-            }*/
-            /*
-            // If the cache is properly set up, try to retrieve the image from internet
-            if FICImageCache.sharedImageCache().formatWithName(FNImageSquareImage32BitBGRAFormatName) != nil {
-            let imageURL: NSURL? = dataSource?.gallery(self, imageURLAtIndexPath: indexPath)
-            if imageURL != nil {
-            var imageEntity: FNImage!
-            imageEntity = images[indexPath]
-            if imageEntity == nil {
-            imageEntity = FNImage(URL: imageURL!, indexPath: indexPath)
-            images[indexPath] = imageEntity
-            }
-            let imageExists = FICImageCache.sharedImageCache().imageExistsForEntity(imageEntity, withFormatName: FNImageSquareImage32BitBGRAFormatName)
-            
-            FICImageCache.sharedImageCache().retrieveImageForEntity(imageEntity, withFormatName: FNImageSquareImage32BitBGRAFormatName) { (entity, formatName, image) -> Void in
-            let theImageEntity = entity as! FNImage
-            theImageEntity.thumbnail = image
-            
-            // Trigger partial update only if new image comes in
-            if !imageExists {
-            if image != nil {
-            self.collectionView.reloadItemsAtIndexPaths([theImageEntity.indexPath!])
-            } else {
-            print("Failed to retrieve image at (\(indexPath.section), \(indexPath.row))")
-            }
-            }
-            }
-            }
-            }
-            cell.image = self.images[indexPath]?.thumbnail
-            return cell*/
-            
-            
-            
-            
-            print("これは6")
-            
-            do {
-                let pagee = String(page)
+                let apiRequestInPods = ApiRequestInPods(photoId: photoId as String)
                 
+                let photoCommentsList = apiRequestInPods.getPhotoCommentsList()
                 
+                let photoFavoritesNum = apiRequestInPods.getPhotoFavoritesNum()
                 
-                /*
-                let realm = try Realm()
-                //let records = Entry(value: page) // Userオブジェクトが返却。存在しない場合はnil
-                //let records2 = Entry2(value: page) // Userオブジェクトが返却。存在しない場合はnil
-                let records:Results = realm.objects(Entry).filter("page == '\(pagee)'")
-                let records2:Results = realm.objects(Entry2).filter("page == '\(pagee)'")  //\(pagee)
-                print("これは..\(records)")
-                print("これは..\(records2)")
-                
-    
-                let item = records[0] as? Entry
-                //let item2 = records2[0] as? Entry2
-                //let records3 = Entry(forPrimaryKey: page)  //主キーで検索
-                
-                let s1:NSString = (item?.id)!
-                let s2:NSString = (item?.ownername)!
-                let s4:NSString = (item?.ownerurl )!    //:String)
-                //let s6 = item?.favorites  //いいね数
-                //let x1 = item2?.id
-                //let x3 = item2?.ownerimage  //投稿者のプロフ画像(NSData)
-                //let x5 = item2?.comments   //コメント(名前:メッセージ)x3(最初の)*/
-                
-                
-                
-                
-                let realmManager = RealmManager()
-                let realmHasData = realmManager.checkIfRealmHasData(pagee)
-                print("yes")
-                
-                if(realmHasData==false){  //初めての場合       records2.count == 0
-                    //if(s5 == nil){
+                //投稿者自身の画像を非同期で取得
+                let photoOwnerUrl = realmManager.getPhotoOwnerUrl()
+                let url = NSURL(string:"\(photoOwnerUrl)")
+                let req = NSURLRequest(URL:url!)
+                NSURLConnection.sendAsynchronousRequest(req, queue:NSOperationQueue.mainQueue()){(res, data, err) in
                     
-                    //初期化
-                    self.messages = []
-                    self.authors = []
-                    
-                    let photoId = realmManager.getPhotoId()
-                    
-                    //s5(コメント)、s6(いいね数)をAlamoで取得しRealmに追加
-                    //それぞれnewPageView.に渡す
-                    let parameters :Dictionary = [
-                        "method"         : "flickr.photos.comments.getList",
-                        "api_key"        : "86997f23273f5a518b027e2c8c019b0f",
-                        "photo_id"       : photoId,
-                        "per_page"       : "3",     //これいける？？
-                        "format"         : "json",
-                        "nojsoncallback" : "1",
-                    ]
-                    let parameters2 :Dictionary = [
-                        "method"         : "flickr.photos.getFavorites",
-                        "api_key"        : "86997f23273f5a518b027e2c8c019b0f",
-                        "photo_id"       : photoId,
-                        "per_page"       : "1",     //total数だけがほしいので
-                        "format"         : "json",
-                        "nojsoncallback" : "1",
-                    ]
-                    Alamofire.request(.GET,"https://api.flickr.com/services/rest/",parameters:parameters).responseJSON { response in
-                        do {
-                            switch response.result {
-                            case .Success(let data):
-                                if let value = response.result.value {
-                                    let json = JSON(value)
-                                    print("コメントは\(json)")
-                                    var arr:JSON = json["comments"]["comment"]   //コメントを取得
-                                    var num = arr.count
-                                    print("なむは\(num)")
-                                    
-                                    if(num>3){
-                                        //lastObjectから順に(新しい順に)3件まで表示
-                                        var aa1=arr[num-1]
-                                        var aa2=arr[num-2]
-                                        var aa3=arr[num-3]
-                                        
-                                        var authorname = aa1["authorname"]
-                                        var contentt = aa1["_content"]
-                                        var ss1 = authorname.stringValue
-                                        var xx1 = contentt.stringValue
-                                        self.authors.append(ss1)
-                                        self.messages.append(xx1)
-                                        
-                                        var authorname2 = aa2["authorname"]
-                                        var contentt2 = aa2["_content"]
-                                        var ss2 = authorname2.stringValue
-                                        var xx2 = contentt2.stringValue
-                                        self.authors.append(ss2)
-                                        self.messages.append(xx2)
-                                        
-                                        var authorname3 = aa3["authorname"]
-                                        var contentt3 = aa3["_content"]
-                                        var ss3 = authorname3.stringValue
-                                        var xx3 = contentt3.stringValue
-                                        self.authors.append(ss3)
-                                        self.messages.append(xx3)
-                                    }else{
-                                        if(num==1){
-                                            var aa1=arr[0]
-                                            
-                                            var authorname = aa1["authorname"]
-                                            var contentt = aa1["_content"]
-                                            var ss1 = authorname.stringValue
-                                            var xx1 = contentt.stringValue
-                                            self.authors.append(ss1)
-                                            self.messages.append(xx1)
-                                        }else if(num==2){
-                                            var aa1=arr[0]
-                                            var aa2=arr[1]
-                                            
-                                            var authorname = aa1["authorname"]
-                                            var contentt = aa1["_content"]
-                                            var ss1 = authorname.stringValue
-                                            var xx1 = contentt.stringValue
-                                            self.authors.append(ss1)
-                                            self.messages.append(xx1)
-                                            
-                                            var authorname2 = aa2["authorname"]
-                                            var contentt2 = aa2["_content"]
-                                            var ss2 = authorname2.stringValue
-                                            var xx2 = contentt2.stringValue
-                                            self.authors.append(ss2)
-                                            self.messages.append(xx2)
-                                        }else if(num==3){
-                                            var aa1=arr[0]
-                                            var aa2=arr[1]
-                                            var aa3=arr[2]
-                                            
-                                            var authorname = aa1["authorname"]
-                                            var contentt = aa1["_content"]
-                                            var ss1 = authorname.stringValue
-                                            var xx1 = contentt.stringValue
-                                            self.authors.append(ss1)
-                                            self.messages.append(xx1)
-                                            
-                                            var authorname2 = aa2["authorname"]
-                                            var contentt2 = aa2["_content"]
-                                            var ss2 = authorname2.stringValue
-                                            var xx2 = contentt2.stringValue
-                                            self.authors.append(ss2)
-                                            self.messages.append(xx2)
-                                            
-                                            var authorname3 = aa3["authorname"]
-                                            var contentt3 = aa3["_content"]
-                                            var ss3 = authorname3.stringValue
-                                            var xx3 = contentt3.stringValue
-                                            self.authors.append(ss3)
-                                            self.messages.append(xx3)
-                                        }else if(num==0){
-                                            
-                                        }
-                                        /*//lastObjectから順に(新しい順に)全部表示
-                                        for aad in arr{
-                                        var authorname = aad["authorname"]
-                                        var contentt = aad["_content"]
-                                        var ss1 = authorname.stringValue
-                                        var xx1 = contentt.stringValue
-                                        self.authors.append(ss1)
-                                        self.messages.append(xx1)
-                                        }*/
-                                    }
-                                    
-                                    Alamofire.request(.GET,"https://api.flickr.com/services/rest/",parameters:parameters2).responseJSON { response in
-                                        do {
-                                            switch response.result {
-                                            case .Success(let data):
-                                                if let value = response.result.value {
-                                                    let json = JSON(value)
-                                                    print("いいねは\(json)")
-                                                    var likes = json["photo"]["total"]
-                                                    //いいね数を取得
-                                                    var lii = likes.intValue
-                                                    
-                                                    //s3imageをs4で非同期で取得
-                                                    let photoOwnerUrl = realmManager.getPhotoOwnerUrl()
-                                                    let url = NSURL(string:"\(photoOwnerUrl)")
-                                                    //let url = NSURL(s4 as String)
-                                                    let req = NSURLRequest(URL:url!)
-                                                    NSURLConnection.sendAsynchronousRequest(req, queue:NSOperationQueue.mainQueue()){(res, data, err) in
-                                                        
-                                                        let s3image = UIImage(data:data!)
-                                                        newPageView.profimg = s3image
-                                                        // PNG形式の画像フォーマットとしてNSDataに変換
-                                                        let imgdata:NSData = UIImagePNGRepresentation(s3image!)!
-                                                        
-                                                        //未追加要素をRealmに追加して
-                                                        do {
-                                                            let realm = try! Realm()
-                                                            try! realm.write() {
-                                                                var entryy = realm.create(Entry.self, value: [
-                                                                    "page": pagee,   //page?
-                                                                    "favorites": lii
-                                                                    ],update: true)
-                                                            }
-                                                            
-                                                            //var cc = self.messages.count
-                                                            //print("ぷりーんん\(cc)")
-                                                            if(num==1){
-                                                                try! realm.write() {
-                                                                    var ooc:String = " : "
-                                                                    var sx:String = self.authors[0]
-                                                                    var sxx:String = self.messages[0]
-                                                                    var entryy2 = realm.create(Entry2.self, value: [
-                                                                        "ownerimage": imgdata,
-                                                                        "name1": sx,
-                                                                        "message1":sxx,
-                                                                        "page": pagee   //主キー
-                                                                        ],update: true)
-                                                                    
-                                                                    //コメント渡す
-                                                                    var s7:String = sx + ooc + sxx
-                                                                    //var s7:String = sx + sxx
-                                                                    //var s7:String = "\(sx) : \(sxx)"
-                                                                    newPageView.comment1 = s7
-                                                                }
-                                                            }else if(num==2){
-                                                                try! realm.write() {
-                                                                    var ooc:String = " : "
-                                                                    var sx:String = self.authors[0]
-                                                                    var sxx:String = self.messages[0]
-                                                                    var sx2:String = self.authors[1]
-                                                                    var sxx2:String = self.messages[1]
-                                                                    var entryy2 = realm.create(Entry2.self, value: [
-                                                                        "ownerimage": imgdata,
-                                                                        "name1": sx,
-                                                                        "message1":sxx,
-                                                                        "name2": sx2,
-                                                                        "message2":sxx2,
-                                                                        "page": pagee   //主キー
-                                                                        ],update: true)
-                                                                    var s7:String = sx + ooc + sxx
-                                                                    //var s7:String = "\(sx) : \(sxx)"
-                                                                    newPageView.comment1 = s7
-                                                                    var s8:String = sx2 + ooc + sxx2
-                                                                    //var s8:String = "\(sx2) : \(sxx2)"
-                                                                    newPageView.comment2 = s8
-                                                                }
-                                                            }else if(num >= 3){
-                                                                try! realm.write() {
-                                                                    var ooc:String = " : "
-                                                                    var sx:String = self.authors[0]
-                                                                    var sxx:String = self.messages[0]
-                                                                    var sx2:String = self.authors[1]
-                                                                    var sxx2:String = self.messages[1]
-                                                                    var sx3:String = self.authors[2]
-                                                                    var sxx3:String = self.messages[2]
-                                                                    var entryy2 = realm.create(Entry2.self, value: [
-                                                                        "ownerimage": imgdata,
-                                                                        "name1": sx,
-                                                                        "message1":sxx,
-                                                                        "name2": sx2,
-                                                                        "message2":sxx2,
-                                                                        "name3": sx3,
-                                                                        "message3":sxx3,
-                                                                        "page": pagee   //主キー
-                                                                        ],update: true)
-                                                                    
-                                                                    var s7:String = sx + ooc + sxx
-                                                                    //var s7:String = "\(sx) : \(sxx)"
-                                                                    newPageView.comment1 = s7
-                                                                    var s8:String = sx2 + ooc + sxx2
-                                                                    //var s8:String = "\(sx2) : \(sxx2)"
-                                                                    newPageView.comment2 = s8
-                                                                    var s9:String = sx3 + ooc + sxx3
-                                                                    //var s9:String = "\(sx3) : \(sxx3)"
-                                                                    newPageView.comment3 = s9
-                                                                    print("ぷりーん")
-                                                                }
-                                                            }else if(num==0){
-                                                                try! realm.write() {
-                                                                    var entryy2 = realm.create(Entry2.self, value: [
-                                                                        "ownerimage": imgdata,
-                                                                        //"comments": ,
-                                                                        "page": pagee   //主キー
-                                                                        ],update: true)
-                                                                }
-                                                                print("ぷりーん0")
-                                                            }
-                                                            //var label = UILabel();
-                                                            //label.text = s2 as String;
-                                                            
-                                                            //それぞれ必要な要素をnewPageView.に渡す
-                                                            let photoOwnerName = realmManager.getPhotoOwnerName()
-                                                            newPageView.profname = photoOwnerName as String //投稿者名前
-                                                            newPageView.likestring =  "いいね数:" + likes.stringValue
-                                                            
-                                                        } catch {
-                                                        }
-                                                    }
-                                                }
-                                            case .Failure(let error): break
-                                            }
-                                        }catch{
-                                            print("error");
-                                        }
-                                    }
-                                }
-                            case .Failure(let error): break
-                            }
-                        }catch{
-                            print("error");
-                        }
-                    }
-                    
-                }else{  //ownerimageがある場合、つまり初めてではない場合
-                    
-                    newPageView.profimg = realmManager.getPhotoOwnerImage()
+                    //以下、viewに表示
+                    let photoOwnerImage = UIImage(data:data!)
+                    newPageView.profimg = photoOwnerImage
+                   
+                    let imgdata:NSData = UIImagePNGRepresentation(photoOwnerImage!)!
                     
                     let photoOwnerName = realmManager.getPhotoOwnerName()
                     newPageView.profname = photoOwnerName as String
-                
-                    newPageView.likestring =  "いいね数:" + String(realmManager.getPhotoFavoritesNum())
                     
-                    let commenterNameArray = realmManager.getPhotoCommenterName()
-                    let commenterMessageArray = realmManager.getPhotoCommenterMessage()
-                    if(commenterNameArray.count==0){
-                        
-                        //名前なし、つまりコメントなし
-                        
-                    }else if(commenterNameArray.count==1){
-                        
-                        var comment1:String = (commenterNameArray[0] as! String) + " : " + (commenterMessageArray[0] as! String)
-                        newPageView.comment1 = comment1
-                        
-                    }else if(commenterNameArray.count==2){
-                       
-                        var comment1:String = (commenterNameArray[0] as! String) + " : " + (commenterMessageArray[0] as! String)
-                        newPageView.comment1 = comment1
-                        
-                        var comment2:String = (commenterNameArray[1] as! String) + " : " + (commenterMessageArray[1] as! String)
-                        newPageView.comment2 = comment2
-                    }else{
-                        
-                        var comment1:String = (commenterNameArray[0] as! String) + " : " + (commenterMessageArray[0] as! String)
-                        newPageView.comment1 = comment1
-                        
-                        var comment2:String = (commenterNameArray[1] as! String) + " : " + (commenterMessageArray[1] as! String)
-                        newPageView.comment2 = comment2
-                        
-                        var comment3:String = (commenterNameArray[2] as! String) + " : " + (commenterMessageArray[2] as! String)
-                        newPageView.comment3 = comment3
-                    }
+                    newPageView.likestring =  "いいね数:" + photoFavoritesNum.stringValue
+                    
+                    self.showComments(photoCommentsList.names,commenterMessageArray: photoCommentsList.messages,newPageView: newPageView)
+                    
+                    //以下、DBに保存
+                    realmManager.savePhotoCommentsAndOwnerImg(photoCommentsList.names, messages: photoCommentsList.messages, imgdata: imgdata, pagee: pagee)
+            
+                    realmManager.savePhotoFavoritesNum(pagee,favorites: photoFavoritesNum.intValue)
                 }
-            } catch {
-                print("これは7")
+                
+            }else{  //2回目以降はRealmから表示
+                
+                newPageView.profimg = realmManager.getPhotoOwnerImage()
+                
+                let photoOwnerName = realmManager.getPhotoOwnerName()
+                newPageView.profname = photoOwnerName as String
+            
+                newPageView.likestring =  "いいね数:" + String(realmManager.getPhotoFavoritesNum())
+                
+                let commenterNameArray = realmManager.getPhotoCommenterName()
+                let commenterMessageArray = realmManager.getPhotoCommenterMessage()
+                
+                self.showComments(commenterNameArray,commenterMessageArray: commenterMessageArray,newPageView: newPageView)
             }
             
             imageEntity.delegate = newPageView
@@ -612,30 +251,33 @@ public class GalleryBrowsePhotoViewController: UIViewController, UIScrollViewDel
             pageViews[page] = newPageView
         }
     }
+    
+    func showComments(commenterNameArray:NSMutableArray,commenterMessageArray:NSMutableArray,newPageView:GalleryBrowserPageView){
+        
+        if(commenterNameArray.count==1){
             
-            // Loading source image if not exists
-            /*let imageEntity2 = dataSource!.imageEntityForPage2(page, inGalleyBrowser: self)!
-            imageEntity2.page = page
-            if imageEntity2.sourceImageState == .NotLoaded {
-            imageEntity2.loadSourceImageWithCompletion({ (error) -> Void in
-            if let pageView = self.pageViews[imageEntity2.page!] {
-            if error == nil {
-            print("2ロード完了 \(page)")
-            pageView.profimg = imageEntity2.sourceImage
-            } else {
-            print("2ロード失敗 \(page), error \(error)")
-            }
-            }
-            })
-            } else if imageEntity2.sourceImageState == .Paused {
+            var comment1:String = (commenterNameArray[0] as! String) + " : " + (commenterMessageArray[0] as! String)
+            newPageView.comment1 = comment1
             
-            imageEntity2.resumeLoadingSource()
-            print("2ロード完了2 \(page)")
-            }
-            //let newPageView = GalleryBrowserPageView(frame: frame)
-            newPageView.imageEntity2 = imageEntity2
-            newPageView.profimg = imageEntity2.sourceImage ?? imageEntity2.thumbnail*/
-
+        }else if(commenterNameArray.count==2){
+            
+            var comment1:String = (commenterNameArray[0] as! String) + " : " + (commenterMessageArray[0] as! String)
+            newPageView.comment1 = comment1
+            
+            var comment2:String = (commenterNameArray[1] as! String) + " : " + (commenterMessageArray[1] as! String)
+            newPageView.comment2 = comment2
+        }else if(commenterNameArray.count==3){
+            
+            var comment1:String = (commenterNameArray[0] as! String) + " : " + (commenterMessageArray[0] as! String)
+            newPageView.comment1 = comment1
+            
+            var comment2:String = (commenterNameArray[1] as! String) + " : " + (commenterMessageArray[1] as! String)
+            newPageView.comment2 = comment2
+            
+            var comment3:String = (commenterNameArray[2] as! String) + " : " + (commenterMessageArray[2] as! String)
+            newPageView.comment3 = comment3
+        }
+    }
     
     func purgePage(page: Int) {
         
@@ -660,16 +302,7 @@ public class GalleryBrowsePhotoViewController: UIViewController, UIScrollViewDel
             //}
         }
     }
-    
-    /*func resetPageZooming(page: Int) {
-    if page < 0 || page >= imageCount {
-    return
-    }
-    if let pageView = pageViews[page] {
-    pageView.scrollView.zoomScale = pageView.scrollView.minimumZoomScale
-    }
-    }*/
-    
+   
     func loadVisiblePages() {
         // Work out which pages you want to load
         let firstPage = currentPage - 1
