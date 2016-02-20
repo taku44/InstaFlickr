@@ -258,6 +258,9 @@ public class GalleryBrowsePhotoViewController: UIViewController, UIScrollViewDel
             do {
                 let pagee = String(page)
                 
+                
+                
+                /*
                 let realm = try Realm()
                 //let records = Entry(value: page) // Userオブジェクトが返却。存在しない場合はnil
                 //let records2 = Entry2(value: page) // Userオブジェクトが返却。存在しない場合はnil
@@ -266,10 +269,7 @@ public class GalleryBrowsePhotoViewController: UIViewController, UIScrollViewDel
                 print("これは..\(records)")
                 print("これは..\(records2)")
                 
-                //filter("itemcode BEGINSWITH '0'").sorted("itemcode")
-                /*for v in records {
-                print("これは\(v)")
-                }*/
+    
                 let item = records[0] as? Entry
                 //let item2 = records2[0] as? Entry2
                 //let records3 = Entry(forPrimaryKey: page)  //主キーで検索
@@ -278,24 +278,32 @@ public class GalleryBrowsePhotoViewController: UIViewController, UIScrollViewDel
                 let s2:NSString = (item?.ownername)!
                 let s4:NSString = (item?.ownerurl )!    //:String)
                 //let s6 = item?.favorites  //いいね数
-                
                 //let x1 = item2?.id
                 //let x3 = item2?.ownerimage  //投稿者のプロフ画像(NSData)
-                //let x5 = item2?.comments   //コメント(名前:メッセージ)x3(最初の)
+                //let x5 = item2?.comments   //コメント(名前:メッセージ)x3(最初の)*/
                 
-                if(records2.count == 0){
+                
+                
+                
+                let realmManager = RealmManager()
+                let realmHasData = realmManager.checkIfRealmHasData(pagee)
+                print("yes")
+                
+                if(realmHasData==false){  //初めての場合       records2.count == 0
                     //if(s5 == nil){
                     
                     //初期化
                     self.messages = []
                     self.authors = []
                     
-                    //s5、s6をAlamoで取得しRealmに追加
+                    let photoId = realmManager.getPhotoId()
+                    
+                    //s5(コメント)、s6(いいね数)をAlamoで取得しRealmに追加
                     //それぞれnewPageView.に渡す
                     let parameters :Dictionary = [
                         "method"         : "flickr.photos.comments.getList",
                         "api_key"        : "86997f23273f5a518b027e2c8c019b0f",
-                        "photo_id"       : s1,
+                        "photo_id"       : photoId,
                         "per_page"       : "3",     //これいける？？
                         "format"         : "json",
                         "nojsoncallback" : "1",
@@ -303,7 +311,7 @@ public class GalleryBrowsePhotoViewController: UIViewController, UIScrollViewDel
                     let parameters2 :Dictionary = [
                         "method"         : "flickr.photos.getFavorites",
                         "api_key"        : "86997f23273f5a518b027e2c8c019b0f",
-                        "photo_id"       : s1,
+                        "photo_id"       : photoId,
                         "per_page"       : "1",     //total数だけがほしいので
                         "format"         : "json",
                         "nojsoncallback" : "1",
@@ -423,7 +431,8 @@ public class GalleryBrowsePhotoViewController: UIViewController, UIScrollViewDel
                                                     var lii = likes.intValue
                                                     
                                                     //s3imageをs4で非同期で取得
-                                                    let url = NSURL(string:"\(s4)")
+                                                    let photoOwnerUrl = realmManager.getPhotoOwnerUrl()
+                                                    let url = NSURL(string:"\(photoOwnerUrl)")
                                                     //let url = NSURL(s4 as String)
                                                     let req = NSURLRequest(URL:url!)
                                                     NSURLConnection.sendAsynchronousRequest(req, queue:NSOperationQueue.mainQueue()){(res, data, err) in
@@ -530,12 +539,9 @@ public class GalleryBrowsePhotoViewController: UIViewController, UIScrollViewDel
                                                             //label.text = s2 as String;
                                                             
                                                             //それぞれ必要な要素をnewPageView.に渡す
-                                                            newPageView.profname = s2 as String //投稿者名前
-                                                            let sss11="いいね数:"
-                                                            let sss22=likes.stringValue
-                                                            let str33:String = sss11 + sss22
-                                                            newPageView.likestring =  str33
-                                                            
+                                                            let photoOwnerName = realmManager.getPhotoOwnerName()
+                                                            newPageView.profname = photoOwnerName as String //投稿者名前
+                                                            newPageView.likestring =  "いいね数:" + likes.stringValue
                                                             
                                                         } catch {
                                                         }
@@ -555,83 +561,57 @@ public class GalleryBrowsePhotoViewController: UIViewController, UIScrollViewDel
                         }
                     }
                     
-                    //}else{
-                    //}
-                }else{  //ownerimageがある場合
-                    print("それぞれ必要な要素をRealmから取得し、newPageView.に渡す")
-                    let item2 = records2[0] as? Entry2
-                    let x3 = item2?.ownerimage  //投稿者のプロフ画像(NSData)
-                    //let item = records[0] as? Entry
-                    //let item2 = records[0] as? Entry2
-                    //let records3 = Entry(forPrimaryKey: page)  //主キーで検索
+                }else{  //ownerimageがある場合、つまり初めてではない場合
                     
-                    //let s1:NSString = (item?.id)!
-                    //let s2:NSString = (item?.ownername)!
-                    //let s4:NSString = (item?.ownerurl )!    //:String)
-                    let s6 = item?.favorites  //いいね数
+                    newPageView.profimg = realmManager.getPhotoOwnerImage()
                     
-                    //let x1 = item2?.id
-                    //let x3 = item2?.ownerimage  //投稿者のプロフ画像(NSData)
-                    let x55 = item2?.name1  //コメント(名前:メッセージ)x3(最初の)
-                    let x66 = item2?.name2
-                    let x77 = item2?.name3
-                    var ooc:String = " : "
+                    let photoOwnerName = realmManager.getPhotoOwnerName()
+                    newPageView.profname = photoOwnerName as String
+                
+                    newPageView.likestring =  "いいね数:" + String(realmManager.getPhotoFavoritesNum())
                     
-                    //nsdata→uiimageにして渡す
-                    var uimage = x3.map({UIImage(data: $0)})
-                    newPageView.profimg = uimage!
-                    
-                    newPageView.profname = s2 as String //投稿者名前
-                    
-                    let ss00="いいね数:"
-                    //let ss001=s6.stringValue
-                    //let x : Int = 123
-                    let nn:Int = s6!
-                    let ss001 = String(nn)
-                    let strr3:String = ss00 + ss001
-                    newPageView.likestring =  strr3
-                    if(x55==nil){
-                        //コメントなし
-                    }else if(x66==nil){
-                        let x555:String = (item2?.name1)! as String
-                        let y55:String = (item2?.message1)!
-                        var s7:String = x555 + ooc + y55
-                        newPageView.comment1 = s7
+                    let commenterNameArray = realmManager.getPhotoCommenterName()
+                    let commenterMessageArray = realmManager.getPhotoCommenterMessage()
+                    if(commenterNameArray.count==0){
                         
-                    }else if(x77==nil){
-                        let x555:String = (item2?.name1)! as String
-                        let y55:String = (item2?.message1)!
-                        var s7:String = x555 + ooc + y55
-                        newPageView.comment1 = s7
+                        //名前なし、つまりコメントなし
                         
-                        let x666:String = (item2?.name2)! as String
-                        let y66:String = (item2?.message2)!
-                        var s8:String = x666 + ooc + y66
-                        newPageView.comment2 = s8
+                    }else if(commenterNameArray.count==1){
+                        
+                        var comment1:String = (commenterNameArray[0] as! String) + " : " + (commenterMessageArray[0] as! String)
+                        newPageView.comment1 = comment1
+                        
+                    }else if(commenterNameArray.count==2){
+                       
+                        var comment1:String = (commenterNameArray[0] as! String) + " : " + (commenterMessageArray[0] as! String)
+                        newPageView.comment1 = comment1
+                        
+                        var comment2:String = (commenterNameArray[1] as! String) + " : " + (commenterMessageArray[1] as! String)
+                        newPageView.comment2 = comment2
                     }else{
-                        let x555:String = (item2?.name1)! as String
-                        let y55:String = (item2?.message1)!
-                        var s7:String = x555 + ooc + y55
-                        newPageView.comment1 = s7
                         
-                        let x666:String = (item2?.name2)! as String
-                        let y66:String = (item2?.message2)!
-                        var s8:String = x666 + ooc + y66
-                        newPageView.comment2 = s8
+                        var comment1:String = (commenterNameArray[0] as! String) + " : " + (commenterMessageArray[0] as! String)
+                        newPageView.comment1 = comment1
                         
-                        let x777:String = (item2?.name3)! as String
-                        let y77:String = (item2?.message3)!
-                        var s9:String = x777 + ooc + y77
-                        newPageView.comment3 = s9
+                        var comment2:String = (commenterNameArray[1] as! String) + " : " + (commenterMessageArray[1] as! String)
+                        newPageView.comment2 = comment2
+                        
+                        var comment3:String = (commenterNameArray[2] as! String) + " : " + (commenterMessageArray[2] as! String)
+                        newPageView.comment3 = comment3
                     }
                 }
             } catch {
                 print("これは7")
             }
             
-            
-            
-            
+            imageEntity.delegate = newPageView
+            newPageView.setActivityAccordingToImageState(imageEntity.sourceImageState)
+            //imageEntity2.delegate = newPageView
+            //newPageView.setActivityAccordingToImageState(imageEntity2.sourceImageState)
+            scrollView.addSubview(newPageView)
+            pageViews[page] = newPageView
+        }
+    }
             
             // Loading source image if not exists
             /*let imageEntity2 = dataSource!.imageEntityForPage2(page, inGalleyBrowser: self)!
@@ -655,17 +635,7 @@ public class GalleryBrowsePhotoViewController: UIViewController, UIScrollViewDel
             //let newPageView = GalleryBrowserPageView(frame: frame)
             newPageView.imageEntity2 = imageEntity2
             newPageView.profimg = imageEntity2.sourceImage ?? imageEntity2.thumbnail*/
-            
-            
-            
-            imageEntity.delegate = newPageView
-            newPageView.setActivityAccordingToImageState(imageEntity.sourceImageState)
-            //imageEntity2.delegate = newPageView
-            //newPageView.setActivityAccordingToImageState(imageEntity2.sourceImageState)
-            scrollView.addSubview(newPageView)
-            pageViews[page] = newPageView
-        }
-    }
+
     
     func purgePage(page: Int) {
         

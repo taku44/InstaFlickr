@@ -24,7 +24,7 @@ class ApiRequest{
         
         self.tags=tags;
         
-        self.param = [
+        self.param = [                                  //=searchparamに?
             "method"         : "flickr.photos.search",
             "api_key"        : "86997f23273f5a518b027e2c8c019b0f",
             "tags"           : tags,
