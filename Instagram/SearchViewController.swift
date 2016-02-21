@@ -24,16 +24,17 @@ class SearchViewController: UIViewController,UISearchBarDelegate{
         
         let apiRequest = ApiRequest(tags:search.text!)
         
-        apiRequest.doGetRequest()
-        
-        let delayTime = dispatch_time(DISPATCH_TIME_NOW, Int64(3 * Double(NSEC_PER_SEC)))
-        dispatch_after(delayTime, dispatch_get_main_queue()) {
-         
-            let arrays = apiRequest.setarray()
+        apiRequest.getSearchPhotos() { imageURLs, arrayy, error in
             
-            self.saveUserdefault(self.search.text!,imageURLs: arrays.imageURLs)
+            print("responseObject1 = \(imageURLs);")
+            print("responseObject2 = \(arrayy);")
+            print("error=\(error)")
             
-            self.gotoView2(arrays.imageURLs,arrayy: arrays.arrayy)
+            self.saveUserdefault(self.search.text!,imageURLs: imageURLs)
+            
+            self.gotoPhotoDetailViewController(imageURLs,arrayy: arrayy!)
+            
+            return
         }
     }
     
@@ -44,7 +45,7 @@ class SearchViewController: UIViewController,UISearchBarDelegate{
         
     }
     
-    func gotoView2(imageURLs:[String],arrayy:NSMutableArray){
+    func gotoPhotoDetailViewController(imageURLs:[String],arrayy:NSMutableArray){
         
         print("検証1: \(imageURLs)")
         

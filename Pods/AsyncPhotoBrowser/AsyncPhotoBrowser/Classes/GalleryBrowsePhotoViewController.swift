@@ -199,7 +199,10 @@ public class GalleryBrowsePhotoViewController: UIViewController, UIScrollViewDel
                 
                 let photoCommentsList = apiRequestInPods.getPhotoCommentsList()
                 
-                let photoFavoritesNumJson = apiRequestInPods.getPhotoFavoritesNum()
+              apiRequestInPods.getPhotoFavoritesNum(){
+                photoFavoritesNumJson, error in         //responseObjectのこと
+                
+                print("responseObject = \(photoFavoritesNumJson); error = \(error)")
                 
                 //投稿者自身の画像を非同期で取得
                 let photoOwnerUrl = realmManager.getPhotoOwnerUrl()
@@ -216,16 +219,17 @@ public class GalleryBrowsePhotoViewController: UIViewController, UIScrollViewDel
                     let photoOwnerName = realmManager.getPhotoOwnerName()
                     newPageView.profname = photoOwnerName as String
                     
-                    newPageView.favoritesNum =  "いいね数:" + photoFavoritesNumJson.stringValue
+                    newPageView.favoritesNum =  "いいね数:" + (photoFavoritesNumJson!.stringValue)
                     
                     self.showComments(photoCommentsList.names,commenterMessageArray: photoCommentsList.messages,newPageView: newPageView)
                     
                     //以下、DBに保存
                     realmManager.savePhotoCommentsAndOwnerImg(photoCommentsList.names, messages: photoCommentsList.messages, imgdata: imgdata, pageStr: pageStr)
             
-                    realmManager.savePhotoFavoritesNum(pageStr,favorites: photoFavoritesNumJson.intValue)
+                    realmManager.savePhotoFavoritesNum(pageStr,favorites: photoFavoritesNumJson!.intValue)
                 }
-                
+                return
+              }
             }else{  //2回目以降はRealmから表示
                 
                 newPageView.profimg = realmManager.getPhotoOwnerImage()

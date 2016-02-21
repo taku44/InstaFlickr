@@ -97,26 +97,36 @@ class ApiRequestInPods{
         return (names,messages);
     }
 
-    func getPhotoFavoritesNum()->JSON{
+    func getPhotoFavoritesNum(completionHandler:(JSON?, NSError?) -> ()) {
+        getPhotoFavoritesNumRequest(completionHandler)
+    }
     
-        var photoFavoritesNumJson:JSON = nil;
+    func getPhotoFavoritesNumRequest(completionHandler: (JSON?, NSError?) -> ()){
+    
+        var photoFavoritesNumJson:JSON=nil
         
         Alamofire.request(.GET,"https://api.flickr.com/services/rest/",parameters:getPhotoFavoritesNumParam).responseJSON { response in
             do {
                 switch response.result {
                 case .Success(let data):
+                    
                     if let value = response.result.value {
+                        
                         let json = JSON(value)
-                        print("いいねは\(json)")
                         photoFavoritesNumJson = json["photo"]["total"]
+                       
+                        completionHandler(photoFavoritesNumJson as? JSON, nil)
                     }
-                case .Failure(let error): break
+                case .Failure(let error):
+                    
+                    completionHandler(nil, error)
+                    
+                    break
                }
             }catch{
                 print("error");
             }
         }
-        return photoFavoritesNumJson;
     }
 }
 
