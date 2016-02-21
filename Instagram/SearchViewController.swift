@@ -20,7 +20,13 @@ class SearchViewController: UIViewController,UISearchBarDelegate{
     }
     
     func searchBarSearchButtonClicked( searchBar: UISearchBar){
-        print("search button tapped!")
+        
+        let alert = UIAlertView()
+        alert.title = ""
+        alert.message = "検索中です..."
+        //alert.addButtonWithTitle("了解")
+        alert.show()
+        
         
         let apiRequest = ApiRequest(tags:search.text!)
         
@@ -33,6 +39,8 @@ class SearchViewController: UIViewController,UISearchBarDelegate{
             self.saveUserdefault(self.search.text!,imageURLs: imageURLs)
             
             self.gotoPhotoDetailViewController(imageURLs,arrayy: arrayy!)
+            
+            alert.dismissWithClickedButtonIndex(0, animated: true)
             
             return
         }

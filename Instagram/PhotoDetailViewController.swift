@@ -56,11 +56,15 @@ class PhotoDetailViewController: GalleryViewController,GalleryDataSource {
     }*/
     
     
-    @IBAction func tapbackto(sender: UIBarButtonItem) {
+    
+    
+    /*@IBAction func tapbackto(sender: UIBarButtonItem) {
         // 遷移
         let firstViewController: SearchViewController = (self.storyboard?.instantiateViewControllerWithIdentifier("SearchViewController") as? SearchViewController)!
         self.presentViewController(firstViewController, animated: true, completion: nil)
-    }
+    }*/
+    
+    
     
     
     /*func numberOfPhotosInPhotoBrowser(photoBrowser: MWPhotoBrowser!) -> UInt {

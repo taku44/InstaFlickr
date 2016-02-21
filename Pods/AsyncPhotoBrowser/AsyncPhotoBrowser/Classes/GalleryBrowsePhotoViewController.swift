@@ -23,7 +23,7 @@ public class GalleryBrowsePhotoViewController: UIViewController, UIScrollViewDel
     
     lazy var scrollView: UIScrollView = {
         let scrollView = UIScrollView(frame: self.view.bounds)
-        //scrollView.pagingEnabled = true
+        scrollView.pagingEnabled = true
         scrollView.showsHorizontalScrollIndicator = false
         scrollView.showsVerticalScrollIndicator = false
         scrollView.indicatorStyle = .White
@@ -161,32 +161,44 @@ public class GalleryBrowsePhotoViewController: UIViewController, UIScrollViewDel
             frame.origin.x = 0.0 //frame.size.width * CGFloat(page)
             frame.origin.y = frame.size.height * CGFloat(page)   //0.0
             
+            print("ddは\(dataSource)")
             // Loading source image if not exists
-            let imageEntity = dataSource!.imageEntityForPage(page, inGalleyBrowser: self)!
-            imageEntity.page = page
-            if imageEntity.sourceImageState == .NotLoaded {
-                imageEntity.loadSourceImageWithCompletion({ (error) -> Void in
-                    if let pageView = self.pageViews[imageEntity.page!] {
+            let imageEntity = dataSource?.imageEntityForPage(page, inGalleyBrowser: self)
+            print("ろおどん")
+            imageEntity?.page = page
+            
+
+            if imageEntity?.sourceImageState == .NotLoaded {
+                imageEntity?.loadSourceImageWithCompletion({ (error) -> Void in
+                    if let pageView = self.pageViews[(imageEntity?.page)!] {
                         if error == nil {
                             print("ロード完了 \(page)")
-                            pageView.image = imageEntity.sourceImage
+                            pageView.image = imageEntity?.sourceImage
                         } else {
                             print("ロード失敗 \(page), error \(error)")
                         }
                     }
                 })
-            } else if imageEntity.sourceImageState == .Paused {
+            } else if imageEntity?.sourceImageState == .Paused {
                 
-                imageEntity.resumeLoadingSource()
+                imageEntity?.resumeLoadingSource()
                 print("ロード完了2 \(page)")
             }
             
             let newPageView = GalleryBrowserPageView(frame: frame)
             newPageView.imageEntity = imageEntity
-            newPageView.image = imageEntity.sourceImage ?? imageEntity.thumbnail
+            newPageView.image = imageEntity?.sourceImage ?? imageEntity?.thumbnail
+            imageEntity?.delegate = newPageView
+            //newPageView.setActivityAccordingToImageState(imageEntity?.sourceImageState)
             
-            let pageStr = String(page)
+            //imageEntity2.delegate = newPageView
+            //newPageView.setActivityAccordingToImageState(imageEntity2.sourceImageState)
+            scrollView.addSubview(newPageView)
+            pageViews[page] = newPageView
+            
 
+            let pageStr = String(page)
+            
             let realmManager = RealmManager()
             let realmHasData = realmManager.checkIfRealmHasData(pageStr)
             
@@ -244,13 +256,6 @@ public class GalleryBrowsePhotoViewController: UIViewController, UIScrollViewDel
                 
                 self.showComments(commenterNameArray,commenterMessageArray: commenterMessageArray,newPageView: newPageView)
             }
-            
-            imageEntity.delegate = newPageView
-            newPageView.setActivityAccordingToImageState(imageEntity.sourceImageState)
-            //imageEntity2.delegate = newPageView
-            //newPageView.setActivityAccordingToImageState(imageEntity2.sourceImageState)
-            scrollView.addSubview(newPageView)
-            pageViews[page] = newPageView
         }
     }
     
@@ -293,17 +298,12 @@ public class GalleryBrowsePhotoViewController: UIViewController, UIScrollViewDel
         // Remove a page from the scroll view and reset the container array
         if let pageView = pageViews[page] {
             
-            let pageView = pageViews[page]  //[page]
-            
-            pageView!.removeFromSuperview()
+            pageView.removeFromSuperview()
             pageViews[page] = nil
             
             // Suspend any loading request
             let imageEntity = dataSource!.imageEntityForPage(page, inGalleyBrowser: self)
             imageEntity?.pauseLoadingSource()
-            
-            //print("completeee \(page)")
-            //}
         }
     }
    
@@ -334,9 +334,11 @@ public class GalleryBrowsePhotoViewController: UIViewController, UIScrollViewDel
         loadVisiblePages()
         
         navigationItem.title = "\(currentPage + 1) / \(imageCount)"
-        if scrollView.contentOffset.x>0 {
+        
+        
+        /*if scrollView.contentOffset.x>0 {
             scrollView.contentOffset.x = 0
-        }
+        }*/
     }
     
     public func scrollViewDidEndDecelerating(scrollView: UIScrollView) {

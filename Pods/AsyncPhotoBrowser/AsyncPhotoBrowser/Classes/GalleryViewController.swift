@@ -556,6 +556,9 @@ public class GalleryViewController: UIViewController, UICollectionViewDataSource
     
     func imageEntityForPage(page: Int, inGalleyBrowser galleryBrowser: GalleryBrowsePhotoViewController) -> FNImage? {
         let indexPath = self.indexPathForPage(page)
+        
+        print("セルフは\(self.images)")
+        
         return self.images[indexPath!]
     }
     
