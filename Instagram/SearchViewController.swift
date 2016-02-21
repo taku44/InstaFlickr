@@ -21,12 +21,7 @@ class SearchViewController: UIViewController,UISearchBarDelegate{
     
     func searchBarSearchButtonClicked( searchBar: UISearchBar){
         
-        let alert = UIAlertView()
-        alert.title = ""
-        alert.message = "検索中です..."
-        //alert.addButtonWithTitle("了解")
-        alert.show()
-        
+        let searchingAlert = self.showSearchingAlert()
         
         let apiRequest = ApiRequest(tags:search.text!)
         
@@ -36,14 +31,25 @@ class SearchViewController: UIViewController,UISearchBarDelegate{
             print("responseObject2 = \(arrayy);")
             print("error=\(error)")
             
+            searchingAlert.dismissWithClickedButtonIndex(0, animated: true)
+            
             self.saveUserdefault(self.search.text!,imageURLs: imageURLs)
             
             self.gotoPhotoDetailViewController(imageURLs,arrayy: arrayy!)
-            
-            alert.dismissWithClickedButtonIndex(0, animated: true)
-            
+        
             return
         }
+    }
+    
+    func showSearchingAlert()->UIAlertView{
+        
+        let alert = UIAlertView()
+        alert.title = ""
+        alert.message = "検索中です..."
+        //alert.addButtonWithTitle("了解")
+        alert.show()
+        
+        return alert;
     }
     
     func saveUserdefault(tags:String,imageURLs:[String]){
