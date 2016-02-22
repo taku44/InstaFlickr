@@ -12,17 +12,17 @@ import SwiftyJSON
 
 class ApiRequest{
     
-    let api_key:String = "86997f23273f5a518b027e2c8c019b0f" 
+    private let api_key:String = "86997f23273f5a518b027e2c8c019b0f"
     
     //var photosJson:JSON = nil;
-    var tags:String
-    var param  = [String: String]()
+    private var tags:String
+    private var photosSearchParam  = [String: String]()
     
     
     init(tags:String){
         
         self.tags=tags;
-        self.param = [                                  //=searchparamに?
+        self.photosSearchParam = [
             "method"         : "flickr.photos.search",
             "api_key"        : api_key,
             "tags"           : tags,
@@ -44,7 +44,7 @@ class ApiRequest{
         var imageURLs:[String]=[]
         var arrayy = NSMutableArray()
         
-        Alamofire.request(.GET,"https://api.flickr.com/services/rest/",parameters:self.param).responseJSON { response in
+        Alamofire.request(.GET,"https://api.flickr.com/services/rest/",parameters:self.photosSearchParam).responseJSON { response in
          do{
             switch response.result {
             case .Success(let data):

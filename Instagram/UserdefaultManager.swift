@@ -9,15 +9,20 @@
 
 class UserdefaultManager{
     
-    let ud = NSUserDefaults.standardUserDefaults()
+    private let ud = NSUserDefaults.standardUserDefaults()
     
     
-    func setObject(tags:String,imageURLs:[String]){
+    //ud保存したものをいつでもこのクラスで確認できるように、あえてリテラルで扱う
+    
+    func saveTags(tags:String){
         
-        ud.setObject("searchtext", forKey: tags)     //書き方逆？
+        ud.setObject(tags, forKey: "searchtext")
+        ud.synchronize()
+    }
+    
+    func saveImageURLs(imageURLs:[String]){
+        
         ud.setObject(imageURLs, forKey: "lastimages")
-        //ud.setObject("searchmaxdate", forKey: lp)
-        
         ud.synchronize()
     }
  

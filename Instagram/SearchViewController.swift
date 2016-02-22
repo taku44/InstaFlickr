@@ -11,7 +11,7 @@ import AsyncPhotoBrowser
 
 class SearchViewController: UIViewController,UISearchBarDelegate{
     
-    @IBOutlet var search: UISearchBar!
+    @IBOutlet private var search: UISearchBar!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -19,21 +19,25 @@ class SearchViewController: UIViewController,UISearchBarDelegate{
         search.delegate = self
     }
     
-    func searchBarSearchButtonClicked( searchBar: UISearchBar){
+    func searchBarSearchButtonClicked(searchBar: UISearchBar){
         
-        let searchingAlert = self.showSearchingAlert()
+        let alertViewController = AlertViewController()
+        
+        alertViewController.showAlert("検索中です...")
         
         let apiRequest = ApiRequest(tags:search.text!)
-        
+    
         apiRequest.getSearchPhotos() { imageURLs, arrayy, error in
             
             print("responseObject1 = \(imageURLs);")
             print("responseObject2 = \(arrayy);")
             print("error=\(error)")
             
-            searchingAlert.dismissWithClickedButtonIndex(0, animated: true)
+            alertViewController.hideAlert()
             
-            self.saveUserdefault(self.search.text!,imageURLs: imageURLs)
+            let userdefaultManager = UserdefaultManager()
+            userdefaultManager.saveTags(self.search.text!)
+            userdefaultManager.saveImageURLs(imageURLs)
             
             self.gotoPhotoDetailViewController(imageURLs,arrayy: arrayy!)
         
@@ -41,25 +45,7 @@ class SearchViewController: UIViewController,UISearchBarDelegate{
         }
     }
     
-    func showSearchingAlert()->UIAlertView{
-        
-        let alert = UIAlertView()
-        alert.title = ""
-        alert.message = "検索中です..."
-        //alert.addButtonWithTitle("了解")
-        alert.show()
-        
-        return alert;
-    }
-    
-    func saveUserdefault(tags:String,imageURLs:[String]){
-        
-        let userdefaultManager = UserdefaultManager()
-        userdefaultManager.setObject(tags,imageURLs: imageURLs)
-        
-    }
-    
-    func gotoPhotoDetailViewController(imageURLs:[String],arrayy:NSMutableArray){
+    private func gotoPhotoDetailViewController(imageURLs:[String],arrayy:NSMutableArray){
         
         print("検証1: \(imageURLs)")
         
