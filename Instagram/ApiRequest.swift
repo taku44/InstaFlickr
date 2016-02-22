@@ -13,11 +13,9 @@ import SwiftyJSON
 class ApiRequest{
     
     private let api_key:String = "86997f23273f5a518b027e2c8c019b0f"
-    
-    //var photosJson:JSON = nil;
     private var tags:String
     private var photosSearchParam  = [String: String]()
-    
+    private let alertViewController = AlertViewController()
     
     init(tags:String){
         
@@ -37,10 +35,9 @@ class ApiRequest{
         getSearchPhotosRequest(completionHandler)
     }
     
-    func getSearchPhotosRequest(completionHandler: ([String], NSMutableArray?, NSError?) -> ()){
+    private func getSearchPhotosRequest(completionHandler: ([String], NSMutableArray?, NSError?) -> ()){
         
         var photosJson:JSON = nil;
-    
         var imageURLs:[String]=[]
         var arrayy = NSMutableArray()
         
@@ -74,11 +71,8 @@ class ApiRequest{
                     completionHandler(imageURLs, arrayy as? NSMutableArray, nil)
                 }
             case .Failure(let error):
-                let alert = UIAlertView()
-                alert.title = ""
-                alert.message = "エラーが発生しました"
-                alert.addButtonWithTitle("了解")
-                alert.show()
+                
+                self.showErroeMessage()
                 
                 completionHandler([],nil, error)
             }
@@ -86,6 +80,11 @@ class ApiRequest{
             print("error");
          }
        }
+    }
+    
+    private func showErroeMessage(){
+        
+        self.alertViewController.showErrorMessage()
     }
 }
 

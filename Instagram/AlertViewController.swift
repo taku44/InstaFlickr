@@ -20,6 +20,15 @@ class AlertViewController {
         return alert;
     }
     
+    func showErrorMessage(){
+        
+        alert.title = ""
+        alert.message = "エラーが発生しました"
+        alert.addButtonWithTitle("了解")
+        alert.show()
+    }
+    
+    
     func hideAlert(){
     
         alert.dismissWithClickedButtonIndex(0, animated: true)

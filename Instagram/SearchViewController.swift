@@ -13,36 +13,67 @@ class SearchViewController: UIViewController,UISearchBarDelegate{
     
     @IBOutlet private var search: UISearchBar!
     
+    //構文的なカプセル化
+    private let userdefaultManager = UserdefaultManager()
+    private let alertViewController = AlertViewController()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
        
         search.delegate = self
     }
     
-    func searchBarSearchButtonClicked(searchBar: UISearchBar){
+    func searchBarSearchButtonClicked(searchBar: UISearchBar){   //privateにしたいが..
         
-        let alertViewController = AlertViewController()
-        
-        alertViewController.showAlert("検索中です...")
-        
-        let apiRequest = ApiRequest(tags:search.text!)
+        self.showAlert("検索中です...")
+
+        self.doApiRequest(self.search.text!)
+    }
     
+    
+    //以下、インターフェイスの抽象化のレベルを一貫する(他のクラスを使っていることを隠し、1つのADTだけが存在するように見せる)ためにprivateで隠蔽
+    
+    
+    private func doApiRequest(tags:String){
+        
+        let apiRequest = ApiRequest(tags: tags)
+        
         apiRequest.getSearchPhotos() { imageURLs, arrayy, error in
             
             print("responseObject1 = \(imageURLs);")
             print("responseObject2 = \(arrayy);")
             print("error=\(error)")
             
-            alertViewController.hideAlert()
+            self.hideAlert()
             
-            let userdefaultManager = UserdefaultManager()
-            userdefaultManager.saveTags(self.search.text!)
-            userdefaultManager.saveImageURLs(imageURLs)
+            //let userdefaultManager = UserdefaultManager()
+            self.saveTags(self.search.text!)
+            self.saveImageURLs(imageURLs)
             
             self.gotoPhotoDetailViewController(imageURLs,arrayy: arrayy!)
-        
+            
             return
         }
+    }
+    
+    private func showAlert(message:String){
+    
+        self.alertViewController.showAlert(message)
+    }
+    
+    private func hideAlert(){
+        
+        self.alertViewController.hideAlert()
+    }
+    
+    private func saveTags(tags:String){
+        
+        self.userdefaultManager.saveTags(tags)
+    }
+    
+    private func saveImageURLs(imageURLs:[String]){
+        
+        self.userdefaultManager.saveImageURLs(imageURLs)
     }
     
     private func gotoPhotoDetailViewController(imageURLs:[String],arrayy:NSMutableArray){
@@ -57,6 +88,7 @@ class SearchViewController: UIViewController,UISearchBarDelegate{
         
     }
 }
+
 
 
 

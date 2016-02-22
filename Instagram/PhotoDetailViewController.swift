@@ -51,6 +51,8 @@ class PhotoDetailViewController: GalleryViewController,GalleryDataSource {
         return self.arrayy
     }
     
+    
+    
     /*func gallery(gallery: GalleryViewController, imageURLAtIndexPath2 indexPath: NSIndexPath) -> NSURL {
         return NSURL(string: imageURLs2[indexPath.row])!
     }*/

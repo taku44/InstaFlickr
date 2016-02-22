@@ -35,7 +35,7 @@ class Entry: Object {
         self.init()
         mapping(map)
     }
-    func mapping(map: Map) {
+    private func mapping(map: Map) {
         id            <- map["id"]
         url_n   <-  map["url_n"]
         ownername           <- map["ownername"]

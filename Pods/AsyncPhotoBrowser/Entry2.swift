@@ -44,7 +44,7 @@ class Entry2: Object {
         self.init()
         mapping(map)
     }
-    func mapping(map: Map) {
+    private func mapping(map: Map) {
         id            <- map["id"]
         page         <- map["page"]
         ownerimage  <- map["ownerimage"]
