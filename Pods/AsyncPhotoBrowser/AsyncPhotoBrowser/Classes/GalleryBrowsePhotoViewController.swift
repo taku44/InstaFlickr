@@ -73,28 +73,6 @@ public class GalleryBrowsePhotoViewController: UIViewController, UIScrollViewDel
         commonSetup()
     }
     
-        //https://api.instagram.com/v1/tags/a/media/recent
-        //"scope":"public_content"
-        //https://api.instagram.com/v1/self/media/recent
-        //1801390729、786016361
-        //["access_token":"1801390729.fd90046.0d81b56e3e984fc9b59448111943fd12","count":5]
-        
-        /*let parameters :Dictionary = [
-        "access_token"         : "2307093343.46334ac.4f6800a20edb463e8b6f1af1baad3591",
-        "count"        : "5"
-        ]
-        Alamofire.request(.GET,"https://api.instagram.com/v1/users/1801390729/media/recent", parameters:parameters).responseJSON { response in
-        //print(response.request)  // original URL request
-        print(response.response) // URL response
-        print(response.data)     // server data
-        print(response.result)   // result of response serialization
-        
-        if let JSON = response.result.value {
-        print("JSON: \(JSON)")
-        }
-        }*/
-    
-    
     public override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -139,7 +117,6 @@ public class GalleryBrowsePhotoViewController: UIViewController, UIScrollViewDel
             v.top == v.superview!.top
             v.bottom == v.superview!.bottom
         }
-        
     }
     
     func doneButtonTapped(sender: UIBarButtonItem) {
@@ -211,8 +188,8 @@ public class GalleryBrowsePhotoViewController: UIViewController, UIScrollViewDel
                 
                 let photoCommentsList = apiRequestInPods.getPhotoCommentsList()
                 
-              apiRequestInPods.getPhotoFavoritesNum(){
-                photoFavoritesNumJson, error in         //responseObjectのこと
+              apiRequestInPods.getPhotoFavoritesNumJson(){
+                photoFavoritesNumJson, error in
                 
                 print("responseObject = \(photoFavoritesNumJson); error = \(error)")
                 
@@ -251,8 +228,8 @@ public class GalleryBrowsePhotoViewController: UIViewController, UIScrollViewDel
             
                 newPageView.favoritesNum =  "いいね数:" + String(realmManager.getPhotoFavoritesNum())
                 
-                let commenterNameArray = realmManager.getPhotoCommenterName()
-                let commenterMessageArray = realmManager.getPhotoCommenterMessage()
+                let commenterNameArray = realmManager.getPhotoCommenterNameArray()
+                let commenterMessageArray = realmManager.getPhotoCommenterMessageArray()
                 
                 self.showComments(commenterNameArray,commenterMessageArray: commenterMessageArray,newPageView: newPageView)
             }

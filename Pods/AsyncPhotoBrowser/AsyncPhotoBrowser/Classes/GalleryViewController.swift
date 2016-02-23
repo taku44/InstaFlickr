@@ -101,12 +101,10 @@ public class GalleryViewController: UIViewController, UICollectionViewDataSource
 
         setup()
         
-        //3.初期化したいので
         let realmManager = RealmManager()
         realmManager.removeAll()
         
         var arrayy: NSMutableArray? = dataSource?.gallery(self,getarray: 1)
-        //var iii:Int = 0
         
         //Optional Bindingで全ての要素が特定のObjectかどうかを判定
         if let arr:NSArray = arrayy {
@@ -114,7 +112,7 @@ public class GalleryViewController: UIViewController, UICollectionViewDataSource
             //全ての要素がnsarray確定
             for ids in arr{
                 
-                realmManager.writeIds(ids as! NSArray)
+                realmManager.savePhotoIds(ids as! NSArray)
             }
         }
     }
@@ -216,7 +214,9 @@ public class GalleryViewController: UIViewController, UICollectionViewDataSource
             c.top == c.superview!.top
             c.bottom == c.superview!.bottom
         }
-
+    }
+    
+    
         /*var ref:UIRefreshControl = UIRefreshControl()
         collectionView?.alwaysBounceVertical=true
         //self.refreshControl.triggerVerticalOffset = 10
@@ -399,7 +399,7 @@ public class GalleryViewController: UIViewController, UICollectionViewDataSource
                 }
             }
         }*/
-    }
+    
     
     public override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -451,7 +451,6 @@ public class GalleryViewController: UIViewController, UICollectionViewDataSource
         return nil
     }
     
-    
     // MARK: Collection View Data Source   //この2つで数が決定
     public func numberOfSectionsInCollectionView(collectionView: UICollectionView) -> Int {
         return dataSource?.numberOfSectionsInGallery?(self) ?? 1
@@ -459,8 +458,6 @@ public class GalleryViewController: UIViewController, UICollectionViewDataSource
     public func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return dataSource?.gallery(self, numberOfImagesInSection: section) ?? 0
     }
-    
-    
     
     public func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCellWithReuseIdentifier(collectionViewCellIdentifier, forIndexPath: indexPath) as! GalleryImageCell

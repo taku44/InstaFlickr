@@ -11,8 +11,8 @@ import SwiftyJSON
 
 class RealmManager{
     
-    var item:Entry?
-    var item2:Entry2?
+    private var item:Entry?
+    private var item2:Entry2?
     
     init(){
         
@@ -20,7 +20,7 @@ class RealmManager{
         self.item2=nil;
     }
     
-    func writeIds(ids:NSArray){   //(aa2,aa0,aa3:String,aa4:String,aa1:String)
+    func savePhotoIds(ids:NSArray){   //(aa2,aa0,aa3:String,aa4:String,aa1:String)
         do {
             let realm = try! Realm()
             try! realm.write() {
@@ -51,8 +51,6 @@ class RealmManager{
             print("\(error)")
         }
     }
-    
-    
     
     func checkIfRealmHasData(pageStr:String)->Bool{
         
@@ -114,7 +112,7 @@ class RealmManager{
         return img!;
     }
     
-    func getPhotoCommenterName()->NSMutableArray{
+    func getPhotoCommenterNameArray()->NSMutableArray{
         
         var commenterNameArray = NSMutableArray()
         
@@ -127,30 +125,24 @@ class RealmManager{
             
         }else if(name2==nil){
             
-            let name1str:String = name1! as String
-            commenterNameArray.addObject(name1str)
+            commenterNameArray.addObject(name1! as String)
             
         }else if(name3==nil){
             
-            let name1str:String = name1! as String
-            let name2str:String = name2! as String
-            commenterNameArray.addObject(name1str)
-            commenterNameArray.addObject(name2str)
+            commenterNameArray.addObject(name1! as String)
+            commenterNameArray.addObject(name2! as String)
             
         }else{
             
-            let name1str:String = name1! as String
-            let name2str:String = name2! as String
-            let name3str:String = name3! as String
-            commenterNameArray.addObject(name1str)
-            commenterNameArray.addObject(name2str)
-            commenterNameArray.addObject(name3str)
+            commenterNameArray.addObject(name1! as String)
+            commenterNameArray.addObject(name2! as String)
+            commenterNameArray.addObject(name3! as String)
             
         }
         return commenterNameArray;
     }
     
-    func getPhotoCommenterMessage()->NSMutableArray{
+    func getPhotoCommenterMessageArray()->NSMutableArray{
         
         var commenterMessageArray = NSMutableArray()
         
@@ -163,24 +155,18 @@ class RealmManager{
             
         }else if(message2==nil){
             
-            let message1str:String = message1!
-            commenterMessageArray.addObject(message1str)
+            commenterMessageArray.addObject(message1! as String)
             
         }else if(message3==nil){
             
-            let message1str:String = message1!
-            let message2str:String = message2!
-            commenterMessageArray.addObject(message1str)
-            commenterMessageArray.addObject(message2str)
+            commenterMessageArray.addObject(message1! as String)
+            commenterMessageArray.addObject(message2! as String)
             
         }else{
             
-            let message1str:String = message1!
-            let message2str:String = message2!
-            let message3str:String = message3!
-            commenterMessageArray.addObject(message1str)
-            commenterMessageArray.addObject(message2str)
-            commenterMessageArray.addObject(message3str)
+            commenterMessageArray.addObject(message1! as String)
+            commenterMessageArray.addObject(message2! as String)
+            commenterMessageArray.addObject(message3! as String)
             
         }
         return commenterMessageArray;

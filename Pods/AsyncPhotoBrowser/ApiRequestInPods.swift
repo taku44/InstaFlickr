@@ -12,11 +12,10 @@ import SwiftyJSON
 
 class ApiRequestInPods{
 
-    let api_key:String = "86997f23273f5a518b027e2c8c019b0f"
-    
-    var photoId:String
-    var getPhotoCommentsListParam  = [String: String]()
-    var getPhotoFavoritesNumParam  = [String: String]()
+    private let api_key:String = "86997f23273f5a518b027e2c8c019b0f"
+    private var photoId:String
+    private var getPhotoCommentsListParam  = [String: String]()
+    private var getPhotoFavoritesNumJsonParam  = [String: String]()
     
     init(photoId:String){
         
@@ -30,7 +29,7 @@ class ApiRequestInPods{
             "nojsoncallback" : "1",
         ]
         
-        self.getPhotoFavoritesNumParam = [
+        self.getPhotoFavoritesNumJsonParam = [
             "method"         : "flickr.photos.getFavorites",
             "api_key"        : api_key,
             "photo_id"       : photoId,
@@ -97,15 +96,15 @@ class ApiRequestInPods{
         return (names,messages);
     }
 
-    func getPhotoFavoritesNum(completionHandler:(JSON?, NSError?) -> ()) {
-        getPhotoFavoritesNumRequest(completionHandler)
+    func getPhotoFavoritesNumJson(completionHandler:(JSON?, NSError?) -> ()) {
+        getPhotoFavoritesNumJsonRequest(completionHandler)
     }
     
-    func getPhotoFavoritesNumRequest(completionHandler: (JSON?, NSError?) -> ()){
+    private func getPhotoFavoritesNumJsonRequest(completionHandler: (JSON?, NSError?) -> ()){
     
         var photoFavoritesNumJson:JSON=nil
         
-        Alamofire.request(.GET,"https://api.flickr.com/services/rest/",parameters:getPhotoFavoritesNumParam).responseJSON { response in
+        Alamofire.request(.GET,"https://api.flickr.com/services/rest/",parameters:getPhotoFavoritesNumJsonParam).responseJSON { response in
             do {
                 switch response.result {
                 case .Success(let data):
