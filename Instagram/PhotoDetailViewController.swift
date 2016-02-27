@@ -14,48 +14,108 @@ class PhotoDetailViewController: GalleryViewController,GalleryDataSource {
     
     @IBOutlet var backto: UIBarButtonItem!
     
-    var imageURLs: [String] = []
-    var arrayy = NSMutableArray()
+    private var _imageURLs:[String] = []
+    private var _arrayy = NSMutableArray()
+    
+    var imageURLs: [String]{
+        get{
+            return self._imageURLs;
+        }
+        set{
+            //代入前にvalidate()を呼ぶ？
+            self._imageURLs = newValue;
+        }
+    }
+    var arrayy:NSMutableArray{
+        get{
+            return self._arrayy;
+        }
+        set{
+            self._arrayy = newValue;
+        }
+    }
+    
+    private enum ArrayNumException: ErrorType {
+        
+        case ZeroNum;
+        case NegativeNum;
+    }
     
     override func awakeFromNib() {
         
         super.awakeFromNib()
-        self.dataSource = self
         
-        /*imageURLs = ["http://img1.3lian.com/img2011/w1/103/41/d/50.jpg", "http://www.old-radio.info/wp-content/uploads/2014/09/cute-cat.jpg", "http://static.tumblr.com/aeac4c29583da7972652d382d8797876/sz5wgey/Tejmpabap/tumblr_static_cats-1.jpg", "http://resources2.news.com.au/images/2013/11/28/1226770/056906-cat.jpg"]
-        for i in 0...99 {
-            let formattedIndex = String(format: "%03d", i)
-            imageURLs.append("https://s3.amazonaws.com/fast-image-cache/demo-images/FICDDemoImage\(formattedIndex).jpg")
-        }*/
+        //アクセサ関数(setter)でGalleryViewControllerのメンバに代入
+        self.dataSource = self
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-    
-        navigationItem.title = "AsyncPhotoBrowser"
-        print("サブ3")
+        
+        //navigationItem.title = "AsyncPhotoBrowser"
     }
     
-    func gallery(gallery: GalleryViewController, numberOfImagesInSection section: Int) -> Int {
-        return imageURLs.count
-    }
+    
+    //以下、GalleryDataSourceプロトコルの実装
+    
     
     func gallery(gallery: GalleryViewController, imageURLAtIndexPath indexPath: NSIndexPath) -> NSURL {
         
         return NSURL(string: imageURLs[indexPath.row])!
-        //return NSURL (fileURLWithPath: "m")
+        
     }
     
-    func gallery(gallery: GalleryViewController, getarray nsarray: Int) -> NSMutableArray {
-        print("サブ4")
+    func gallery(gallery: GalleryViewController, numberOfImagesInSection section: Int) -> Int {
+       
+        return self.imageURLs.count
+    }
+    
+    func gallery(gallery: GalleryViewController, getArrayy nsarray: Int) -> NSMutableArray {
+        
+        self.exceptionReport()
+        
         return self.arrayy
     }
     
+    func exceptionReport(){
+        
+        do {
+            
+            try self.throwArrayNumException(self.arrayy.count);
+            
+        } catch ArrayNumException.ZeroNum{
+            
+            print("例外:arrayyの数が0で不正");
+            
+        } catch ArrayNumException.NegativeNum{
+            
+            print("例外:arrayyの数が負で不正");
+            
+        } catch {
+            
+            print("例外:不明なエラーです。")
+        }
+    }
+    
+    func throwArrayNumException(arrayNum:Int) throws {
+        
+        if (arrayNum > 0) {
+            
+            print("arrayyの数は\(arrayNum)で、正の数なので正常な値です。")
+            
+        }else if (arrayNum == 0) {
+            
+            throw ArrayNumException.ZeroNum;
+            
+        }else if (arrayNum < 0) {
+            
+            throw ArrayNumException.NegativeNum;
+        }
+    }
     
     
-    /*func gallery(gallery: GalleryViewController, imageURLAtIndexPath2 indexPath: NSIndexPath) -> NSURL {
-        return NSURL(string: imageURLs2[indexPath.row])!
-    }*/
+    
+    
     
     
     
@@ -65,8 +125,6 @@ class PhotoDetailViewController: GalleryViewController,GalleryDataSource {
         let firstViewController: SearchViewController = (self.storyboard?.instantiateViewControllerWithIdentifier("SearchViewController") as? SearchViewController)!
         self.presentViewController(firstViewController, animated: true, completion: nil)
     }*/
-    
-    
     
     
     /*func numberOfPhotosInPhotoBrowser(photoBrowser: MWPhotoBrowser!) -> UInt {

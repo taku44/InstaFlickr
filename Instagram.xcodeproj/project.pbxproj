@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		50F7265CA9D0CD6D9E560B61 /* Pods.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CF04E32D0C943D9E11AE0576 /* Pods.framework */; };
 		790B58011C7AA40D003DC0BF /* AlertViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 790B58001C7AA40D003DC0BF /* AlertViewController.swift */; };
+		790B58031C817875003DC0BF /* Queue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 790B58021C817874003DC0BF /* Queue.swift */; };
 		792E82F31C1E4B7500423D3E /* circle.yml in Resources */ = {isa = PBXBuildFile; fileRef = 792E82F21C1E4B7500423D3E /* circle.yml */; };
 		7939644A1C769F2E00C415C8 /* UserdefaultManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 793964491C769F2E00C415C8 /* UserdefaultManager.swift */; };
 		795D30AE1C0C643C001783A4 /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 795D30AD1C0C643C001783A4 /* SearchViewController.swift */; };
@@ -46,6 +47,7 @@
 /* Begin PBXFileReference section */
 		15550D27F54057A56BF46E96 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 		790B58001C7AA40D003DC0BF /* AlertViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlertViewController.swift; sourceTree = "<group>"; };
+		790B58021C817874003DC0BF /* Queue.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Queue.swift; sourceTree = "<group>"; };
 		792E82F21C1E4B7500423D3E /* circle.yml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = circle.yml; path = Instagram/circle.yml; sourceTree = "<group>"; };
 		793964491C769F2E00C415C8 /* UserdefaultManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserdefaultManager.swift; sourceTree = "<group>"; };
 		795D30AD1C0C643C001783A4 /* SearchViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
@@ -152,6 +154,7 @@
 				795D30AD1C0C643C001783A4 /* SearchViewController.swift */,
 				790B58001C7AA40D003DC0BF /* AlertViewController.swift */,
 				7972C0FF1C10302400BA75B6 /* PhotoDetailViewController.swift */,
+				790B58021C817874003DC0BF /* Queue.swift */,
 				799C52DE1C7653390024D3F0 /* ApiRequest.swift */,
 				793964491C769F2E00C415C8 /* UserdefaultManager.swift */,
 				79F80F741C0C52D800248735 /* Main.storyboard */,
@@ -368,6 +371,7 @@
 				79F80F791C0C52D900248735 /* Instagram.xcdatamodeld in Sources */,
 				790B58011C7AA40D003DC0BF /* AlertViewController.swift in Sources */,
 				795D30AE1C0C643C001783A4 /* SearchViewController.swift in Sources */,
+				790B58031C817875003DC0BF /* Queue.swift in Sources */,
 				79F80F711C0C52D800248735 /* AppDelegate.swift in Sources */,
 				799C52DF1C7653390024D3F0 /* ApiRequest.swift in Sources */,
 				7939644A1C769F2E00C415C8 /* UserdefaultManager.swift in Sources */,

@@ -10,24 +10,22 @@ class AlertViewController {
     
     private let alert = UIAlertView()
     
-    func showAlert(message:String)->UIAlertView{
+    func showAlert(message:String,title:String,buttonTitle:String)->UIAlertView{
         
-        alert.title = ""
+        if(title != ""){
+            alert.title = title
+        }
+        
+        if(buttonTitle != ""){
+            alert.addButtonWithTitle(buttonTitle)
+        }
+        
         alert.message = message
-        //alert.addButtonWithTitle("了解")
+        
         alert.show()
         
         return alert;
     }
-    
-    func showErrorMessage(){
-        
-        alert.title = ""
-        alert.message = "エラーが発生しました"
-        alert.addButtonWithTitle("了解")
-        alert.show()
-    }
-    
     
     func hideAlert(){
     

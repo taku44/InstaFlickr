@@ -212,8 +212,11 @@ public class GalleryBrowsePhotoViewController: UIViewController, UIScrollViewDel
                     
                     self.showComments(photoCommentsList.names,commenterMessageArray: photoCommentsList.messages,newPageView: newPageView)
                     
+                    
                     //以下、DBに保存
-                    realmManager.savePhotoCommentsAndOwnerImg(photoCommentsList.names, messages: photoCommentsList.messages, imgdata: imgdata, pageStr: pageStr)
+                    realmManager.saveOwnerImg(imgdata, pageStr: pageStr)
+                    
+                    realmManager.savePhotoComments(photoCommentsList.names, messages: photoCommentsList.messages, pageStr: pageStr)
             
                     realmManager.savePhotoFavoritesNum(pageStr,favorites: photoFavoritesNumJson!.intValue)
                 }

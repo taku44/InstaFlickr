@@ -12,7 +12,7 @@ import SwiftyJSON
 
 class ApiRequest{
     
-    private let api_key:String = "86997f23273f5a518b027e2c8c019b0f"
+    private let API_KEY:String = "86997f23273f5a518b027e2c8c019b0f"
     private var tags:String
     private var photosSearchParam  = [String: String]()
     private let alertViewController = AlertViewController()
@@ -22,7 +22,7 @@ class ApiRequest{
         self.tags=tags;
         self.photosSearchParam = [
             "method"         : "flickr.photos.search",
-            "api_key"        : api_key,
+            "api_key"        : API_KEY,
             "tags"           : tags,
             "per_page"       : "150",  
             "format"         : "json",
@@ -54,6 +54,7 @@ class ApiRequest{
                     //The `index` is 0..<json.count's string value
                     for (index,subJson):(String, JSON) in photosJson {
                         print("サブJSON: \(subJson)")
+                        
                         let url_n = subJson["url_n"].stringValue
                         imageURLs.append(url_n)
                         
@@ -66,6 +67,7 @@ class ApiRequest{
                         let ownernameStr = subJson["ownername"].stringValue
                         
                         arrayy.addObject([url_n,ownerIconUrl,idStr,ownernameStr,index])
+                        
                     }
                     
                     completionHandler(imageURLs, arrayy as? NSMutableArray, nil)
@@ -84,7 +86,7 @@ class ApiRequest{
     
     private func showErroeMessage(){
         
-        self.alertViewController.showErrorMessage()
+        self.alertViewController.showAlert("エラーが発生しました",title: "",buttonTitle: "")
     }
 }
 

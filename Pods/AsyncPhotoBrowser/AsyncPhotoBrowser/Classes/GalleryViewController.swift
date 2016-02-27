@@ -45,22 +45,31 @@ import Alamofire
      */
     func gallery(gallery: GalleryViewController, imageURLAtIndexPath indexPath: NSIndexPath) -> NSURL
     
-    func gallery(gallery: GalleryViewController, getarray nsarray: Int) -> NSMutableArray
+    func gallery(gallery: GalleryViewController, getArrayy nsarray: Int) -> NSMutableArray
     
     //func gallery(gallery: GalleryViewController, imageURLAtIndexPath2 indexPath: NSIndexPath) -> NSURL
 }
 
 public class GalleryViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout, GalleryBrowserDataSource {
     
-    public enum GalleryCellSizingMode {
+    private enum GalleryCellSizingMode {
         case FixedSize(CGSize)
         case FixedItemsPerRow(Int)
     }
     
-    let collectionViewCellIdentifier = "imageCell"
-    var collectionView: UICollectionView!
+    private let collectionViewCellIdentifier = "imageCell"
+    private var collectionView: UICollectionView!
     
-    public var dataSource: GalleryDataSource?
+    private var _dataSource: GalleryDataSource?
+    public var dataSource: GalleryDataSource?{
+        get{
+            return self._dataSource
+        }
+        set{
+            //代入前にvalidate()を呼ぶ？
+            self._dataSource = newValue
+        }
+    }
     //public var arrayy: NSArray?
     
     /**
@@ -68,7 +77,7 @@ public class GalleryViewController: UIViewController, UICollectionViewDataSource
     
     :discussion: Set this before laying out the GalleryViewController. Any setter call after that does nothing, because the FastImageCache only initializes once.
     */
-    public var cellSizingMode: GalleryCellSizingMode = .FixedItemsPerRow(3) {
+    private var cellSizingMode: GalleryCellSizingMode = .FixedItemsPerRow(3) {
         didSet {
             if cacheAlreadySetup {
                 self.cellSizingMode = oldValue
@@ -81,7 +90,7 @@ public class GalleryViewController: UIViewController, UICollectionViewDataSource
     /**
      The minimum spacing between items. Has effect when cellSizingMode is set to .FixedItemsPerRow.
      */
-    public var itemSpacing: CGFloat = 1
+    private var itemSpacing: CGFloat = 1
     
     private var cacheAlreadySetup: Bool = false
     private var collectionViewLayout = UICollectionViewFlowLayout()
@@ -104,7 +113,7 @@ public class GalleryViewController: UIViewController, UICollectionViewDataSource
         let realmManager = RealmManager()
         realmManager.removeAll()
         
-        var arrayy: NSMutableArray? = dataSource?.gallery(self,getarray: 1)
+        var arrayy: NSMutableArray? = self.dataSource?.gallery(self,getArrayy: 1)
         
         //Optional Bindingで全ての要素が特定のObjectかどうかを判定
         if let arr:NSArray = arrayy {
@@ -354,7 +363,7 @@ public class GalleryViewController: UIViewController, UICollectionViewDataSource
                             
                             //var indexPaths = [NSIndexPath]()
                             
-                            /*var arrayy: NSMutableArray? = dataSource?.gallery(self,getarray: 1) //前の情報全て
+                            /*var arrayy: NSMutableArray? = dataSource?.gallery(self,getArrayy: 1) //前の情報全て
                             if let arrss:NSArray = arrayy {
                                 print("Optional Bindingで全ての要素が特定のObjectかどうかを判定")
                                 //全ての要素がnsarray確定

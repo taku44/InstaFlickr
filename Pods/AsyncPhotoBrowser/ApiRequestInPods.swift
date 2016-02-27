@@ -12,17 +12,19 @@ import SwiftyJSON
 
 class ApiRequestInPods{
 
-    private let api_key:String = "86997f23273f5a518b027e2c8c019b0f"
+    private let API_KEY:String = "86997f23273f5a518b027e2c8c019b0f"
     private var photoId:String
-    private var getPhotoCommentsListParam  = [String: String]()
-    private var getPhotoFavoritesNumJsonParam  = [String: String]()
+    
+    typealias paramType = [String: String]
+    private var getPhotoCommentsListParam:paramType  //= [String: String]()
+    private var getPhotoFavoritesNumJsonParam:paramType
     
     init(photoId:String){
-        
+       
         self.photoId=photoId;
         self.getPhotoCommentsListParam = [
             "method"         : "flickr.photos.comments.getList",
-            "api_key"        : api_key,
+            "api_key"        : API_KEY,
             "photo_id"       : photoId,
             "per_page"       : "3",     //これいける？？
             "format"         : "json",
@@ -31,7 +33,7 @@ class ApiRequestInPods{
         
         self.getPhotoFavoritesNumJsonParam = [
             "method"         : "flickr.photos.getFavorites",
-            "api_key"        : api_key,
+            "api_key"        : API_KEY,
             "photo_id"       : photoId,
             "per_page"       : "1",     //total数だけがほしいので
             "format"         : "json",
@@ -52,29 +54,27 @@ class ApiRequestInPods{
                         let json = JSON(value)
                         print("コメントは\(json)")
                         var commentsJson:JSON = json["comments"]["comment"]
-                        var num = commentsJson.count
-                        print("なむは\(num)")
+                        var commentsJsonCount = commentsJson.count
+                        print("なむは\(commentsJsonCount)")
                         
-                        var commentJson1=commentsJson[num-1]
-                        var commentJson2=commentsJson[num-2]
-                        var commentJson3=commentsJson[num-3]
+                        var commentJson1=commentsJson[commentsJsonCount-1]
+                        var commentJson2=commentsJson[commentsJsonCount-2]
+                        var commentJson3=commentsJson[commentsJsonCount-3]
                         
-                        if(num==0){
-                           
                         //lastObjectから順に(新しい順に)3件まで表示
-                        }else if(num==1){
+                        if(commentsJsonCount==1){
 
                             names.addObject(commentJson1["authorname"].stringValue)
                             messages.addObject(commentJson1["_content"].stringValue)
                             
-                        }else if(num==2){
+                        }else if(commentsJsonCount==2){
                             
                             names.addObject(commentJson1["authorname"].stringValue)
                             messages.addObject(commentJson1["_content"].stringValue)
                             
                             names.addObject(commentJson2["authorname"].stringValue)
                             messages.addObject(commentJson2["_content"].stringValue)
-                        }else if(num >= 3){
+                        }else if(commentsJsonCount >= 3){
             
                             names.addObject(commentJson1["authorname"].stringValue)
                             messages.addObject(commentJson1["_content"].stringValue)
@@ -86,7 +86,7 @@ class ApiRequestInPods{
                             messages.addObject(commentJson3["_content"].stringValue)
                         }
                     }
-                        
+                    
                 case .Failure(let error): break
                 }
             }catch{

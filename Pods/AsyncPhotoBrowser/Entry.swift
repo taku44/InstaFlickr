@@ -18,9 +18,6 @@ class Entry: Object {
     
     dynamic var page:String?
     dynamic var ownerurl = ""
-    //dynamic var ownerimage : NSData
-    //dynamic var ownerimage: NSData? = nil
-    //dynamic var comments = ""    //配列はダメ??
     dynamic var favorites = 0
     
     //主キーの設定、2回目以降RESTでGETリクエストする場合以下のように更新する

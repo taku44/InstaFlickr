@@ -172,27 +172,28 @@ class RealmManager{
         return commenterMessageArray;
     }
     
-    func savePhotoCommentsAndOwnerImg(names:NSMutableArray,messages:NSMutableArray,imgdata:NSData,pageStr:String){
+    func saveOwnerImg(imgdata:NSData,pageStr:String){
         
-        if(names.count==0){
-            do {
-                let realm = try! Realm()
-                try! realm.write() {
-                    var entryy2 = realm.create(Entry2.self, value: [
-                        "ownerimage": imgdata,
-                        "page": pageStr
-                        ],update: true)
-                }
-            } catch {
-                print("\(error)")
+        do {
+            let realm = try! Realm()
+            try! realm.write() {
+                var entryy2 = realm.create(Entry2.self, value: [
+                    "ownerimage": imgdata,
+                    "page": pageStr
+                    ],update: true)
             }
-            
-        }else if(names.count==1){
+        } catch {
+            print("\(error)")
+        }
+    }
+    
+    func savePhotoComments(names:NSMutableArray,messages:NSMutableArray,pageStr:String){
+        
+        if(names.count==1){
             do {
                 let realm = try! Realm()
                 try! realm.write() {
                 var entryy2 = realm.create(Entry2.self, value: [
-                    "ownerimage": imgdata,
                     "name1": names[0],
                     "message1":messages[0],
                     "page": pageStr   //主キー
@@ -206,7 +207,6 @@ class RealmManager{
                 let realm = try! Realm()
                 try! realm.write() {
                 var entryy2 = realm.create(Entry2.self, value: [
-                    "ownerimage": imgdata,
                     "name1": names[0],
                     "message1":messages[0],
                     "name2": names[1],
@@ -222,7 +222,6 @@ class RealmManager{
                 let realm = try! Realm()
                 try! realm.write() {
                     var entryy2 = realm.create(Entry2.self, value: [
-                        "ownerimage": imgdata,
                         "name1": names[0],
                         "message1":messages[0],
                         "name2": names[1],

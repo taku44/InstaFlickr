@@ -15,26 +15,48 @@ class SearchViewController: UIViewController,UISearchBarDelegate{
     
     //構文的なカプセル化
     private let userdefaultManager = UserdefaultManager()
-    private let alertViewController = AlertViewController()
-    
+    private var alertViewController = AlertViewController()
+   
     override func viewDidLoad() {
         super.viewDidLoad()
        
         search.delegate = self
+        
     }
     
-    func searchBarSearchButtonClicked(searchBar: UISearchBar){   //privateにしたいが..
+    func searchBarSearchButtonClicked(searchBar: UISearchBar){   //protocolの実装
         
-        self.showAlert("検索中です...")
-
-        self.doApiRequest(self.search.text!)
+        self.showAlert("検索中です...",title: "",buttonTitle: "")
+        
+        self.doSearch() { imageURLs, arrayy, error in
+            
+            self.hideAlert()
+            
+            if(imageURLs.count > 0){
+            
+                self.gotoPhotoDetailViewController(imageURLs,arrayy: arrayy!)
+                
+                self.saveTags(self.search.text!)
+                self.saveImageURLs(imageURLs)
+                
+            }else if(imageURLs.count == 0){     //発生を想定しうる場合
+                
+                self.showAlert("検索結果がありません",title: "",buttonTitle: "了解")
+            }
+            
+            return
+        }
     }
     
     
     //以下、インターフェイスの抽象化のレベルを一貫する(他のクラスを使っていることを隠し、1つのADTだけが存在するように見せる)ためにprivateで隠蔽
     
     
-    private func doApiRequest(tags:String){
+    private func doSearch(completionHandler: ([String], NSMutableArray?, NSError?)->()) {
+        doSearchRequest(self.search.text!, completionHandler:completionHandler)
+    }
+    
+    private func doSearchRequest(tags:String,completionHandler: ([String], NSMutableArray?, NSError?) -> ()){
         
         let apiRequest = ApiRequest(tags: tags)
         
@@ -44,21 +66,16 @@ class SearchViewController: UIViewController,UISearchBarDelegate{
             print("responseObject2 = \(arrayy);")
             print("error=\(error)")
             
-            self.hideAlert()
-            
-            //let userdefaultManager = UserdefaultManager()
-            self.saveTags(self.search.text!)
-            self.saveImageURLs(imageURLs)
-            
-            self.gotoPhotoDetailViewController(imageURLs,arrayy: arrayy!)
+            completionHandler(imageURLs, arrayy, nil)
             
             return
         }
     }
     
-    private func showAlert(message:String){
+    private func showAlert(message:String,title:String,buttonTitle:String){
     
-        self.alertViewController.showAlert(message)
+        self.alertViewController = AlertViewController()
+        self.alertViewController.showAlert(message,title: title,buttonTitle: buttonTitle)
     }
     
     private func hideAlert(){
@@ -80,12 +97,21 @@ class SearchViewController: UIViewController,UISearchBarDelegate{
         
         print("検証1: \(imageURLs)")
         
+        //絶対に発生してはいけない場合
+        func isCheckValid(imageURLsCount:Int) -> Bool{
+            
+            if imageURLsCount > 0 {
+                return true
+            }
+            return false
+        }
+        assert(isCheckValid(imageURLs.count), "渡された検索結果の数が0なため不正")  //→処理を中断するようなデバッグエイドはリリース時に無効化する?
+        
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         let vc = storyboard.instantiateViewControllerWithIdentifier("PhotoDetailViewController") as? PhotoDetailViewController
         vc?.imageURLs = imageURLs
         vc?.arrayy = arrayy
         self.presentViewController(vc!, animated: true, completion: nil)
-        
     }
 }
 
