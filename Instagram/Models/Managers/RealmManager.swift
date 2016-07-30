@@ -70,7 +70,7 @@ class RealmManager{
                 self.item2=item2!
             }
             
-            self.item=item!
+            self.item=item
             
             if(records2.count == 0){
                 

@@ -7,17 +7,29 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		318C9B261D4D204C00F38A90 /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 318C9B251D4D204C00F38A90 /* SearchViewController.swift */; };
+		319DEE9E1D4D0BDF00123E31 /* circle.yml in Resources */ = {isa = PBXBuildFile; fileRef = 319DEE9D1D4D0BDF00123E31 /* circle.yml */; };
+		319DEECA1D4D113A00123E31 /* FNImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 319DEEC61D4D113A00123E31 /* FNImage.swift */; };
+		319DEECB1D4D113A00123E31 /* GalleryImageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 319DEEC71D4D113A00123E31 /* GalleryImageCell.swift */; };
+		319DEECC1D4D113A00123E31 /* MathAdditions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 319DEEC81D4D113A00123E31 /* MathAdditions.swift */; };
+		319DEEF91D4D115000123E31 /* GalleryBrowsePhotoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 319DEEF31D4D115000123E31 /* GalleryBrowsePhotoViewController.swift */; };
+		319DEEFB1D4D115000123E31 /* GalleryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 319DEEF51D4D115000123E31 /* GalleryViewController.swift */; };
+		319DEEFD1D4D115000123E31 /* PhotoDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 319DEEF71D4D115000123E31 /* PhotoDetailViewController.swift */; };
+		319DEF061D4D12EA00123E31 /* ApiRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 319DEF011D4D12EA00123E31 /* ApiRequest.swift */; };
+		319DEF071D4D12EA00123E31 /* ApiRequest2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 319DEF021D4D12EA00123E31 /* ApiRequest2.swift */; };
+		319DEF081D4D12EA00123E31 /* ImageCacheManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 319DEF031D4D12EA00123E31 /* ImageCacheManager.swift */; };
+		319DEF091D4D12EA00123E31 /* RealmManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 319DEF041D4D12EA00123E31 /* RealmManager.swift */; };
+		319DEF0A1D4D12EA00123E31 /* UserdefaultManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 319DEF051D4D12EA00123E31 /* UserdefaultManager.swift */; };
+		319DEF0E1D4D12F300123E31 /* Entry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 319DEF0B1D4D12F300123E31 /* Entry.swift */; };
+		319DEF0F1D4D12F300123E31 /* Entry2.swift in Sources */ = {isa = PBXBuildFile; fileRef = 319DEF0C1D4D12F300123E31 /* Entry2.swift */; };
+		319DEF101D4D12F300123E31 /* Queue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 319DEF0D1D4D12F300123E31 /* Queue.swift */; };
+		319DEF1B1D4D141400123E31 /* GalleryBrowserPageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 319DEF191D4D141400123E31 /* GalleryBrowserPageView.swift */; };
+		319DEF1C1D4D141400123E31 /* GalleryViewControllerTransitioning.swift in Sources */ = {isa = PBXBuildFile; fileRef = 319DEF1A1D4D141400123E31 /* GalleryViewControllerTransitioning.swift */; };
+		319DEF221D4D165900123E31 /* AlertViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 319DEF211D4D165900123E31 /* AlertViewController.swift */; };
 		50F7265CA9D0CD6D9E560B61 /* Pods.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CF04E32D0C943D9E11AE0576 /* Pods.framework */; };
-		790B58011C7AA40D003DC0BF /* AlertViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 790B58001C7AA40D003DC0BF /* AlertViewController.swift */; };
-		790B58031C817875003DC0BF /* Queue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 790B58021C817874003DC0BF /* Queue.swift */; };
-		792E82F31C1E4B7500423D3E /* circle.yml in Resources */ = {isa = PBXBuildFile; fileRef = 792E82F21C1E4B7500423D3E /* circle.yml */; };
-		7939644A1C769F2E00C415C8 /* UserdefaultManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 793964491C769F2E00C415C8 /* UserdefaultManager.swift */; };
-		795D30AE1C0C643C001783A4 /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 795D30AD1C0C643C001783A4 /* SearchViewController.swift */; };
 		795D30B61C0C6E33001783A4 /* Podfile in Resources */ = {isa = PBXBuildFile; fileRef = 795D30B51C0C6E33001783A4 /* Podfile */; };
 		795D30B81C0C6FAA001783A4 /* Parse.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 795D30B71C0C6FAA001783A4 /* Parse.framework */; };
 		795D30BB1C0C6FCD001783A4 /* Bolts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 795D30B91C0C6FCD001783A4 /* Bolts.framework */; };
-		7972C1001C10302400BA75B6 /* PhotoDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7972C0FF1C10302400BA75B6 /* PhotoDetailViewController.swift */; };
-		799C52DF1C7653390024D3F0 /* ApiRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 799C52DE1C7653390024D3F0 /* ApiRequest.swift */; };
 		79F80F711C0C52D800248735 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79F80F701C0C52D800248735 /* AppDelegate.swift */; };
 		79F80F761C0C52D800248735 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 79F80F741C0C52D800248735 /* Main.storyboard */; };
 		79F80F791C0C52D900248735 /* Instagram.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 79F80F771C0C52D900248735 /* Instagram.xcdatamodeld */; };
@@ -28,6 +40,160 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		319DEE3B1D4D01B000123E31 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 31AA0C781CA73B170079F750 /* Pods.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 60203339C940B2BAE35679A1C9C8AF5E;
+			remoteInfo = Bolts;
+		};
+		319DEE3D1D4D01B000123E31 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 31AA0C781CA73B170079F750 /* Pods.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 8657DEC0928F02AF84967B54B1B1DF63;
+			remoteInfo = Parse;
+		};
+		319DEE4B1D4D01B000123E31 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 31AA0C511CA73B060079F750 /* Pods.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 60203339C940B2BAE35679A1C9C8AF5E;
+			remoteInfo = Bolts;
+		};
+		319DEE4D1D4D01B000123E31 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 31AA0C511CA73B060079F750 /* Pods.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 8657DEC0928F02AF84967B54B1B1DF63;
+			remoteInfo = Parse;
+		};
+		31AA0C601CA73B060079F750 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 31AA0C511CA73B060079F750 /* Pods.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 7FDBA3EED1E337C48DF79C6EC3EA22FC;
+			remoteInfo = Alamofire;
+		};
+		31AA0C661CA73B060079F750 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 31AA0C511CA73B060079F750 /* Pods.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 0FE567E890297CCA44AA6901FF584230;
+			remoteInfo = Cartography;
+		};
+		31AA0C681CA73B060079F750 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 31AA0C511CA73B060079F750 /* Pods.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 9FC6AD852BDEBA337EE3FFE0C6EB6B09;
+			remoteInfo = FastImageCache;
+		};
+		31AA0C6A1CA73B060079F750 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 31AA0C511CA73B060079F750 /* Pods.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = A558F5FEE30B7BEB874E49078E88D793;
+			remoteInfo = ObjectMapper;
+		};
+		31AA0C6E1CA73B060079F750 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 31AA0C511CA73B060079F750 /* Pods.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 531785296F2DECD319B9164144B0FFA1;
+			remoteInfo = Pods;
+		};
+		31AA0C701CA73B060079F750 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 31AA0C511CA73B060079F750 /* Pods.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = F06EDAAC0D498CC4B48140E8B18F77F9;
+			remoteInfo = Realm;
+		};
+		31AA0C721CA73B060079F750 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 31AA0C511CA73B060079F750 /* Pods.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = B3D65644A4F6D77761B1CDFED16E6006;
+			remoteInfo = RealmSwift;
+		};
+		31AA0C741CA73B060079F750 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 31AA0C511CA73B060079F750 /* Pods.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 06809A4F8F2A3081EB53055DC9AE0238;
+			remoteInfo = SwiftyJSON;
+		};
+		31AA0C761CA73B060079F750 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 31AA0C511CA73B060079F750 /* Pods.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 1DEB344DFE5A2B6D7D1F82C49ED7BA48;
+			remoteInfo = "UIScrollView-InfiniteScroll";
+		};
+		31AA0C871CA73B170079F750 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 31AA0C781CA73B170079F750 /* Pods.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 7FDBA3EED1E337C48DF79C6EC3EA22FC;
+			remoteInfo = Alamofire;
+		};
+		31AA0C8D1CA73B170079F750 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 31AA0C781CA73B170079F750 /* Pods.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 0FE567E890297CCA44AA6901FF584230;
+			remoteInfo = Cartography;
+		};
+		31AA0C8F1CA73B170079F750 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 31AA0C781CA73B170079F750 /* Pods.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 9FC6AD852BDEBA337EE3FFE0C6EB6B09;
+			remoteInfo = FastImageCache;
+		};
+		31AA0C911CA73B170079F750 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 31AA0C781CA73B170079F750 /* Pods.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = A558F5FEE30B7BEB874E49078E88D793;
+			remoteInfo = ObjectMapper;
+		};
+		31AA0C951CA73B170079F750 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 31AA0C781CA73B170079F750 /* Pods.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 531785296F2DECD319B9164144B0FFA1;
+			remoteInfo = Pods;
+		};
+		31AA0C971CA73B170079F750 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 31AA0C781CA73B170079F750 /* Pods.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = F06EDAAC0D498CC4B48140E8B18F77F9;
+			remoteInfo = Realm;
+		};
+		31AA0C991CA73B170079F750 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 31AA0C781CA73B170079F750 /* Pods.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = B3D65644A4F6D77761B1CDFED16E6006;
+			remoteInfo = RealmSwift;
+		};
+		31AA0C9B1CA73B170079F750 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 31AA0C781CA73B170079F750 /* Pods.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 06809A4F8F2A3081EB53055DC9AE0238;
+			remoteInfo = SwiftyJSON;
+		};
+		31AA0C9D1CA73B170079F750 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 31AA0C781CA73B170079F750 /* Pods.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 1DEB344DFE5A2B6D7D1F82C49ED7BA48;
+			remoteInfo = "UIScrollView-InfiniteScroll";
+		};
 		79F80F851C0C52D900248735 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 79F80F651C0C52D800248735 /* Project object */;
@@ -46,17 +212,31 @@
 
 /* Begin PBXFileReference section */
 		15550D27F54057A56BF46E96 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
-		790B58001C7AA40D003DC0BF /* AlertViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlertViewController.swift; sourceTree = "<group>"; };
-		790B58021C817874003DC0BF /* Queue.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Queue.swift; sourceTree = "<group>"; };
-		792E82F21C1E4B7500423D3E /* circle.yml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = circle.yml; path = Instagram/circle.yml; sourceTree = "<group>"; };
-		793964491C769F2E00C415C8 /* UserdefaultManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserdefaultManager.swift; sourceTree = "<group>"; };
-		795D30AD1C0C643C001783A4 /* SearchViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
+		318C9B251D4D204C00F38A90 /* SearchViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SearchViewController.swift; path = Controllers/SearchViewController.swift; sourceTree = "<group>"; };
+		319DEE9D1D4D0BDF00123E31 /* circle.yml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = circle.yml; sourceTree = "<group>"; };
+		319DEEC61D4D113A00123E31 /* FNImage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FNImage.swift; path = Views/FNImage.swift; sourceTree = "<group>"; };
+		319DEEC71D4D113A00123E31 /* GalleryImageCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = GalleryImageCell.swift; path = Views/GalleryImageCell.swift; sourceTree = "<group>"; };
+		319DEEC81D4D113A00123E31 /* MathAdditions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MathAdditions.swift; path = Views/MathAdditions.swift; sourceTree = "<group>"; };
+		319DEEF31D4D115000123E31 /* GalleryBrowsePhotoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = GalleryBrowsePhotoViewController.swift; path = Controllers/GalleryBrowsePhotoViewController.swift; sourceTree = "<group>"; };
+		319DEEF51D4D115000123E31 /* GalleryViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = GalleryViewController.swift; path = Controllers/GalleryViewController.swift; sourceTree = "<group>"; };
+		319DEEF71D4D115000123E31 /* PhotoDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PhotoDetailViewController.swift; path = Controllers/PhotoDetailViewController.swift; sourceTree = "<group>"; };
+		319DEF011D4D12EA00123E31 /* ApiRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ApiRequest.swift; path = Models/Managers/ApiRequest.swift; sourceTree = "<group>"; };
+		319DEF021D4D12EA00123E31 /* ApiRequest2.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ApiRequest2.swift; path = Models/Managers/ApiRequest2.swift; sourceTree = "<group>"; };
+		319DEF031D4D12EA00123E31 /* ImageCacheManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ImageCacheManager.swift; path = Models/Managers/ImageCacheManager.swift; sourceTree = "<group>"; };
+		319DEF041D4D12EA00123E31 /* RealmManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = RealmManager.swift; path = Models/Managers/RealmManager.swift; sourceTree = "<group>"; };
+		319DEF051D4D12EA00123E31 /* UserdefaultManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = UserdefaultManager.swift; path = Models/Managers/UserdefaultManager.swift; sourceTree = "<group>"; };
+		319DEF0B1D4D12F300123E31 /* Entry.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Entry.swift; path = Models/Entities/Entry.swift; sourceTree = "<group>"; };
+		319DEF0C1D4D12F300123E31 /* Entry2.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Entry2.swift; path = Models/Entities/Entry2.swift; sourceTree = "<group>"; };
+		319DEF0D1D4D12F300123E31 /* Queue.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Queue.swift; path = Models/Entities/Queue.swift; sourceTree = "<group>"; };
+		319DEF191D4D141400123E31 /* GalleryBrowserPageView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = GalleryBrowserPageView.swift; path = Views/GalleryBrowserPageView.swift; sourceTree = "<group>"; };
+		319DEF1A1D4D141400123E31 /* GalleryViewControllerTransitioning.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = GalleryViewControllerTransitioning.swift; path = Views/GalleryViewControllerTransitioning.swift; sourceTree = "<group>"; };
+		319DEF211D4D165900123E31 /* AlertViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AlertViewController.swift; path = Helpers/AlertViewController.swift; sourceTree = "<group>"; };
+		31AA0C511CA73B060079F750 /* Pods.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Pods.xcodeproj; path = Pods/Pods.xcodeproj; sourceTree = "<group>"; };
+		31AA0C781CA73B170079F750 /* Pods.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Pods.xcodeproj; path = Pods/Pods.xcodeproj; sourceTree = "<group>"; };
 		795D30B51C0C6E33001783A4 /* Podfile */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Podfile; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		795D30B71C0C6FAA001783A4 /* Parse.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Parse.framework; path = "parse-library-1.2.21/Parse.framework"; sourceTree = "<group>"; };
 		795D30B91C0C6FCD001783A4 /* Bolts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Bolts.framework; path = "parse-library-1.2.21/Bolts.framework"; sourceTree = "<group>"; };
 		7969361F1C0C770100A88D39 /* Instagram-Bridging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Instagram-Bridging-Header.h"; sourceTree = "<group>"; };
-		7972C0FF1C10302400BA75B6 /* PhotoDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhotoDetailViewController.swift; sourceTree = "<group>"; };
-		799C52DE1C7653390024D3F0 /* ApiRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ApiRequest.swift; sourceTree = "<group>"; };
 		79F80F6D1C0C52D800248735 /* Instagram.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Instagram.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		79F80F701C0C52D800248735 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		79F80F751C0C52D800248735 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -105,6 +285,8 @@
 		0089A8E6DAF277A070006E3C /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				31AA0C781CA73B170079F750 /* Pods.xcodeproj */,
+				31AA0C511CA73B060079F750 /* Pods.xcodeproj */,
 				795D30B91C0C6FCD001783A4 /* Bolts.framework */,
 				795D30B71C0C6FAA001783A4 /* Parse.framework */,
 				CF04E32D0C943D9E11AE0576 /* Pods.framework */,
@@ -121,12 +303,118 @@
 			name = Pods;
 			sourceTree = "<group>";
 		};
+		319DEEBF1D4D106400123E31 /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				318C9B251D4D204C00F38A90 /* SearchViewController.swift */,
+				319DEEF51D4D115000123E31 /* GalleryViewController.swift */,
+				319DEEF71D4D115000123E31 /* PhotoDetailViewController.swift */,
+				319DEEF31D4D115000123E31 /* GalleryBrowsePhotoViewController.swift */,
+			);
+			name = Controllers;
+			sourceTree = "<group>";
+		};
+		319DEEC01D4D107F00123E31 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				319DEEFF1D4D121900123E31 /* Entities */,
+				319DEF001D4D122600123E31 /* Managers */,
+			);
+			name = Models;
+			sourceTree = "<group>";
+		};
+		319DEEC11D4D108B00123E31 /* New Group */ = {
+			isa = PBXGroup;
+			children = (
+				79F80F6F1C0C52D800248735 /* Instagram */,
+			);
+			name = "New Group";
+			sourceTree = "<group>";
+		};
+		319DEEC21D4D10B300123E31 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				319DEEC61D4D113A00123E31 /* FNImage.swift */,
+				319DEEC71D4D113A00123E31 /* GalleryImageCell.swift */,
+				319DEEC81D4D113A00123E31 /* MathAdditions.swift */,
+				319DEF191D4D141400123E31 /* GalleryBrowserPageView.swift */,
+				319DEF1A1D4D141400123E31 /* GalleryViewControllerTransitioning.swift */,
+			);
+			name = Views;
+			sourceTree = "<group>";
+		};
+		319DEEFF1D4D121900123E31 /* Entities */ = {
+			isa = PBXGroup;
+			children = (
+				319DEF0B1D4D12F300123E31 /* Entry.swift */,
+				319DEF0C1D4D12F300123E31 /* Entry2.swift */,
+				319DEF0D1D4D12F300123E31 /* Queue.swift */,
+			);
+			name = Entities;
+			sourceTree = "<group>";
+		};
+		319DEF001D4D122600123E31 /* Managers */ = {
+			isa = PBXGroup;
+			children = (
+				319DEF011D4D12EA00123E31 /* ApiRequest.swift */,
+				319DEF021D4D12EA00123E31 /* ApiRequest2.swift */,
+				319DEF031D4D12EA00123E31 /* ImageCacheManager.swift */,
+				319DEF041D4D12EA00123E31 /* RealmManager.swift */,
+				319DEF051D4D12EA00123E31 /* UserdefaultManager.swift */,
+			);
+			name = Managers;
+			sourceTree = "<group>";
+		};
+		319DEF1E1D4D15B600123E31 /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				319DEF211D4D165900123E31 /* AlertViewController.swift */,
+			);
+			name = Helpers;
+			sourceTree = "<group>";
+		};
+		31AA0C521CA73B060079F750 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				31AA0C611CA73B060079F750 /* Alamofire.framework */,
+				319DEE4C1D4D01B000123E31 /* Bolts.framework */,
+				31AA0C671CA73B060079F750 /* Cartography.framework */,
+				31AA0C691CA73B060079F750 /* FastImageCache.framework */,
+				31AA0C6B1CA73B060079F750 /* ObjectMapper.framework */,
+				319DEE4E1D4D01B000123E31 /* Parse.framework */,
+				31AA0C6F1CA73B060079F750 /* Pods.framework */,
+				31AA0C711CA73B060079F750 /* Realm.framework */,
+				31AA0C731CA73B060079F750 /* RealmSwift.framework */,
+				31AA0C751CA73B060079F750 /* SwiftyJSON.framework */,
+				31AA0C771CA73B060079F750 /* UIScrollView_InfiniteScroll.framework */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		31AA0C791CA73B170079F750 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				31AA0C881CA73B170079F750 /* Alamofire.framework */,
+				319DEE3C1D4D01B000123E31 /* Bolts.framework */,
+				31AA0C8E1CA73B170079F750 /* Cartography.framework */,
+				31AA0C901CA73B170079F750 /* FastImageCache.framework */,
+				31AA0C921CA73B170079F750 /* ObjectMapper.framework */,
+				319DEE3E1D4D01B000123E31 /* Parse.framework */,
+				31AA0C961CA73B170079F750 /* Pods.framework */,
+				31AA0C981CA73B170079F750 /* Realm.framework */,
+				31AA0C9A1CA73B170079F750 /* RealmSwift.framework */,
+				31AA0C9C1CA73B170079F750 /* SwiftyJSON.framework */,
+				31AA0C9E1CA73B170079F750 /* UIScrollView_InfiniteScroll.framework */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
 		79F80F641C0C52D800248735 = {
 			isa = PBXGroup;
 			children = (
 				795D30B51C0C6E33001783A4 /* Podfile */,
-				792E82F21C1E4B7500423D3E /* circle.yml */,
-				79F80F6F1C0C52D800248735 /* Instagram */,
+				319DEE9D1D4D0BDF00123E31 /* circle.yml */,
+				319DEEC11D4D108B00123E31 /* New Group */,
 				79F80F871C0C52D900248735 /* InstagramTests */,
 				79F80F921C0C52D900248735 /* InstagramUITests */,
 				79F80F6E1C0C52D800248735 /* Products */,
@@ -149,14 +437,12 @@
 		79F80F6F1C0C52D800248735 /* Instagram */ = {
 			isa = PBXGroup;
 			children = (
+				319DEEC01D4D107F00123E31 /* Models */,
+				319DEEC21D4D10B300123E31 /* Views */,
+				319DEEBF1D4D106400123E31 /* Controllers */,
+				319DEF1E1D4D15B600123E31 /* Helpers */,
 				7969361F1C0C770100A88D39 /* Instagram-Bridging-Header.h */,
 				79F80F701C0C52D800248735 /* AppDelegate.swift */,
-				795D30AD1C0C643C001783A4 /* SearchViewController.swift */,
-				790B58001C7AA40D003DC0BF /* AlertViewController.swift */,
-				7972C0FF1C10302400BA75B6 /* PhotoDetailViewController.swift */,
-				790B58021C817874003DC0BF /* Queue.swift */,
-				799C52DE1C7653390024D3F0 /* ApiRequest.swift */,
-				793964491C769F2E00C415C8 /* UserdefaultManager.swift */,
 				79F80F741C0C52D800248735 /* Main.storyboard */,
 				79F80F7A1C0C52D900248735 /* Assets.xcassets */,
 				79F80F7C1C0C52D900248735 /* LaunchScreen.storyboard */,
@@ -255,6 +541,7 @@
 				TargetAttributes = {
 					79F80F6C1C0C52D800248735 = {
 						CreatedOnToolsVersion = 7.1.1;
+						DevelopmentTeam = 6KJC5CLH2J;
 					};
 					79F80F831C0C52D900248735 = {
 						CreatedOnToolsVersion = 7.1.1;
@@ -277,6 +564,16 @@
 			mainGroup = 79F80F641C0C52D800248735;
 			productRefGroup = 79F80F6E1C0C52D800248735 /* Products */;
 			projectDirPath = "";
+			projectReferences = (
+				{
+					ProductGroup = 31AA0C791CA73B170079F750 /* Products */;
+					ProjectRef = 31AA0C781CA73B170079F750 /* Pods.xcodeproj */;
+				},
+				{
+					ProductGroup = 31AA0C521CA73B060079F750 /* Products */;
+					ProjectRef = 31AA0C511CA73B060079F750 /* Pods.xcodeproj */;
+				},
+			);
 			projectRoot = "";
 			targets = (
 				79F80F6C1C0C52D800248735 /* Instagram */,
@@ -286,14 +583,171 @@
 		};
 /* End PBXProject section */
 
+/* Begin PBXReferenceProxy section */
+		319DEE3C1D4D01B000123E31 /* Bolts.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = Bolts.framework;
+			remoteRef = 319DEE3B1D4D01B000123E31 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		319DEE3E1D4D01B000123E31 /* Parse.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = Parse.framework;
+			remoteRef = 319DEE3D1D4D01B000123E31 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		319DEE4C1D4D01B000123E31 /* Bolts.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = Bolts.framework;
+			remoteRef = 319DEE4B1D4D01B000123E31 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		319DEE4E1D4D01B000123E31 /* Parse.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = Parse.framework;
+			remoteRef = 319DEE4D1D4D01B000123E31 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		31AA0C611CA73B060079F750 /* Alamofire.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = Alamofire.framework;
+			remoteRef = 31AA0C601CA73B060079F750 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		31AA0C671CA73B060079F750 /* Cartography.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = Cartography.framework;
+			remoteRef = 31AA0C661CA73B060079F750 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		31AA0C691CA73B060079F750 /* FastImageCache.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = FastImageCache.framework;
+			remoteRef = 31AA0C681CA73B060079F750 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		31AA0C6B1CA73B060079F750 /* ObjectMapper.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = ObjectMapper.framework;
+			remoteRef = 31AA0C6A1CA73B060079F750 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		31AA0C6F1CA73B060079F750 /* Pods.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = Pods.framework;
+			remoteRef = 31AA0C6E1CA73B060079F750 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		31AA0C711CA73B060079F750 /* Realm.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = Realm.framework;
+			remoteRef = 31AA0C701CA73B060079F750 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		31AA0C731CA73B060079F750 /* RealmSwift.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = RealmSwift.framework;
+			remoteRef = 31AA0C721CA73B060079F750 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		31AA0C751CA73B060079F750 /* SwiftyJSON.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = SwiftyJSON.framework;
+			remoteRef = 31AA0C741CA73B060079F750 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		31AA0C771CA73B060079F750 /* UIScrollView_InfiniteScroll.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = UIScrollView_InfiniteScroll.framework;
+			remoteRef = 31AA0C761CA73B060079F750 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		31AA0C881CA73B170079F750 /* Alamofire.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = Alamofire.framework;
+			remoteRef = 31AA0C871CA73B170079F750 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		31AA0C8E1CA73B170079F750 /* Cartography.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = Cartography.framework;
+			remoteRef = 31AA0C8D1CA73B170079F750 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		31AA0C901CA73B170079F750 /* FastImageCache.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = FastImageCache.framework;
+			remoteRef = 31AA0C8F1CA73B170079F750 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		31AA0C921CA73B170079F750 /* ObjectMapper.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = ObjectMapper.framework;
+			remoteRef = 31AA0C911CA73B170079F750 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		31AA0C961CA73B170079F750 /* Pods.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = Pods.framework;
+			remoteRef = 31AA0C951CA73B170079F750 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		31AA0C981CA73B170079F750 /* Realm.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = Realm.framework;
+			remoteRef = 31AA0C971CA73B170079F750 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		31AA0C9A1CA73B170079F750 /* RealmSwift.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = RealmSwift.framework;
+			remoteRef = 31AA0C991CA73B170079F750 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		31AA0C9C1CA73B170079F750 /* SwiftyJSON.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = SwiftyJSON.framework;
+			remoteRef = 31AA0C9B1CA73B170079F750 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		31AA0C9E1CA73B170079F750 /* UIScrollView_InfiniteScroll.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = UIScrollView_InfiniteScroll.framework;
+			remoteRef = 31AA0C9D1CA73B170079F750 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+/* End PBXReferenceProxy section */
+
 /* Begin PBXResourcesBuildPhase section */
 		79F80F6B1C0C52D800248735 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				792E82F31C1E4B7500423D3E /* circle.yml in Resources */,
 				79F80F7E1C0C52D900248735 /* LaunchScreen.storyboard in Resources */,
 				79F80F7B1C0C52D900248735 /* Assets.xcassets in Resources */,
+				319DEE9E1D4D0BDF00123E31 /* circle.yml in Resources */,
 				795D30B61C0C6E33001783A4 /* Podfile in Resources */,
 				79F80F761C0C52D800248735 /* Main.storyboard in Resources */,
 			);
@@ -368,14 +822,26 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				319DEF1B1D4D141400123E31 /* GalleryBrowserPageView.swift in Sources */,
+				319DEF061D4D12EA00123E31 /* ApiRequest.swift in Sources */,
+				319DEF0A1D4D12EA00123E31 /* UserdefaultManager.swift in Sources */,
+				319DEF221D4D165900123E31 /* AlertViewController.swift in Sources */,
+				319DEF1C1D4D141400123E31 /* GalleryViewControllerTransitioning.swift in Sources */,
+				319DEEFD1D4D115000123E31 /* PhotoDetailViewController.swift in Sources */,
+				319DEF081D4D12EA00123E31 /* ImageCacheManager.swift in Sources */,
+				319DEEFB1D4D115000123E31 /* GalleryViewController.swift in Sources */,
+				319DEF071D4D12EA00123E31 /* ApiRequest2.swift in Sources */,
+				319DEF0E1D4D12F300123E31 /* Entry.swift in Sources */,
+				318C9B261D4D204C00F38A90 /* SearchViewController.swift in Sources */,
 				79F80F791C0C52D900248735 /* Instagram.xcdatamodeld in Sources */,
-				790B58011C7AA40D003DC0BF /* AlertViewController.swift in Sources */,
-				795D30AE1C0C643C001783A4 /* SearchViewController.swift in Sources */,
-				790B58031C817875003DC0BF /* Queue.swift in Sources */,
+				319DEEF91D4D115000123E31 /* GalleryBrowsePhotoViewController.swift in Sources */,
+				319DEF091D4D12EA00123E31 /* RealmManager.swift in Sources */,
 				79F80F711C0C52D800248735 /* AppDelegate.swift in Sources */,
-				799C52DF1C7653390024D3F0 /* ApiRequest.swift in Sources */,
-				7939644A1C769F2E00C415C8 /* UserdefaultManager.swift in Sources */,
-				7972C1001C10302400BA75B6 /* PhotoDetailViewController.swift in Sources */,
+				319DEECA1D4D113A00123E31 /* FNImage.swift in Sources */,
+				319DEF101D4D12F300123E31 /* Queue.swift in Sources */,
+				319DEECB1D4D113A00123E31 /* GalleryImageCell.swift in Sources */,
+				319DEF0F1D4D12F300123E31 /* Entry2.swift in Sources */,
+				319DEECC1D4D113A00123E31 /* MathAdditions.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -516,12 +982,11 @@
 			baseConfigurationReference = 15550D27F54057A56BF46E96 /* Pods.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					"/Users/kobayashitakushi/Desktop/Instagram/parse-library-1.2.21/Bolts.framework",
-					"/Users/kobayashitakushi/Desktop/Instagram/parse-library-1.2.21/Parse.framework",
-					/Users/kobayashitakushi/Desktop/Instagram/Pods/RealmSwift,
-					/Users/kobayashitakushi/Desktop/Instagram/Pods/RealmSwift/RealmSwift,
+					/Users/taku/Desktop/Instagram3/Pods/RealmSwift,
+					/Users/taku/Desktop/Instagram3/Pods/RealmSwift/RealmSwift,
 				);
 				INFOPLIST_FILE = Instagram/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.1;
@@ -529,10 +994,8 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"${PODS_ROOT}/Realm/core\"",
-					"/Users/kobayashitakushi/Desktop/Instagram/parse-library-1.2.21/Parse.framework",
-					"/Users/kobayashitakushi/Desktop/Instagram/parse-library-1.2.21/Bolts.framework",
-					/Users/kobayashitakushi/Desktop/Instagram/Pods/RealmSwift,
-					/Users/kobayashitakushi/Desktop/Instagram/Pods/RealmSwift/RealmSwift,
+					/Users/taku/Desktop/Instagram/Pods/RealmSwift,
+					/Users/taku/Desktop/Instagram/Pods/RealmSwift/RealmSwift,
 				);
 				MACH_O_TYPE = mh_execute;
 				MODULEMAP_FILE = Instagram/module.modulemap;
@@ -543,17 +1006,11 @@
 					"-framework",
 					"\"Alamofire\"",
 					"-framework",
-					"\"AsyncPhotoBrowser\"",
-					"-framework",
-					"\"Bolts\"",
-					"-framework",
 					"\"Cartography\"",
 					"-framework",
 					"\"FastImageCache\"",
 					"-framework",
 					"\"ObjectMapper\"",
-					"-framework",
-					"\"Parse\"",
 					"-framework",
 					"\"Realm\"",
 					"-framework",
@@ -574,12 +1031,11 @@
 			baseConfigurationReference = A157611C4055E694A679A92D /* Pods.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					"/Users/kobayashitakushi/Desktop/Instagram/parse-library-1.2.21/Bolts.framework",
-					"/Users/kobayashitakushi/Desktop/Instagram/parse-library-1.2.21/Parse.framework",
-					/Users/kobayashitakushi/Desktop/Instagram/Pods/RealmSwift,
-					/Users/kobayashitakushi/Desktop/Instagram/Pods/RealmSwift/RealmSwift,
+					/Users/taku/Desktop/Instagram3/Pods/RealmSwift,
+					/Users/taku/Desktop/Instagram3/Pods/RealmSwift/RealmSwift,
 				);
 				INFOPLIST_FILE = Instagram/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.1;
@@ -587,10 +1043,8 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"${PODS_ROOT}/Realm/core\"",
-					"/Users/kobayashitakushi/Desktop/Instagram/parse-library-1.2.21/Parse.framework",
-					"/Users/kobayashitakushi/Desktop/Instagram/parse-library-1.2.21/Bolts.framework",
-					/Users/kobayashitakushi/Desktop/Instagram/Pods/RealmSwift,
-					/Users/kobayashitakushi/Desktop/Instagram/Pods/RealmSwift/RealmSwift,
+					/Users/taku/Desktop/Instagram/Pods/RealmSwift,
+					/Users/taku/Desktop/Instagram/Pods/RealmSwift/RealmSwift,
 				);
 				MACH_O_TYPE = mh_execute;
 				MODULEMAP_FILE = Instagram/module.modulemap;
@@ -601,17 +1055,11 @@
 					"-framework",
 					"\"Alamofire\"",
 					"-framework",
-					"\"AsyncPhotoBrowser\"",
-					"-framework",
-					"\"Bolts\"",
-					"-framework",
 					"\"Cartography\"",
 					"-framework",
 					"\"FastImageCache\"",
 					"-framework",
 					"\"ObjectMapper\"",
-					"-framework",
-					"\"Parse\"",
 					"-framework",
 					"\"Realm\"",
 					"-framework",

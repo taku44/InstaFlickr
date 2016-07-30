@@ -2,27 +2,24 @@
 //  PhotoDetailViewController.swift
 //  Instagram
 //
-//  Created by 小林 卓司 on 2015/12/03.
-//  Copyright © 2015年 小林 卓司. All rights reserved.
+//  Created by 小林 卓司 on 2016/02/19.
+//  Copyright © 2016年 小林 卓司. All rights reserved.
 //
 
 import UIKit
-import AsyncPhotoBrowser
 import SwiftyJSON
 
 class PhotoDetailViewController: GalleryViewController,GalleryDataSource {
     
-    @IBOutlet var backto: UIBarButtonItem!
-    
     private var _imageURLs:[String] = []
     private var _arrayy = NSMutableArray()
+    private let userdefaultManager = UserdefaultManager()
     
     var imageURLs: [String]{
         get{
             return self._imageURLs;
         }
         set{
-            //代入前にvalidate()を呼ぶ？
             self._imageURLs = newValue;
         }
     }
@@ -51,10 +48,17 @@ class PhotoDetailViewController: GalleryViewController,GalleryDataSource {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        //navigationItem.title = "AsyncPhotoBrowser"
     }
     
+    private func getImageURLs(imageURLs:[String]){
+        
+        self.userdefaultManager.saveImageURLs(imageURLs)
+    }
+    
+    private func getArrayy(arrayy:NSMutableArray){
+        
+        self.userdefaultManager.saveArrayy(arrayy)
+    }
     
     //以下、GalleryDataSourceプロトコルの実装
     
@@ -71,6 +75,9 @@ class PhotoDetailViewController: GalleryViewController,GalleryDataSource {
     }
     
     func gallery(gallery: GalleryViewController, getArrayy nsarray: Int) -> NSMutableArray {
+        
+        self.imageURLs = self.userdefaultManager.getImageURLs()
+        self.arrayy = self.userdefaultManager.getArrayy()
         
         self.exceptionReport()
         
@@ -112,58 +119,4 @@ class PhotoDetailViewController: GalleryViewController,GalleryDataSource {
             throw ArrayNumException.NegativeNum;
         }
     }
-    
-    
-    
-    
-    
-    
-    
-    
-    /*@IBAction func tapbackto(sender: UIBarButtonItem) {
-        // 遷移
-        let firstViewController: SearchViewController = (self.storyboard?.instantiateViewControllerWithIdentifier("SearchViewController") as? SearchViewController)!
-        self.presentViewController(firstViewController, animated: true, completion: nil)
-    }*/
-    
-    
-    /*func numberOfPhotosInPhotoBrowser(photoBrowser: MWPhotoBrowser!) -> UInt {
-    return UInt(photos.count)
-    }
-    
-    func photoBrowser(photoBrowser: MWPhotoBrowser!, photoAtIndex index: UInt) -> MWPhotoProtocol! {
-    if Int(index) < self.photos.count {
-    return photos.objectAtIndex(Int(index)) as MWPhoto
-    }
-    
-    return nil
-    }*/
-    
-    /*
-    func numberOfPhotosInPhotoBrowser(photoBrowser: MWPhotoBrowser) -> Int {
-    return photos.count
-    }
-    
-    func photoAtIndex(index: Int, photoBrowser: MWPhotoBrowser) -> MWPhoto? {
-    if index < photos.count {
-    return photos[index]
-    }
-    return nil
-    }
-    
-    func thumbPhotoAtIndex(index: Int, photoBrowser: MWPhotoBrowser) -> MWPhoto? {
-    print("ああ")
-    return photos[index]
-    }*/
-    
-    
-    /*
-    // MARK: - Navigation
-    
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-    // Get the new view controller using segue.destinationViewController.
-    // Pass the selected object to the new view controller.
-    }
-    */
 }

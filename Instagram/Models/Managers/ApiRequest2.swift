@@ -1,5 +1,5 @@
 //
-//  ApiRequestInPods.swift
+//  ApiRequest2.swift
 //  Pods
 //
 //  Created by 小林 卓司 on 2016/02/20.
@@ -10,7 +10,7 @@ import UIKit
 import Alamofire
 import SwiftyJSON
 
-class ApiRequestInPods{
+class ApiRequest2{
 
     private let API_KEY:String = "86997f23273f5a518b027e2c8c019b0f"
     private var photoId:String

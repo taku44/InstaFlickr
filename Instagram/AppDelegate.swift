@@ -8,7 +8,6 @@
 
 import UIKit
 import CoreData
-import Parse
 import RealmSwift
 
 @UIApplicationMain

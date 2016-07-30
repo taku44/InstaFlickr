@@ -26,6 +26,24 @@ class UserdefaultManager{
         ud.synchronize()
     }
  
+    func saveArrayy(arrayy:NSMutableArray){
+        
+        ud.setObject(arrayy, forKey: "arrayy")
+        ud.synchronize()
+    }
+    
+    
+    //取り出す際の名前は保存する際の名前と統一
+    
+    func getImageURLs() -> [String]{
+        return ud.objectForKey("lastimages") as! [String]
+    }
+    
+    func getArrayy() -> NSMutableArray{
+       return ud.objectForKey("arrayy") as! NSMutableArray
+    }
+    
+    
     // キーidの値を削除
     //ud.removeObjectForKey("id")
 }

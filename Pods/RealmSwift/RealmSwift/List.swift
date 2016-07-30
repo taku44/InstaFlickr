@@ -69,7 +69,6 @@ public final class List<T: Object>: ListBase {
 
     /// Creates a `List` that holds objects of type `T`.
     public override init() {
-        // FIXME: use T.className()
         super.init(array: RLMArray(objectClassName: (T.self as Object.Type).className()))
     }
 
@@ -367,7 +366,7 @@ public final class List<T: Object>: ListBase {
     - parameter from:  The index of the object to be moved.
     - parameter to:    index to which the object at `from` should be moved.
     */
-    public func move(from from: Int, to: Int) {
+    public func move(from from: Int, to: Int) { // swiftlint:disable:this variable_name
         throwForNegativeIndex(from)
         throwForNegativeIndex(to)
         _rlmArray.moveObjectAtIndex(UInt(from), toIndex: UInt(to))
@@ -387,6 +386,24 @@ public final class List<T: Object>: ListBase {
         throwForNegativeIndex(index2, parameterName: "index2")
         _rlmArray.exchangeObjectAtIndex(UInt(index1), withObjectAtIndex: UInt(index2))
     }
+
+    // MARK: Notifications
+
+    /**
+    Register a block to be called each time the List changes.
+
+    The block will be asynchronously called with the initial list, and then
+    called again after each write transaction which changes the list or any of
+    the items in the list. You must retain the returned token for as long as
+    you want the results to continue to be sent to the block. To stop receiving
+    updates, call stop() on the token.
+
+    - parameter block: The block to be called each time the list changes.
+    - returns: A token which must be held for as long as you want notifications to be delivered.
+    */
+    public func addNotificationBlock(block: (List<T>) -> ()) -> NotificationToken {
+        return _rlmArray.addNotificationBlock { _, _ in block(self) }
+    }
 }
 
 extension List: RealmCollectionType, RangeReplaceableCollectionType {
@@ -405,7 +422,8 @@ extension List: RealmCollectionType, RangeReplaceableCollectionType {
     - parameter subRange:    The range of elements to be replaced.
     - parameter newElements: The new elements to be inserted into the List.
     */
-    public func replaceRange<C: CollectionType where C.Generator.Element == T>(subRange: Range<Int>, with newElements: C) {
+    public func replaceRange<C: CollectionType where C.Generator.Element == T>(subRange: Range<Int>,
+                                                                               with newElements: C) {
         for _ in subRange {
             removeAtIndex(subRange.startIndex)
         }
@@ -419,6 +437,13 @@ extension List: RealmCollectionType, RangeReplaceableCollectionType {
     public var startIndex: Int { return 0 }
 
     /// The collection's "past the end" position.
-    /// endIndex is not a valid argument to subscript, and is always reachable from startIndex by zero or more applications of successor().
+    /// endIndex is not a valid argument to subscript, and is always reachable from startIndex by
+    /// zero or more applications of successor().
     public var endIndex: Int { return count }
+
+    /// :nodoc:
+    public func _addNotificationBlock(block: (AnyRealmCollection<T>?, NSError?) -> ()) -> NotificationToken {
+        let anyCollection = AnyRealmCollection(self)
+        return _rlmArray.addNotificationBlock { _, _ in block(anyCollection, nil) }
+    }
 }

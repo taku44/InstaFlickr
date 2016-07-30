@@ -1,66 +1,80 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9060" systemVersion="14F27" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" initialViewController="lc9-fK-5yN">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10117" systemVersion="15E65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="Y2n-h7-JJ8">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9051"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
     </dependencies>
     <scenes>
-        <!--Search View Controller-->
+        <!--SearchViewController-->
         <scene sceneID="I0N-Le-H7f">
             <objects>
-                <viewController storyboardIdentifier="SearchViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="lc9-fK-5yN" customClass="SearchViewController" customModule="Instagram" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="SearchViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="lc9-fK-5yN" userLabel="SearchViewController" customClass="SearchViewController" customModule="Instagram" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="slE-c0-UZk"/>
+                        <viewControllerLayoutGuide type="bottom" id="6em-N1-veH"/>
+                    </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="OKT-eO-uSS">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <searchBar contentMode="redraw" placeholder="#タグで写真検索" id="SlH-s1-b8i">
-                                <rect key="frame" x="0.0" y="49" width="320" height="44"/>
-                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                            <button opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yXw-46-oMk">
+                                <rect key="frame" x="247" y="341" width="60" height="30"/>
+                                <connections>
+                                    <segue destination="bQ7-4P-m3E" kind="push" id="KQf-Jn-g4r"/>
+                                </connections>
+                            </button>
+                            <searchBar contentMode="redraw" fixedFrame="YES" placeholder="search photos from Flickr" translatesAutoresizingMaskIntoConstraints="NO" id="SlH-s1-b8i">
+                                <rect key="frame" x="0.0" y="88" width="320" height="44"/>
                                 <textInputTraits key="textInputTraits"/>
                             </searchBar>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
+                    <navigationItem key="navigationItem" title="Search" id="gFT-YC-0sM"/>
                     <connections>
+                        <outlet property="nextButton" destination="yXw-46-oMk" id="iRx-6g-NOP"/>
                         <outlet property="search" destination="SlH-s1-b8i" id="EDM-cv-ouG"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="WPC-QT-TYf" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="626" y="328"/>
+            <point key="canvasLocation" x="716" y="318"/>
         </scene>
-        <!--Title-->
+        <!--Navigation Controller-->
+        <scene sceneID="ETQ-dp-iKe">
+            <objects>
+                <navigationController id="Y2n-h7-JJ8" sceneMemberID="viewController">
+                    <navigationItem key="navigationItem" id="x9w-Bj-d8M"/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="IRf-W0-1Xw">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="lc9-fK-5yN" kind="relationship" relationship="rootViewController" id="fvt-Yz-t6h"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="u6T-qO-1hb" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="334" y="318"/>
+        </scene>
+        <!--PhotoList-->
         <scene sceneID="4Qg-jF-5UI">
             <objects>
                 <viewController storyboardIdentifier="PhotoDetailViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="bQ7-4P-m3E" customClass="PhotoDetailViewController" customModule="Instagram" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="E4K-WA-Pxl"/>
+                        <viewControllerLayoutGuide type="bottom" id="fnt-yA-uun"/>
+                    </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="mHZ-9e-ug6">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <navigationBar contentMode="scaleToFill" id="lIu-it-dne">
-                                <rect key="frame" x="0.0" y="27" width="320" height="44"/>
-                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
-                                <items>
-                                    <navigationItem id="YRk-dX-98n">
-                                        <barButtonItem key="leftBarButtonItem" title="戻る" id="cDz-3g-O78">
-                                            <connections>
-                                                <action selector="tapbackto:" destination="bQ7-4P-m3E" id="g1Z-YX-EDb"/>
-                                            </connections>
-                                        </barButtonItem>
-                                    </navigationItem>
-                                </items>
-                            </navigationBar>
-                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
-                    <navigationItem key="navigationItem" title="Title" id="9lg-w8-bAT"/>
-                    <connections>
-                        <outlet property="backto" destination="cDz-3g-O78" id="UoT-Vp-8hD"/>
-                    </connections>
+                    <navigationItem key="navigationItem" title="PhotoList" id="9lg-w8-bAT"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Bp1-2v-VaB" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="978" y="328"/>
+            <point key="canvasLocation" x="1126" y="318"/>
         </scene>
     </scenes>
 </document>

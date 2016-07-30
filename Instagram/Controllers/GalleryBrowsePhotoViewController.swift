@@ -1,9 +1,8 @@
 //
 //  GalleryBrowsePhotoViewController.swift
-//  AsyncPhotoBrowser
 //
-//  Created by Sihao Lu on 12/5/14.
-//  Copyright (c) 2014 DJ.Ben. All rights reserved.
+//  Created by 小林 卓司 on 2016/02/19.
+//  Copyright © 2016年 小林 卓司. All rights reserved.
 //
 
 import UIKit
@@ -181,14 +180,14 @@ public class GalleryBrowsePhotoViewController: UIViewController, UIScrollViewDel
             
             if(realmHasData==false){  //初めての場合
 
-                //コメントといいね数をAlamoで取得
+                //コメントといいね数(likes)をAlamoで取得
                 let photoId = realmManager.getPhotoId()
             
-                let apiRequestInPods = ApiRequestInPods(photoId: photoId as String)
+                let apiRequest2 = ApiRequest2(photoId: photoId as String)
                 
-                let photoCommentsList = apiRequestInPods.getPhotoCommentsList()
+                let photoCommentsList = apiRequest2.getPhotoCommentsList()
                 
-              apiRequestInPods.getPhotoFavoritesNumJson(){
+              apiRequest2.getPhotoFavoritesNumJson(){
                 photoFavoritesNumJson, error in
                 
                 print("responseObject = \(photoFavoritesNumJson); error = \(error)")
@@ -208,7 +207,7 @@ public class GalleryBrowsePhotoViewController: UIViewController, UIScrollViewDel
                     let photoOwnerName = realmManager.getPhotoOwnerName()
                     newPageView.profname = photoOwnerName as String
                     
-                    newPageView.favoritesNum =  "いいね数:" + (photoFavoritesNumJson!.stringValue)
+                    newPageView.favoritesNum =  "likes:" + (photoFavoritesNumJson!.stringValue)
                     
                     self.showComments(photoCommentsList.names,commenterMessageArray: photoCommentsList.messages,newPageView: newPageView)
                     
@@ -229,7 +228,7 @@ public class GalleryBrowsePhotoViewController: UIViewController, UIScrollViewDel
                 let photoOwnerName = realmManager.getPhotoOwnerName()
                 newPageView.profname = photoOwnerName as String
             
-                newPageView.favoritesNum =  "いいね数:" + String(realmManager.getPhotoFavoritesNum())
+                newPageView.favoritesNum =  "likes:" + String(realmManager.getPhotoFavoritesNum())
                 
                 let commenterNameArray = realmManager.getPhotoCommenterNameArray()
                 let commenterMessageArray = realmManager.getPhotoCommenterMessageArray()

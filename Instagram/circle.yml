@@ -1,7 +1,0 @@
-machine:
-xcode:
-version: "7.1.1"
-
-test:
-override:
--  xcodebuild -workspace "Instagram.xcworkspace" -sdk "iphonesimulator" test
