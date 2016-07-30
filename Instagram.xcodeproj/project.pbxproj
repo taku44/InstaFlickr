@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		318C9B261D4D204C00F38A90 /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 318C9B251D4D204C00F38A90 /* SearchViewController.swift */; };
+		318C9B581D4D4C3B00F38A90 /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 318C9B571D4D4C3B00F38A90 /* SearchViewController.swift */; };
 		319DEE9E1D4D0BDF00123E31 /* circle.yml in Resources */ = {isa = PBXBuildFile; fileRef = 319DEE9D1D4D0BDF00123E31 /* circle.yml */; };
 		319DEECA1D4D113A00123E31 /* FNImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 319DEEC61D4D113A00123E31 /* FNImage.swift */; };
 		319DEECB1D4D113A00123E31 /* GalleryImageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 319DEEC71D4D113A00123E31 /* GalleryImageCell.swift */; };
@@ -212,7 +212,7 @@
 
 /* Begin PBXFileReference section */
 		15550D27F54057A56BF46E96 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
-		318C9B251D4D204C00F38A90 /* SearchViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SearchViewController.swift; path = Controllers/SearchViewController.swift; sourceTree = "<group>"; };
+		318C9B571D4D4C3B00F38A90 /* SearchViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SearchViewController.swift; path = Controllers/SearchViewController.swift; sourceTree = "<group>"; };
 		319DEE9D1D4D0BDF00123E31 /* circle.yml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = circle.yml; sourceTree = "<group>"; };
 		319DEEC61D4D113A00123E31 /* FNImage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FNImage.swift; path = Views/FNImage.swift; sourceTree = "<group>"; };
 		319DEEC71D4D113A00123E31 /* GalleryImageCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = GalleryImageCell.swift; path = Views/GalleryImageCell.swift; sourceTree = "<group>"; };
@@ -306,7 +306,7 @@
 		319DEEBF1D4D106400123E31 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				318C9B251D4D204C00F38A90 /* SearchViewController.swift */,
+				318C9B571D4D4C3B00F38A90 /* SearchViewController.swift */,
 				319DEEF51D4D115000123E31 /* GalleryViewController.swift */,
 				319DEEF71D4D115000123E31 /* PhotoDetailViewController.swift */,
 				319DEEF31D4D115000123E31 /* GalleryBrowsePhotoViewController.swift */,
@@ -832,7 +832,7 @@
 				319DEEFB1D4D115000123E31 /* GalleryViewController.swift in Sources */,
 				319DEF071D4D12EA00123E31 /* ApiRequest2.swift in Sources */,
 				319DEF0E1D4D12F300123E31 /* Entry.swift in Sources */,
-				318C9B261D4D204C00F38A90 /* SearchViewController.swift in Sources */,
+				318C9B581D4D4C3B00F38A90 /* SearchViewController.swift in Sources */,
 				79F80F791C0C52D900248735 /* Instagram.xcdatamodeld in Sources */,
 				319DEEF91D4D115000123E31 /* GalleryBrowsePhotoViewController.swift in Sources */,
 				319DEF091D4D12EA00123E31 /* RealmManager.swift in Sources */,

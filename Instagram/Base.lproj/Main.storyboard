@@ -32,7 +32,7 @@
                     </view>
                     <navigationItem key="navigationItem" title="Search" id="gFT-YC-0sM"/>
                     <connections>
-                        <outlet property="nextButton" destination="yXw-46-oMk" id="iRx-6g-NOP"/>
+                        <outlet property="nextButton" destination="yXw-46-oMk" id="1q3-wk-pgb"/>
                         <outlet property="search" destination="SlH-s1-b8i" id="EDM-cv-ouG"/>
                     </connections>
                 </viewController>

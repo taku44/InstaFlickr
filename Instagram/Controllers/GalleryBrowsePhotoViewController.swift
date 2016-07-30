@@ -180,7 +180,7 @@ public class GalleryBrowsePhotoViewController: UIViewController, UIScrollViewDel
             
             if(realmHasData==false){  //初めての場合
 
-                //コメントといいね数(likes)をAlamoで取得
+                //コメントといいね数(Likes)をAlamoで取得
                 let photoId = realmManager.getPhotoId()
             
                 let apiRequest2 = ApiRequest2(photoId: photoId as String)
@@ -207,7 +207,7 @@ public class GalleryBrowsePhotoViewController: UIViewController, UIScrollViewDel
                     let photoOwnerName = realmManager.getPhotoOwnerName()
                     newPageView.profname = photoOwnerName as String
                     
-                    newPageView.favoritesNum =  "likes:" + (photoFavoritesNumJson!.stringValue)
+                    newPageView.favoritesNum =  "Likes:" + (photoFavoritesNumJson!.stringValue)
                     
                     self.showComments(photoCommentsList.names,commenterMessageArray: photoCommentsList.messages,newPageView: newPageView)
                     
@@ -228,7 +228,7 @@ public class GalleryBrowsePhotoViewController: UIViewController, UIScrollViewDel
                 let photoOwnerName = realmManager.getPhotoOwnerName()
                 newPageView.profname = photoOwnerName as String
             
-                newPageView.favoritesNum =  "likes:" + String(realmManager.getPhotoFavoritesNum())
+                newPageView.favoritesNum =  "Likes:" + String(realmManager.getPhotoFavoritesNum())
                 
                 let commenterNameArray = realmManager.getPhotoCommenterNameArray()
                 let commenterMessageArray = realmManager.getPhotoCommenterMessageArray()
