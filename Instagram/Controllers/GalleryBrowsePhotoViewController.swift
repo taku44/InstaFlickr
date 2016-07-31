@@ -34,8 +34,6 @@ public class GalleryBrowsePhotoViewController: UIViewController, UIScrollViewDel
         return scrollView
     }()
     
-    
- /*このcurrentPageを正しく操作してGarallyViewControllerと同様にすればGalleryBrowsePageViewのページをリロードで無限に読めるようになるはず。*/
     var currentPage: Int {
         let pageHeight = scrollView.frame.size.height
         let page = Int(floor((scrollView.contentOffset.y * 2.0 + pageHeight) / (pageHeight * 2.0)))

@@ -20,7 +20,7 @@ class RealmManager{
         self.item2=nil;
     }
     
-    func savePhotoIds(ids:NSArray){   //(aa2,aa0,aa3:String,aa4:String,aa1:String)
+    func savePhotoIds(ids:NSArray,thePage:Int){   //(aa2,aa0,aa3:String,aa4:String,aa1:String)
         do {
             let realm = try! Realm()
             try! realm.write() {
@@ -28,7 +28,7 @@ class RealmManager{
                     "id": ids[2],
                     "url_n": ids[0],
                     "ownername": ids[3],
-                    "page": ids[4],     //.stringValueとするとnilバグになる
+                    "page": String(thePage),     //.stringValueとするとnilバグになる
                     "ownerurl": ids[1],
                     //"ownerimage": nil,
                     //"comments": nil,
@@ -255,16 +255,4 @@ class RealmManager{
     
     
 }
-
-
-
-
-
-
-
-
-
-
-
-
 

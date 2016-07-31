@@ -32,15 +32,38 @@ class UserdefaultManager{
         ud.synchronize()
     }
     
+    func saveSearchDay(searchDay:NSDate){
+        
+        ud.setObject(searchDay, forKey: "searchDay")
+        ud.synchronize()
+    }
+    
+    func saveHistoryOffset(historyOffset:Int){
+        
+        ud.setObject(historyOffset, forKey: "historyOffset")
+        ud.synchronize()
+    }
     
     //取り出す際の名前は保存する際の名前と統一
+    
+    func getTags() -> String{
+        return ud.objectForKey("searchtext") as! String
+    }
     
     func getImageURLs() -> [String]{
         return ud.objectForKey("lastimages") as! [String]
     }
     
     func getArrayy() -> NSMutableArray{
-       return ud.objectForKey("arrayy") as! NSMutableArray
+       return ud.objectForKey("arrayy")?.mutableCopy() as! NSMutableArray    //mutableCopyが要るみたい
+    }
+    
+    func getSearchDay() -> NSDate {
+       return ud.objectForKey("searchDay") as! NSDate
+    }
+    
+    func getHistoryOffset() -> Int {
+        return ud.objectForKey("historyOffset") as! Int
     }
     
     

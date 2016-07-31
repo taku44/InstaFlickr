@@ -50,16 +50,6 @@ class PhotoDetailViewController: GalleryViewController,GalleryDataSource {
         super.viewDidLoad()
     }
     
-    private func getImageURLs(imageURLs:[String]){
-        
-        self.userdefaultManager.saveImageURLs(imageURLs)
-    }
-    
-    private func getArrayy(arrayy:NSMutableArray){
-        
-        self.userdefaultManager.saveArrayy(arrayy)
-    }
-    
     //以下、GalleryDataSourceプロトコルの実装
     
     
@@ -118,5 +108,85 @@ class PhotoDetailViewController: GalleryViewController,GalleryDataSource {
             
             throw ArrayNumException.NegativeNum;
         }
+    }
+    
+    //再検索のたびに呼ばれる
+    func gallery(gallery: GalleryViewController, searchAgain nsarray: Int) -> Bool {
+        
+        var succeed:Bool = true;
+        
+        self.doSearch() { newImageURLs, newArrayy, error in
+            
+//            if((error == nil)){
+                if(newImageURLs!.count > 0){
+                    
+                    //以前までの結果に今回の検索結果を上乗せする
+                    var oldImageURLs:[String] = self.userdefaultManager.getImageURLs()
+                    var oldArrayy:NSMutableArray = self.userdefaultManager.getArrayy()
+                    
+                    //オプショナルバインディング
+                    if let pp = newImageURLs {
+                        //値が存在する場合
+                        for ss in pp{
+                            oldImageURLs += [ss]
+                        }
+                        self.saveImageURLs(oldImageURLs)
+                    } else {
+                        //nilの場合
+                    }
+                    
+                    if let p = newArrayy {
+                        //値が存在する場合
+                        for ss in p{
+                            oldArrayy.addObject(ss)
+                        }
+                        self.saveArrayy(oldArrayy)
+                    } else {
+                        //nilの場合
+                    }
+                    
+                    self.loadView()
+                    self.viewDidLoad()
+                    self.reloadData()
+                }
+                succeed = true
+//            }else{
+//                succeed = false
+//            }
+        }
+        return succeed;
+    }
+    
+    private func doSearch(completionHandler: ([String]?, NSMutableArray?, NSError?)->()) {
+        let tags:String = self.userdefaultManager.getTags()
+        doSearchRequest(tags, completionHandler:completionHandler)
+    }
+    
+    private func doSearchRequest(tags:String,completionHandler: ([String]?, NSMutableArray?, NSError?) -> ()){
+        
+        let historyOffset:Int = self.userdefaultManager.getHistoryOffset()
+        
+        let apiRequest = ApiRequest(tags: tags, historyOffset:String(historyOffset))
+        
+        apiRequest.getSearchPhotos() { imageURLs, arrayy, error in
+            
+            print("responseObject1 = \(imageURLs);")
+            print("responseObject2 = \(arrayy);")
+            print("error=\(error)")
+            
+            completionHandler(imageURLs, arrayy, error)
+            
+            return
+        }
+    }
+    
+    private func saveImageURLs(imageURLs:[String]){
+        
+        self.userdefaultManager.saveImageURLs(imageURLs)
+    }
+    
+    private func saveArrayy(arrayy:NSMutableArray){
+        
+        self.userdefaultManager.saveArrayy(arrayy)
     }
 }

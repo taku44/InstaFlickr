@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		318C9B581D4D4C3B00F38A90 /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 318C9B571D4D4C3B00F38A90 /* SearchViewController.swift */; };
 		318C9B721D4D50A300F38A90 /* GalleryBrowserPageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 318C9B711D4D50A300F38A90 /* GalleryBrowserPageView.swift */; };
+		318C9B761D4E180B00F38A90 /* DateUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 318C9B751D4E180B00F38A90 /* DateUtils.swift */; };
 		319DEE9E1D4D0BDF00123E31 /* circle.yml in Resources */ = {isa = PBXBuildFile; fileRef = 319DEE9D1D4D0BDF00123E31 /* circle.yml */; };
 		319DEECA1D4D113A00123E31 /* FNImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 319DEEC61D4D113A00123E31 /* FNImage.swift */; };
 		319DEECB1D4D113A00123E31 /* GalleryImageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 319DEEC71D4D113A00123E31 /* GalleryImageCell.swift */; };
@@ -214,6 +215,7 @@
 		15550D27F54057A56BF46E96 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 		318C9B571D4D4C3B00F38A90 /* SearchViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SearchViewController.swift; path = Controllers/SearchViewController.swift; sourceTree = "<group>"; };
 		318C9B711D4D50A300F38A90 /* GalleryBrowserPageView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = GalleryBrowserPageView.swift; path = Views/GalleryBrowserPageView.swift; sourceTree = "<group>"; };
+		318C9B751D4E180B00F38A90 /* DateUtils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DateUtils.swift; sourceTree = "<group>"; };
 		319DEE9D1D4D0BDF00123E31 /* circle.yml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = circle.yml; sourceTree = "<group>"; };
 		319DEEC61D4D113A00123E31 /* FNImage.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FNImage.swift; path = Views/FNImage.swift; sourceTree = "<group>"; };
 		319DEEC71D4D113A00123E31 /* GalleryImageCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = GalleryImageCell.swift; path = Views/GalleryImageCell.swift; sourceTree = "<group>"; };
@@ -307,8 +309,8 @@
 			isa = PBXGroup;
 			children = (
 				318C9B571D4D4C3B00F38A90 /* SearchViewController.swift */,
-				319DEEF51D4D115000123E31 /* GalleryViewController.swift */,
 				319DEEF71D4D115000123E31 /* PhotoDetailViewController.swift */,
+				319DEEF51D4D115000123E31 /* GalleryViewController.swift */,
 				319DEEF31D4D115000123E31 /* GalleryBrowsePhotoViewController.swift */,
 			);
 			name = Controllers;
@@ -369,6 +371,7 @@
 			isa = PBXGroup;
 			children = (
 				319DEF211D4D165900123E31 /* AlertViewController.swift */,
+				318C9B751D4E180B00F38A90 /* DateUtils.swift */,
 			);
 			name = Helpers;
 			sourceTree = "<group>";
@@ -826,6 +829,7 @@
 				319DEF0A1D4D12EA00123E31 /* UserdefaultManager.swift in Sources */,
 				319DEF221D4D165900123E31 /* AlertViewController.swift in Sources */,
 				318C9B721D4D50A300F38A90 /* GalleryBrowserPageView.swift in Sources */,
+				318C9B761D4E180B00F38A90 /* DateUtils.swift in Sources */,
 				319DEF1C1D4D141400123E31 /* GalleryViewControllerTransitioning.swift in Sources */,
 				319DEEFD1D4D115000123E31 /* PhotoDetailViewController.swift in Sources */,
 				319DEF081D4D12EA00123E31 /* ImageCacheManager.swift in Sources */,

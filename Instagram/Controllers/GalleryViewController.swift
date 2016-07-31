@@ -46,6 +46,8 @@ import Alamofire
     
     func gallery(gallery: GalleryViewController, getArrayy nsarray: Int) -> NSMutableArray
     
+    func gallery(gallery: GalleryViewController, searchAgain nsarray: Int) -> Bool
+    
     //func gallery(gallery: GalleryViewController, imageURLAtIndexPath2 indexPath: NSIndexPath) -> NSURL
 }
 
@@ -58,6 +60,12 @@ public class GalleryViewController: UIViewController, UICollectionViewDataSource
     
     private let collectionViewCellIdentifier = "imageCell"
     private var collectionView: UICollectionView!
+    
+    private let userdefaultManager = UserdefaultManager()
+    private let alertViewController = AlertViewController()
+    private var refreshControl:UIRefreshControl!
+    private var lastSection:NSInteger = 0
+    private var lastItem:NSInteger = 0
     
     private var _dataSource: GalleryDataSource?
     public var dataSource: GalleryDataSource?{
@@ -100,111 +108,87 @@ public class GalleryViewController: UIViewController, UICollectionViewDataSource
     private var selectedIndexPath: NSIndexPath?
     private var animator: UIViewControllerTransitioningDelegate!
     
-    private var refreshControl:UIRefreshControl?
-    
-    
     public override func viewDidLoad() {
         
         super.viewDidLoad()
 
         setup()
         
+//        初めての時は以前のキャッシュデータを削除
         let realmManager = RealmManager()
         realmManager.removeAll()
-        
+    
         var arrayy: NSMutableArray? = self.dataSource?.gallery(self,getArrayy: 1)
+        let arrayy2: NSMutableArray? = self.userdefaultManager.getArrayy()
         
         //Optional Bindingで全ての要素が特定のObjectかどうかを判定
-        if let arr:NSArray = arrayy {
-    
+        if let arr:NSArray = arrayy2 {
+            
+            NSLog("arr.countは%d",arr.count)
             //全ての要素がnsarray確定
+            var thePage:Int = -1;
             for ids in arr{
-                
-                realmManager.savePhotoIds(ids as! NSArray)
+                thePage += 1;
+                realmManager.savePhotoIds(ids as! NSArray,thePage: thePage)
             }
         }
-    }
-        /*for aa in arrayy? as NSArray{
-        do {
-        //var aa4 = aa[4].intValue
-        let realm = try Realm()
-        realm.beginWrite()
-        //同じ'page'のものがあればUpdate、なければInsertするメソッド
-        //realm.add(entry!,update: true)
-        realm.create(Entry.self, value: [
-        "id": aa[2],
-        "url_n": aa[0],
-        "ownername": aa[3],
-        "page": iii,      //aa4
-        "ownerurl": aa[1]
-        ], update:true)
-        try realm.commitWrite()
-        let records:Results = realm.objects(Entry)
-        print("これは...\(records)")
-        iii++
         
-        } catch {
-        print("これに\(error)")
+        /*self.refreshControl = UIRefreshControl (upper)
+//        self.refreshControl.attributedTitle = NSAttributedString(string: "pull to refresh")
+        self.refreshControl.addTarget(self, action: "refreshRequest", forControlEvents: UIControlEvents.ValueChanged)
+        self.collectionView.addSubview(refreshControl)*/
+        
+        // Add infinite scroll handler (bottom)
+        collectionView?.addInfiniteScrollWithHandler { [weak self] (scrollView) -> Void in
+            let collectionView = scrollView as! UICollectionView
+            self?.refreshRequest()
         }
-        }*/
-    
-    /*
-    //ここで最初のrealm操作をする(以下バックグラウンドで非同期実行？)
-    NSUserDefaults *ud = [NSUserDefaults standardUserDefaults];
-    NSData *dataa = [ud objectForKey:@"aitee"];
-    NSMutableArray* arrayy = [NSKeyedUnarchiver unarchiveObjectWithData:dataa];
-    
-    // AppDelegateクラスのメンバー変数を参照する
-    var app:AppDelegate = (UIApplication.sharedApplication().delegate as AppDelegate)
-    println(app.userId)
-    
-    
-    
-    //arrayyはjsonの集合体(0~499まで)
-    
-    var str1 = subJson["farm"].stringValue
-    var str2 = subJson["server"].stringValue
-    var str3 = subJson["owner"].stringValue
-    var ownerurl = "http://farm\(str1).staticflickr.com/\(str2)/buddyicons/\(str3).jpg"
-    let entry : Entry? = Mapper<Entry>().map(subJson.dictionaryObject)
-    
-    do {
-    //3.初期化したいので、まずRealmを全部削除
-    let realm = try Realm()
-    realm.beginWrite()
-    realm.deleteAll()
-    try realm.commitWrite()
-    
-    //let realm = try Realm()
-    realm.beginWrite()
-    //同じ'page'のものがあればUpdate、なければInsertするメソッド
-    //realm.add(entry!,update: true)
-    realm.create(Entry.self, value: [
-    "id": subJson["id"].stringValue,
-    "url_n": url_n,
-    "ownername": subJson["ownername"].stringValue,
-    "page": index,
-    "ownerurl": ownerurl
-    ], update:true)
-    try realm.commitWrite()
-    
-    } catch {
-    }*/
-    
-    
-    /*func refresh()
-    {
-        // 更新するコード(webView.reload()など)
-        //refreshControl.endRefreshing()
-    }*/
-    //リフレッシュさせる
-    func refresh(sender:AnyObject) {
-        sender.beginRefreshing()
-        print("よおお")
-        //myCollectionView.reloadData()
-        //sender.endRefreshing()
     }
-    
+ 
+    func refreshRequest(){
+        //この時点での位置(IndexPath)を確保
+        lastSection = self.numberOfSectionsInCollectionView(self.collectionView) - 1;
+        lastItem = self.collectionView.numberOfItemsInSection(lastSection) - 1;
+        
+        NSLog("リフレッシュの度に今のhistoryOffsetをインクリメントする")
+        var historyOffset:Int = self.userdefaultManager.getHistoryOffset()
+        historyOffset += 1;
+        self.userdefaultManager.saveHistoryOffset(historyOffset)
+        
+        let succeed:Bool = (self.dataSource?.gallery(self,searchAgain: 1))!
+//        self.refreshControl.endRefreshing()
+        if(!succeed){
+            self.alertViewController.showAlert("request error occured.",title: "",buttonTitle: "OK")
+            //historyOffsetをデクリメント
+            var historyOffset2:Int = self.userdefaultManager.getHistoryOffset()
+            if(historyOffset2 != 1){
+                historyOffset2 -= 1;
+                self.userdefaultManager.saveHistoryOffset(historyOffset2)
+            }
+        }else{
+//                self.loadView()
+//                self.viewDidLoad()
+            var arrayy: NSMutableArray? = self.dataSource?.gallery(self,getArrayy: 1)
+            let arrayy2: NSMutableArray? = self.userdefaultManager.getArrayy()
+            
+            //Optional Bindingで全ての要素が特定のObjectかどうかを判定
+            if let arr:NSArray = arrayy2 {
+                let realmManager = RealmManager()
+                
+                NSLog("arr.countは%d",arr.count)
+                NSLog("arrはーー%@",arr)
+                //全ての要素がnsarray確定
+                var thePage:Int = -1;
+                for ids in arr{
+                    NSLog("たした");
+                    thePage += 1;
+                    realmManager.savePhotoIds(ids as! NSArray,thePage:thePage)
+                }
+            }
+        }
+        // finish infinite scroll animations
+        collectionView.finishInfiniteScroll()
+    }
     
     private func setup() {
         collectionView = UICollectionView(frame: CGRectZero, collectionViewLayout: collectionViewLayout)
@@ -223,191 +207,6 @@ public class GalleryViewController: UIViewController, UICollectionViewDataSource
             c.bottom == c.superview!.bottom
         }
     }
-    
-    
-        /*var ref:UIRefreshControl = UIRefreshControl()
-        collectionView?.alwaysBounceVertical=true
-        //self.refreshControl.triggerVerticalOffset = 10
-        ref.attributedTitle = NSAttributedString(string: "更新中..")
-        ref.addTarget(self, action: "refresh:", forControlEvents: UIControlEvents.ValueChanged)
-        collectionView?.backgroundView = ref;
-        //collectionView?.addSubview(ref)
-        //view.addSubview(ref)*/
-        
-        /*   
-        以下の機能は未完成及び未リファクタリング
-        */
-        /*
-        //下に引くとリロード
-        collectionView?.infiniteScrollIndicatorView?.frame = CGRectMake(0, 0, 24, 24)
-        //collectionView?.infiniteScrollIndicatorMargin = 40
-        //collectionView.infiniteScrollIndicatorStyle = .White
-        collectionView?.addInfiniteScrollWithHandler { [weak self] (scrollView) -> Void in
-            
-            //let collectionView = scrollView as! UICollectionView
-
-            // 「ud」というインスタンスをつくる。
-            let ud = NSUserDefaults.standardUserDefaults()
-
-            //var udId0 = ud.objectForKey("searchmaxdate") as? [String] //UTC1秒ずらす？
-            var udId1 = ud.objectForKey("searchtext") as? String
-            var udId2 = ud.arrayForKey("lastimages") as? NSMutableArray //以前までの写真url全て
-            var udId22 = udId2?.mutableCopy()
-            //let udId3 = ud.arrayForKey("lastdatas") as? [String]  //以前までの情報全て
-            
-            //スクロールする度に100件検索&表示
-            let parameters :Dictionary = [
-                "method"         : "flickr.photos.search",
-                "api_key"        : "86997f23273f5a518b027e2c8c019b0f",
-                "tags"           : "\(udId1)",
-                //"max_upload_date": "\(udId0)",    //これで以前の検索結果のすぐ続きを可能にする
-                "per_page"       : "100",
-                "format"         : "json",
-                "nojsoncallback" : "1",
-                "extras"         : "url_n,owner_name"
-            ]
-            Alamofire.request(.GET,"https://api.flickr.com/services/rest/",parameters:parameters).responseJSON { response in
-                do {
-                    switch response.result {
-                    case .Success(let data):
-                        if let value = response.result.value {
-                            let json = JSON(value)
-                            print("JSON: \(json)")
-                            var arr = json["photos"]["photo"]
-                        
-                            //var aarray: [String] = []
-                            var indexPaths = [NSIndexPath]()
-                            var indexx = udId2?.count //以前までの写真urlの数
-                            
-                            //The `index` is 0..<json.count's string value
-                            for (index,subJson):(String, JSON) in arr {
-                                print("サブJSON: \(subJson)")
-                                var url_n:String? = subJson["url_n"].stringValue
-                                
-                                var kspof = indexx!+1
-                                var oop:Int = kspof
-                                indexx = kspof
-                                
-                                let indexPath = NSIndexPath(forItem: oop, inSection: 0)
-                                //NSIndexPath(forItem: indexx++, inSection: 0)
-                                indexPaths.append(indexPath)
-                                
-                            
-                                //以前までの写真url集に追加
-                                udId22?.addObject("\(url_n)")
-                                //self?.images=udId2
-                                //udId22?[indexx!] = "\(url_n)"
-                                
-                                
-                                /*var imageEntity: FNImage!
-                                let imageURL: NSURL? = NSURL(string:url_n)!   //dataSource?.gallery(self, imageURLAtIndexPath: indexPath)
-                                imageEntity = FNImage(URL: imageURL!, indexPath: indexPath)
-                                self!.images[indexPath] = imageEntity*/
-                            
-                                
-                                /*let str1 = subJson["farm"].stringValue
-                                let str2 = subJson["server"].stringValue
-                                let str3 = subJson["owner"].stringValue
-                                let str4 = "http://farm\(str1).staticflickr.com/\(str2)/buddyicons/\(str3).jpg"
-                                
-                                let str5 = subJson["id"].stringValue
-                                let str6 = subJson["ownername"].stringValue
-                                let str7 = index
-                                
-                                //これら5つ(string)をnsarrayとして
-                                let aarray = [url_n,str4,str5,str6,str7]
-                                self.arrayy.addObject(aarray)*/
-                
-                            }
-                            
-                            //数の調整
-                            func gallery(gallery: GalleryViewController, imageURLAtIndexPath indexPath: NSIndexPath) -> NSURL {
-                                
-                                print("ここみ")
-                                return NSURL(string: udId22![indexPath.row] as! String)!
-                                //return NSURL (fileURLWithPath: "m")
-                                
-                            }
-                            self!.collectionView.reloadData()
-                            
-                            
-                            
-                            /*func gallery(gallery: GalleryViewController, numberOfImagesInSection section: Int) -> Int {
-                                return imageURLs.count
-                            }*/
-                            //self!.collectionView.numberOfItemsInSection(200)
-                            
-                            /*func gallery(gallery: GalleryViewController, imageURLAtIndexPath indexPath: NSIndexPath) -> NSURL {
-                                
-                                return NSURL(string: imageURLs[indexPath.row])!
-                                //return NSURL (fileURLWithPath: "m")
-                            }*/
-                            //self!.collectionView.
-                                
-                            
-                            /*//情報を更新
-                            func gallery(gallery: GalleryViewController, imageURLAtIndexPath indexPath: NSIndexPath) -> NSURL {
-                                
-                                return NSURL(string: imageURLs[indexPath.row])!
-                                //return NSURL (fileURLWithPath: "m")
-                            }*/
-                            
-                            //前の情報を取得(for文で実行)
-                            //let imageURL: NSURL? = dataSource?.gallery(self, imageURLAtIndexPath: indexPath)
-
-                            // 新情報
-                            //let newStories = [newimageURLs]()
-                            
-                            
-                            
-                            //var indexPaths = [NSIndexPath]()
-                            
-                            /*var arrayy: NSMutableArray? = dataSource?.gallery(self,getArrayy: 1) //前の情報全て
-                            if let arrss:NSArray = arrayy {
-                                print("Optional Bindingで全ての要素が特定のObjectかどうかを判定")
-                                //全ての要素がnsarray確定
-                                /*for aa in arrss{
-                                
-                                }*/
-
-                                let index = arrss.count*/
-                                
-                                /*// create index paths for affected items
-                                for story in newStories {
-                                    let indexPath = NSIndexPath(forItem: index++, inSection: 0)
-                                    
-                                    indexPaths.append(indexPath)
-                                    arrss.append(story)  //前の情報に新しい情報を1つ追加
-                                }*/
-                            
-                             // Update collection view
-                              self!.collectionView.performBatchUpdates({ () -> Void in
-                                    
-                                    // add new items into collection
-                                    self!.collectionView.insertItemsAtIndexPaths(indexPaths)
-                                    }, completion: { (finished) -> Void in
-                                        
-                                    //追加情報のFIC管理をここでまとめてする？
-                                    
-                                        
-                                        
-                                    //次のリロードのためにimageなどud保存
-                                        
-                                        
-                                        
-                                    // finish infinite scroll animations
-                                    self!.collectionView.finishInfiniteScroll()
-                                });
-                            //}
-                        }
-                    case .Failure(let error): break
-                    }
-                }catch{
-                    print("error");
-                }
-            }
-        }*/
-    
     
     public override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -428,22 +227,20 @@ public class GalleryViewController: UIViewController, UICollectionViewDataSource
             cacheAlreadySetup = true
             collectionView.reloadData()
         }
+        
+        if(self.lastItem == 0){
+            
+        }else{
+            //このタイミング(viewDidLayoutSubviews)で以前の位置に戻す(refresh直後に自動的に最上部に上がってしまうため)
+            let lastIndexPath:NSIndexPath = NSIndexPath(forRow: lastItem, inSection: lastSection)
+            self.collectionView.scrollToItemAtIndexPath(lastIndexPath, atScrollPosition:UICollectionViewScrollPosition.Bottom, animated: false)
+        }
     }
     
     func reloadData() {
         collectionView.reloadData()
     }
-    
-    //数の調整
-    /*func gallery(gallery: GalleryViewController, numberOfImagesInSection section: Int) -> Int {
-    return imageURLs.count
-    }
-    func gallery(gallery: GalleryViewController, imageURLAtIndexPath indexPath: NSIndexPath) -> NSURL {
-    
-    return NSURL(string: imageURLs[indexPath.row])!
-    //return NSURL (fileURLWithPath: "m")
-    }*/
-    
+
     private func indexPathForPage(page: Int) -> NSIndexPath? {
         if page < 0 {
             return nil
@@ -566,12 +363,6 @@ public class GalleryViewController: UIViewController, UICollectionViewDataSource
         
         return self.images[indexPath!]
     }
-    
-    /*func imageEntityForPage2(page: Int, inGalleyBrowser galleryBrowser: GalleryBrowsePhotoViewController) -> FNImage? {
-    let indexPath = self.indexPathForPage(page)
-    return self.images2[indexPath!]
-    }*/
-    
 }
 
 

@@ -16,15 +16,21 @@ class ApiRequest{
     private var tags:String
     private var photosSearchParam  = [String: String]()
     private let alertViewController = AlertViewController()
+    private let userdefaultManager = UserdefaultManager()
     
-    init(tags:String){
+    init(tags:String, historyOffset:String){
+        
+        let date:NSDate = self.userdefaultManager.getSearchDay()
+        let dateUnix: NSTimeInterval = date.timeIntervalSince1970
         
         self.tags=tags;
         self.photosSearchParam = [
             "method"         : "flickr.photos.search",
             "api_key"        : API_KEY,
-            "tags"           : tags,
-            "per_page"       : "150",  
+            "tags"           : tags,                //検索文字列
+            "per_page"       : "30",                 //総検索結果(total)のうち、まずこの写真数で区切る
+            "page"           : historyOffset,       //区切ったうちの最初から○番目を指定
+            "max_upload_date": String(dateUnix),    //日時を最初の検索時(searchview)に保存、検索のたびにそのまま代入
             "format"         : "json",
             "nojsoncallback" : "1",
             "extras"         : "url_n,owner_name"
@@ -86,7 +92,7 @@ class ApiRequest{
     
     private func showErroeMessage(){
         
-        self.alertViewController.showAlert("エラーが発生しました",title: "",buttonTitle: "")
+        self.alertViewController.showAlert("error occured.",title: "",buttonTitle: "")
     }
 }
 

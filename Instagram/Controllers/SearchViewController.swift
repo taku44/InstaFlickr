@@ -28,12 +28,14 @@ class SearchViewController: UIViewController,UISearchBarDelegate{
         
         self.showAlert("Searching...",title: "",buttonTitle: "")
         
+        self.saveSearchDay()
+        self.saveHistoryOffset1()
         self.doSearch() { imageURLs, arrayy, error in
             
             self.hideAlert()
             
             if(imageURLs.count > 0){
-    
+            
                 self.saveTags(self.search.text!)
                 self.saveImageURLs(imageURLs)
                 self.saveArrayy(arrayy!)
@@ -59,7 +61,7 @@ class SearchViewController: UIViewController,UISearchBarDelegate{
     
     private func doSearchRequest(tags:String,completionHandler: ([String], NSMutableArray?, NSError?) -> ()){
         
-        let apiRequest = ApiRequest(tags: tags)
+        let apiRequest = ApiRequest(tags: tags, historyOffset: "1")  //最初の検索なためoffsetは1
         
         apiRequest.getSearchPhotos() { imageURLs, arrayy, error in
             
@@ -82,6 +84,16 @@ class SearchViewController: UIViewController,UISearchBarDelegate{
     private func hideAlert(){
         
         self.alertViewController.hideAlert()
+    }
+    
+    private func saveHistoryOffset1(){
+        
+        self.userdefaultManager.saveHistoryOffset(1)
+    }
+    
+    private func saveSearchDay(){
+        
+        self.userdefaultManager.saveSearchDay(NSDate())
     }
     
     private func saveTags(tags:String){
