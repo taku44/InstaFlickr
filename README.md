@@ -1,9 +1,9 @@
-InstaFlickr
+InstaFlickr-iOS
 ====
 
 ## Description
 
-InstaFlickr is Instagram-like photo viewer app, using Flickr's API (https://www.flickr.com/services/api/).
+InstaFlickr-iOS is Instagram-like photo viewer app, using Flickr's API (https://www.flickr.com/services/api/). Written in Swift.
 
 ## Features
 
